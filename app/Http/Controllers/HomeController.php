@@ -27,4 +27,17 @@ class HomeController extends Controller
         $entity = Entity::first();
         return view('home', ['entity' => $entity]);
     }
+
+    public function updateEntity($id)
+    {
+        $entity = Entity::findOrFail($id);
+        $entity->lat = request("lat");
+        $entity->lng = request("lng");
+        $entity->radius = request("radius");
+        $entity->save();
+
+        // return view('home', ['entity' => $entity, 'msg' => 'Success Update Data!']);
+        return redirect()->route('home')
+        ->with('success','Success Update Data!');
+    }
 }

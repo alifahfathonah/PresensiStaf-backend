@@ -7,34 +7,37 @@
             <div class="card">
                 <div class="card-header">Setup Lokasi Kampus</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                <form action="{{ route('update.entity', $entity->id) }}" method="post">
+                    @csrf
+                    <div class="card-body">
+                        @if (session('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        
+                        <div class="form-group">
+                            <label for="radius">Radius (maks 80, min 40)</label>
+                            <input type="tel" name="radius" id="radius" class="form-control" min="40" max="80" value="{{ $entity->radius }}">
                         </div>
-                    @endif
-                    
-                    <div class="form-group">
-                        <label for="radius">Radius (maks 80, min 40)</label>
-                        <input type="tel" name="radius" id="radius" class="form-control" min="40" max="80" value="{{ $entity->radius }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="lat">Latitude</label>
-                        {{-- <input type="text" name="lat" id="lat" class="form-control" readonly='readonly' value="-6.9498099999407135"> --}}
-                        <input type="text" name="lat" id="lat" class="form-control" readonly='readonly' value="{{ $entity->lat }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="lng">Longitude</label>
-                        {{-- <input type="text" name="lng" id="lng" class="form-control" readonly='readonly' value="107.6246018551329"> --}}
-                        <input type="text" name="lng" id="lng" class="form-control" readonly='readonly' value="{{ $entity->lng }}">
+                        <div class="form-group">
+                            <label for="lat">Latitude</label>
+                            {{-- <input type="text" name="lat" id="lat" class="form-control" readonly='readonly' value="-6.9498099999407135"> --}}
+                            <input type="text" name="lat" id="lat" class="form-control" readonly='readonly' value="{{ $entity->lat }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="lng">Longitude</label>
+                            {{-- <input type="text" name="lng" id="lng" class="form-control" readonly='readonly' value="107.6246018551329"> --}}
+                            <input type="text" name="lng" id="lng" class="form-control" readonly='readonly' value="{{ $entity->lng }}">
+                        </div>
+
+                        <div id="map"></div>
                     </div>
 
-                    <div id="map"></div>
-                </div>
-
-                <div class="card-footer">
-                    <input type="submit" value="Simpan" class="btn btn-primary mr-auto">
-                </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Simpan" class="btn btn-primary mr-auto">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
