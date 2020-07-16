@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Setup Lokasi Kampus {{ env('MAPS_KEY') }}</div>
+                <div class="card-header">Setup Lokasi Kampus</div>
 
                 <div class="card-body">
                     @if (session('status'))

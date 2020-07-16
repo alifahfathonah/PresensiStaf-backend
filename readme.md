@@ -80,3 +80,7 @@ To view your application in the web browser run:
 \$ gcloud app browse
 
 https://strategic-cacao-140701.uc.r.appspot.com
+
+## Heroku run
+
+heroku run php artisan ... / migrate ... or anything else
