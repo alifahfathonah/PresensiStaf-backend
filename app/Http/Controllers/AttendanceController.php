@@ -24,46 +24,46 @@ class AttendanceController extends Controller
         $entity = Entity::where('id', 1)->first();
 
         $insidePoint = new Location($lat, $lng);
-        // $office = new Location((float) $entity->lat, (float) $entity->lng);
-        // $radius = meters($insidePoint, $office);
+        $office = new Location((float) $entity->lat, (float) $entity->lng);
+        $radius = meters($insidePoint, $office);
 
-        // if($radius < $entity->radius){
-        //     // out of area
-        //     // $attendance = Attendance::where("user_id", auth("api")->user()->id)
-        //     $attendance = Attendance::where("user_id", 1)
-        //         ->whereDate('start', $now->format('Y-m-d'))
-        //         ->first();
+        if($radius < $entity->radius){
+            // out of area
+            // $attendance = Attendance::where("user_id", auth("api")->user()->id)
+            $attendance = Attendance::where("user_id", 1)
+                ->whereDate('start', $now->format('Y-m-d'))
+                ->first();
             
-        //     if($attendance){
+            if($attendance){
             
-        //         $start = new Carbon($attendance->start);
-        //         $hours = $now->diff($start);
+                $start = new Carbon($attendance->start);
+                $hours = $now->diff($start);
 
-        //         $data = Attendance::updateOrCreate(["id" => $attendance->id], [
-        //             "end" => $now,
-        //             "hours" => $hours->format('%H:%I:%S'),
-        //             "note_start" => 'note start',
-        //             "note_end" => 'note end'
-        //         ]);
-        //     } else {
+                $data = Attendance::updateOrCreate(["id" => $attendance->id], [
+                    "end" => $now,
+                    "hours" => $hours->format('%H:%I:%S'),
+                    "note_start" => 'note start',
+                    "note_end" => 'note end'
+                ]);
+            } else {
 
-        //         $data = Attendance::create([
-        //             // "user_id" => auth("api")->user()->id,
-        //             "user_id" => 1,
-        //             "start" => $now,
-        //             "is_on_area" => 1,
-        //             "note_start" => 'note start',
-        //             "note_end" => 'note end'
-        //         ]);
-        //     }
+                $data = Attendance::create([
+                    // "user_id" => auth("api")->user()->id,
+                    "user_id" => 1,
+                    "start" => $now,
+                    "is_on_area" => 1,
+                    "note_start" => 'note start',
+                    "note_end" => 'note end'
+                ]);
+            }
         
-        // } else {
-        //     // out of area
-        //     $data = [
-        //         'msg' => 'Kamu berada diluar area!'
-        //     ];
-        // }
+        } else {
+            // out of area
+            $data = [
+                'msg' => 'Kamu berada diluar area!'
+            ];
+        }
         
-        return response()->json(['insidePoint' => $insidePoint]);
+        return response()->json($data);
     }
 }
