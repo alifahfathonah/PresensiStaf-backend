@@ -125,7 +125,7 @@
     function createCircle(lat, lng, radius){
         circle = new google.maps.Circle({
             fillColor: '#2ecc71',
-            fillOpacity: .6,
+            fillOpacity: .4,
             strokeWeight: 2,
             strokeColor: '#27ae60',
             draggable: true,
