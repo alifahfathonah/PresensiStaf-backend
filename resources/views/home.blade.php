@@ -123,12 +123,11 @@
     }
 
     function createCircle(lat, lng, radius){
-        // Add circle overlay and bind to marker
         circle = new google.maps.Circle({
-            fillColor: '#F7CEAC',
+            fillColor: '#2ecc71',
             fillOpacity: .6,
             strokeWeight: 2,
-            strokeColor: '#FC781F',
+            strokeColor: '#27ae60',
             draggable: true,
             editable: true,
             map: map,
