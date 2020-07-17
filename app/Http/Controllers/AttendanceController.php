@@ -23,9 +23,9 @@ class AttendanceController extends Controller
 
         $entity = Entity::where('id', 1)->first();
 
-        $insidePoint = new Location($lat, $lng);
-        $office = new Location((float) $entity->lat, (float) $entity->lng);
-        $radius = meters($insidePoint, $office);
+        // $insidePoint = new Location($lat, $lng);
+        // $office = new Location((float) $entity->lat, (float) $entity->lng);
+        // $radius = meters($insidePoint, $office);
 
         // if($radius < $entity->radius){
         //     // out of area
@@ -64,6 +64,6 @@ class AttendanceController extends Controller
         //     ];
         // }
         
-        return response()->json(['radius' => $radius]);
+        return response()->json(['entity' => $entity]);
     }
 }
