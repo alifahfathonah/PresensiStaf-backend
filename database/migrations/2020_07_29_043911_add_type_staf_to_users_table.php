@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEntityTable extends Migration
+class AddTypeStafToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateEntityTable extends Migration
      */
     public function up()
     {
-        Schema::create('entity', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->float('lat', 10, 6);
-            $table->float('lng', 10, 6);
-            $table->integer('radius');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->tinyInteger('type_staf')->nullable();
         });
     }
 
@@ -29,6 +25,8 @@ class CreateEntityTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('entity');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn(['type_staf']);
+        });
     }
 }

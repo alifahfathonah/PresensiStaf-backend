@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEntityTable extends Migration
+class CreateScheduleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateEntityTable extends Migration
      */
     public function up()
     {
-        Schema::create('entity', function (Blueprint $table) {
+        Schema::create('schedule', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->float('lat', 10, 6);
-            $table->float('lng', 10, 6);
-            $table->integer('radius');
+            $table->bigInteger("users_id");
+            $table->bigInteger("days_id");
+            $table->time('clock_in');
+            $table->time('clock_out');
+            $table->time('hours');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateEntityTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('entity');
+        Schema::dropIfExists('schedule');
     }
 }

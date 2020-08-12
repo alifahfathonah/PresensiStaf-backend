@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEntityTable extends Migration
+class CreateDaysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateEntityTable extends Migration
      */
     public function up()
     {
-        Schema::create('entity', function (Blueprint $table) {
+        Schema::create('days', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->float('lat', 10, 6);
-            $table->float('lng', 10, 6);
-            $table->integer('radius');
+            $table->string('name_day', 10);
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateEntityTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('entity');
+        Schema::dropIfExists('days');
     }
 }

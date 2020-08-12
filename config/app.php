@@ -175,6 +175,15 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // 
+        Collective\Html\HtmlServiceProvider::class,
+
+        // yajra
+        Yajra\DataTables\DataTablesServiceProvider::class,
+
+        // jwt
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+
     ],
 
     /*
@@ -225,6 +234,16 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+
+        //yajra
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+
+        // jwt
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class, 
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
 
     ],
 

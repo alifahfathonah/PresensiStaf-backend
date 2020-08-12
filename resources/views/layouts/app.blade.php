@@ -9,15 +9,12 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
+    
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     <style>
     
     #map {
@@ -26,6 +23,16 @@
             margin-top: 2rem;
         }
     </style>
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+
+    @yield('style')
+
+    {{-- icon --}}
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
     <div id="app">
@@ -85,6 +92,62 @@
         </main>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     @yield('js')
+
+    <script>
+        feather.replace()
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
+
+    <script>
+        $('.dob').datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            format: 'yyyy-mm-dd',
+            endDate: new Date(),
+        });
+
+        function setInputFilter(textbox, inputFilter) {
+            ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+                textbox.addEventListener(event, function() {
+                if (inputFilter(this.value)) {
+                    this.oldValue = this.value;
+                    this.oldSelectionStart = this.selectionStart;
+                    this.oldSelectionEnd = this.selectionEnd;
+                } else if (this.hasOwnProperty("oldValue")) {
+                    this.value = this.oldValue;
+                    this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                } else {
+                    this.value = "";
+                }
+                });
+            });
+        }
+
+        setInputFilter(document.getElementById("intOnly2"), function(value) {
+        return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 20); });
+
+        setInputFilter(document.getElementById("intOnly2Anak"), function(value) {
+        return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 15); });
+
+        setInputFilter(document.getElementById("intOnly6"), function(value) {
+        return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 999999); });
+
+        setInputFilter(document.getElementById("intOnly9"), function(value) {
+        return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 999999999); });
+
+        setInputFilter(document.getElementById("intOnly9Office"), function(value) {
+        return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 999999999); });
+
+        setInputFilter(document.getElementById("intOnly13"), function(value) {
+        return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 9999999999999); });
+
+        setInputFilter(document.getElementById("intOnly16"), function(value) {
+        return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 9999999999999999); });
+    </script>
+    <!-- Scripts -->
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 </body>
 </html>
