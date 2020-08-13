@@ -172,7 +172,7 @@ class UserController extends Controller
         $user = User::find($id);
         $userDetail = UsersDetail::where('users_id',$user->id);
         if($userDetail){
-            return view('employee.form', ['user' => $user, 'userDetail' => $userDetail]);
+            return view('employee.form', ['user' => $user, 'userDetail' => $userDetail, 'action' => 'edit']);
         }
         return view('employee.index')->with('danger','User tidak ditemukan');
     }

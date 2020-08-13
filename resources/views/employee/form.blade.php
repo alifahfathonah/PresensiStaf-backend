@@ -443,7 +443,139 @@
                     </div>
                 </div>
                 {{-- page 2 --}}
-                <div class="card-body active-page-3">3</div>
+                <div class="card-body active-page-3">
+                    <h4>Keahlian komputer</h4>
+                    <hr>
+                    <div class="form-group {{ ($errors->has('kk_mengajar_matkul') ? 'has-error' : '') }}">
+                        {{ Form::label('kk_mengajar_matkul', 'Dapat mengajar mata pelajaran', ['class' => 'control-label']) }}
+                        {{ Form::text('kk_mengajar_matkul', ($action == 'edit') ? $user->kk_mengajar_matkul : '', ['class' => 'form-control', 'placeholder' => 'Nama mata pelajaran', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('kk_mengajar_matkul') ? $errors->first('kk_mengajar_matkul') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('kk_mengajar_matkul') ? 'has-error' : '') }}">
+                        {{ Form::label('kk_software_dikuasai', 'Paket software yang dikuasai', ['class' => 'control-label']) }}
+                        {{ Form::text('kk_software_dikuasai', ($action == 'edit') ? $user->kk_software_dikuasai : '', ['class' => 'form-control', 'placeholder' => 'Nama software', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('kk_software_dikuasai') ? $errors->first('kk_software_dikuasai') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('kk_bahasa_pemograman') ? 'has-error' : '') }}">
+                        {{ Form::label('kk_bahasa_pemograman', 'Bahasa pemograman yang dikuasai', ['class' => 'control-label']) }}
+                        {{ Form::text('kk_bahasa_pemograman', ($action == 'edit') ? $user->kk_bahasa_pemograman : '', ['class' => 'form-control', 'placeholder' => 'Nama bahasa pemograman', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('kk_bahasa_pemograman') ? $errors->first('kk_bahasa_pemograman') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('kk_hardware_dikuasai') ? 'has-error' : '') }}">
+                        {{ Form::label('kk_hardware_dikuasai', 'Permasalahan Hardware yang dikuasai', ['class' => 'control-label']) }}
+                        {{ Form::text('kk_hardware_dikuasai', ($action == 'edit') ? $user->kk_hardware_dikuasai : '', ['class' => 'form-control', 'placeholder' => 'Nama masalah Hardware', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('kk_hardware_dikuasai') ? $errors->first('kk_hardware_dikuasai') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('kk_menguasai_jaringan') ? 'has-error' : '') }}">
+                        {{ Form::label('kk_menguasai_jaringan', 'Menguasai Jaringan Komputer', ['class' => 'control-label']) }}
+                        <div class="d-flex align-items-center">
+                            {{ Form::radio('kk_menguasai_jaringan', 'Ya', true, ['class' => 'mr-2']) }} <span class="mr-2">Ya</span>
+                            {{ Form::radio('kk_menguasai_jaringan', 'Tidak', false, ['class' => 'mr-2']) }} <span class="mr-2">Tidak</span>
+                        </div>
+                        <span class="help-block">{{ ($errors->has('kk_menguasai_jaringan') ? $errors->first('kk_menguasai_jaringan') : '') }}</span>
+                    </div>
+                    <div class="input-jaringan-dikuasai-js form-group {{ ($errors->has('kk_jaringan_dikuasai') ? 'has-error' : '') }}">
+                        {{ Form::label('kk_jaringan_dikuasai', 'Jika Ya, dalam hal apa', ['class' => 'control-label']) }}
+                        {{ Form::text('kk_jaringan_dikuasai', ($action == 'edit') ? $user->kk_jaringan_dikuasai : '', ['class' => 'form-control', 'placeholder' => 'Mengenai hal jaringan', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('kk_jaringan_dikuasai') ? $errors->first('kk_jaringan_dikuasai') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('kk_sofware_pernah_dibuat') ? 'has-error' : '') }}">
+                        {{ Form::label('kk_sofware_pernah_dibuat', 'Software yang pernah dibuat', ['class' => 'control-label']) }}
+                        {{ Form::text('kk_sofware_pernah_dibuat', ($action == 'edit') ? $user->kk_sofware_pernah_dibuat : '', ['class' => 'form-control', 'placeholder' => 'Nama software', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('kk_sofware_pernah_dibuat') ? $errors->first('kk_sofware_pernah_dibuat') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('kk_sofware_pernah_dibuat_detail') ? 'has-error' : '') }}">
+                        {{ Form::label('kk_sofware_pernah_dibuat_detail', 'Spesifikasi Masalah Software yang pernah dibuat', ['class' => 'control-label']) }}
+                        {{ Form::text('kk_sofware_pernah_dibuat_detail', ($action == 'edit') ? $user->kk_sofware_pernah_dibuat_detail : '', ['class' => 'form-control', 'placeholder' => 'Detail software yang pernah dibuat', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('kk_sofware_pernah_dibuat_detail') ? $errors->first('kk_sofware_pernah_dibuat_detail') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('kk_sofware_pernah_dibuat_bahasa_pemograman') ? 'has-error' : '') }}">
+                        {{ Form::label('kk_sofware_pernah_dibuat_bahasa_pemograman', 'Bahasa Pemograman Software yang pernah dibuat', ['class' => 'control-label']) }}
+                        {{ Form::text('kk_sofware_pernah_dibuat_bahasa_pemograman', ($action == 'edit') ? $user->kk_sofware_pernah_dibuat_bahasa_pemograman : '', ['class' => 'form-control', 'placeholder' => 'Bahasa Pemograman software yang pernah dibuat', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('kk_sofware_pernah_dibuat_bahasa_pemograman') ? $errors->first('kk_sofware_pernah_dibuat_bahasa_pemograman') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('kk_mengarang_buku') ? 'has-error' : '') }}">
+                        {{ Form::label('kk_mengarang_buku', 'Pernah mengarang buku?', ['class' => 'control-label']) }}
+                        <div class="d-flex align-items-center">
+                            {{ Form::radio('kk_mengarang_buku', 'Ya', true, ['class' => 'mr-2']) }} <span class="mr-2">Ya</span>
+                            {{ Form::radio('kk_mengarang_buku', 'Tidak', false, ['class' => 'mr-2']) }} <span class="mr-2">Tidak</span>
+                        </div>
+                        <span class="help-block">{{ ($errors->has('kk_mengarang_buku') ? $errors->first('kk_mengarang_buku') : '') }}</span>
+                    </div>
+                    <div class="input-karangan-buku-js">
+                        <div class="form-group {{ ($errors->has('kk_mengarang_buku_judul') ? 'has-error' : '') }}">
+                            {{ Form::label('kk_mengarang_buku_judul', 'Jika Ya, Judul Buku', ['class' => 'control-label']) }}
+                            {{ Form::text('kk_mengarang_buku_judul', ($action == 'edit') ? $user->kk_mengarang_buku_judul : '', ['class' => 'form-control', 'placeholder' => 'Judul buku', 'required']) }}
+                            <span class="help-block">{{ ($errors->has('kk_mengarang_buku_judul') ? $errors->first('kk_mengarang_buku_judul') : '') }}</span>
+                        </div>
+                        <div class="form-group {{ ($errors->has('kk_mengarang_buku_penerbit') ? 'has-error' : '') }}">
+                            {{ Form::label('kk_mengarang_buku_penerbit', 'Penerbit', ['class' => 'control-label']) }}
+                            {{ Form::text('kk_mengarang_buku_penerbit', ($action == 'edit') ? $user->kk_mengarang_buku_penerbit : '', ['class' => 'form-control', 'placeholder' => 'Nama Penerbit', 'required']) }}
+                            <span class="help-block">{{ ($errors->has('kk_mengarang_buku_penerbit') ? $errors->first('kk_mengarang_buku_penerbit') : '') }}</span>
+                        </div>
+                        <div class="form-group {{ ($errors->has('kk_mengarang_buku_tahun_penerbit') ? 'has-error' : '') }}">
+                            {{ Form::label('kk_mengarang_buku_tahun_penerbit', 'Tahun terbit buku', ['class' => 'control-label']) }}
+                            {{ Form::text('kk_mengarang_buku_tahun_penerbit', ($action == 'edit') ? $user->kk_mengarang_buku_tahun_penerbit : '', ['class' => 'form-control', 'onkeypress' => 'if ( isNaN( String.fromCharCode(event.keyCode) )) return false;', 'placeholder' => 'Tahun terbit buku', 'required']) }}
+                            <span class="help-block">{{ ($errors->has('kk_mengarang_buku_tahun_penerbit') ? $errors->first('kk_mengarang_buku_tahun_penerbit') : '') }}</span>
+                        </div>
+                    </div>
+                    <div class="form-group {{ ($errors->has('kk_keahlian_diluar_komputer') ? 'has-error' : '') }}">
+                        {{ Form::label('kk_keahlian_diluar_komputer', 'Keahlian diluar komputer', ['class' => 'control-label']) }}
+                        {{ Form::textarea('kk_keahlian_diluar_komputer', ($action == 'edit') ? $user->kk_keahlian_diluar_komputer : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Deskripsikan', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('kk_keahlian_diluar_komputer') ? $errors->first('kk_keahlian_diluar_komputer') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('olah_raga') ? 'has-error' : '') }}">
+                        {{ Form::label('olah_raga', 'Olah Raga', ['class' => 'control-label']) }}
+                        <div class="d-flex align-items-center">
+                            {{ Form::radio('olah_raga', 'Aktif', true, ['class' => 'mr-2']) }} <span class="mr-2">Aktif</span>
+                            {{ Form::radio('olah_raga', 'Pasif', false, ['class' => 'mr-2']) }} <span class="mr-2">Pasif</span>
+                        </div>
+                        <span class="help-block">{{ ($errors->has('olah_raga') ? $errors->first('olah_raga') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('macam_olahraga') ? 'has-error' : '') }}">
+                        {{ Form::label('macam_olahraga', 'Macam olah raga', ['class' => 'control-label']) }}
+                        {{ Form::text('macam_olahraga', ($action == 'edit') ? $user->macam_olahraga : '', ['class' => 'form-control', 'placeholder' => 'Macam olah raga', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('macam_olahraga') ? $errors->first('macam_olahraga') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('sakit_berat') ? 'has-error' : '') }}">
+                        {{ Form::label('sakit_berat', 'Pernah sakit berat?', ['class' => 'control-label']) }}
+                        <div class="d-flex align-items-center">
+                            {{ Form::radio('sakit_berat', 'Ya', true, ['class' => 'mr-2']) }} <span class="mr-2">Ya</span>
+                            {{ Form::radio('sakit_berat', 'Tidak', false, ['class' => 'mr-2']) }} <span class="mr-2">Tidak</span>
+                        </div>
+                        <span class="help-block">{{ ($errors->has('sakit_berat') ? $errors->first('sakit_berat') : '') }}</span>
+                    </div>
+                    <div class="input-sakit-berat-js form-group {{ ($errors->has('macam_sakit_berat') ? 'has-error' : '') }}">
+                        {{ Form::label('macam_sakit_berat', 'Jika Ya, Macamnya', ['class' => 'control-label']) }}
+                        {{ Form::text('macam_sakit_berat', ($action == 'edit') ? $user->macam_sakit_berat : '', ['class' => 'form-control', 'placeholder' => 'Macam sakit berat', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('macam_sakit_berat') ? $errors->first('macam_sakit_berat') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('kecelakaan_berat') ? 'has-error' : '') }}">
+                        {{ Form::label('kecelakaan_berat', 'Pernah mengalami kecelakaan berat?', ['class' => 'control-label']) }}
+                        <div class="d-flex align-items-center">
+                            {{ Form::radio('kecelakaan_berat', 'Ya', true, ['class' => 'mr-2']) }} <span class="mr-2">Ya</span>
+                            {{ Form::radio('kecelakaan_berat', 'Tidak', false, ['class' => 'mr-2']) }} <span class="mr-2">Tidak</span>
+                        </div>
+                        <span class="help-block">{{ ($errors->has('kecelakaan_berat') ? $errors->first('kecelakaan_berat') : '') }}</span>
+                    </div>
+                    <div class="input-kecelakaan-js">
+                        <div class="form-group {{ ($errors->has('jenis_kecelakaan') ? 'has-error' : '') }}">
+                            {{ Form::label('jenis_kecelakaan', 'Kecelakaan apa?', ['class' => 'control-label']) }}
+                            {{ Form::text('jenis_kecelakaan', ($action == 'edit') ? $user->jenis_kecelakaan : '', ['class' => 'form-control', 'placeholder' => 'Keterangan kecelakaan berat', 'required']) }}
+                            <span class="help-block">{{ ($errors->has('jenis_kecelakaan') ? $errors->first('jenis_kecelakaan') : '') }}</span>
+                        </div>
+                        <div class="form-group {{ ($errors->has('bila_mana_kecelakaan') ? 'has-error' : '') }}">
+                            {{ Form::label('bila_mana_kecelakaan', 'Bilamana', ['class' => 'control-label']) }}
+                            {{ Form::text('bila_mana_kecelakaan', ($action == 'edit') ? $user->bila_mana_kecelakaan : '', ['class' => 'form-control', 'placeholder' => 'Bilamana', 'required']) }}
+                            <span class="help-block">{{ ($errors->has('bila_mana_kecelakaan') ? $errors->first('bila_mana_kecelakaan') : '') }}</span>
+                        </div>
+                        <div class="form-group {{ ($errors->has('akibat_kecelakaan') ? 'has-error' : '') }}">
+                            {{ Form::label('akibat_kecelakaan', 'Apa akibatnya?', ['class' => 'control-label']) }}
+                            {{ Form::text('akibat_kecelakaan', ($action == 'edit') ? $user->akibat_kecelakaan : '', ['class' => 'form-control', 'placeholder' => 'Akibatnya ...', 'required']) }}
+                            <span class="help-block">{{ ($errors->has('akibat_kecelakaan') ? $errors->first('akibat_kecelakaan') : '') }}</span>
+                        </div>
+                    </div>
+                </div>
                 {{-- page 2 --}}
                 <div class="card-footer d-flex justify-content-between">
                     <div>
@@ -679,6 +811,47 @@
         // $('.pendidikan-nonformal').html('');
         $('.pengalaman-mengajar').append(html);
         replacefeather();
+    });
+
+    $('input[type=radio][name=kk_menguasai_jaringan]').change(function(){
+        if(this.value == 'Ya'){
+            $('.input-jaringan-dikuasai-js').show();
+        } else {
+            $('.input-jaringan-dikuasai-js').hide();
+            $('[name=kk_jaringan_dikuasai]').val('');
+        }
+    });
+
+    $('input[type=radio][name=kk_mengarang_buku]').change(function(){
+        if(this.value == 'Ya'){
+            $('.input-karangan-buku-js').show();
+        } else {
+            $('.input-karangan-buku-js').hide();
+            $('[name=kk_mengarang_buku_judul]').val('');
+            $('[name=kk_mengarang_buku_penerbit]').val('');
+            $('[name=kk_mengarang_buku_tahun_penerbit]').val('');
+        }
+    });
+
+
+    $('input[type=radio][name=sakit_berat]').change(function(){
+        if(this.value == 'Ya'){
+            $('.input-sakit-berat-js').show();
+        } else {
+            $('.input-sakit-berat-js').hide();
+            $('[name=macam_sakit_berat]').val('');
+        }
+    });
+
+    $('input[type=radio][name=kecelakaan_berat]').change(function(){
+        if(this.value == 'Ya'){
+            $('.input-kecelakaan-js').show();
+        } else {
+            $('.input-kecelakaan-js').hide();
+            $('[name=jenis_kecelakaan]').val('');
+            $('[name=bila_mana_kecelakaan]').val('');
+            $('[name=akibat_kecelakaan]').val('');
+        }
     });
 </script>
 @endsection
