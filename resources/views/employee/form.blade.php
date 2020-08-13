@@ -18,7 +18,7 @@
                 {!! Form::open(['route'=>'employee.post', "enctype"=>"multipart/form-data",
                 "id"=>"form"]) !!}
                 @endif
-                <div class="card-body">
+                <div class="card-body active-page-1">
                     <div class="form-group {{ ($errors->has('name') ? 'has-error' : '') }}">
                         {{ Form::label('name', 'Nama lengkap', ['class' => 'control-label']) }}
                         {{ Form::text('name', ($action == 'edit') ? $user->name : '', ['class' => 'form-control', 'placeholder' => 'Nama karyawan', 'required']) }}
@@ -63,7 +63,7 @@
                             {{ Form::text('phone_home', ($action == 'edit') ? $user->phone_home : '', ['class' => 'form-control', 'id' => 'intOnly9', 'placeholder' => 'Telp. Rumah', 'required']) }}
                             <span class="help-block">{{ ($errors->has('phone_home') ? $errors->first('phone_home') : '') }}</span>
                         </div>
-                        <div class="col-4 form-group {{ ($errors->has('address_postal_code') ? 'has-error' : '') }}">
+                        <div class="col-4 form-group {{ ($errors->has('phone_mobile') ? 'has-error' : '') }}">
                             {{ Form::label('phone_mobile', 'No. Handphone', ['class' => 'control-label']) }}
                             {{ Form::text('phone_mobile', ($action == 'edit') ? $user->phone_mobile : '', ['class' => 'form-control', 'id' => 'intOnly13', 'placeholder' => 'Telp. Handphone', 'required']) }}
                             <span class="help-block">{{ ($errors->has('phone_mobile') ? $errors->first('phone_mobile') : '') }}</span>
@@ -160,12 +160,72 @@
                             
                         </div>
                     </div>
-                </div>
-                <div class="card-footer d-flex">
-                    <div class="mr-auto">
-                        
+                    <div class="form-group">
+                        {{ Form::label('label', 'Bila terjadi sesuatu pada diri Anda, kami dapat menghubungi:', ['class' => 'control-label']) }}
                     </div>
-                    {{ Form::submit(($action == 'create') ? 'Tambahkan Data' : 'Simpan Data', ['class' => 'btn btn-primary']) }}
+                    <div class="form-group {{ ($errors->has('nama_darurat') ? 'has-error' : '') }}">
+                        {{ Form::label('nama_darurat', 'Nama', ['class' => 'control-label']) }}
+                        {{ Form::text('nama_darurat', ($action == 'edit') ? $user->nama_darurat : '', ['class' => 'form-control', 'placeholder' => 'Nama kerabat', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('nama_darurat') ? $errors->first('nama_darurat') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('address_darurat') ? 'has-error' : '') }}">
+                        {{ Form::label('address_darurat', 'Alamat lengkap', ['class' => 'control-label']) }}
+                        {{ Form::textarea('address_darurat', ($action == 'edit') ? $user->address_darurat : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Alamat kerabat', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('address_darurat') ? $errors->first('address_darurat') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('tlp_darurat') ? 'has-error' : '') }}">
+                        {{ Form::label('tlp_darurat', 'No. Telp', ['class' => 'control-label']) }}
+                        {{ Form::text('tlp_darurat', ($action == 'edit') ? $user->tlp_darurat : '', ['class' => 'form-control', 'id' => 'intOnly13Darurat', 'placeholder' => 'Telp. kerabat', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('phone_mobile') ? $errors->first('tlp_darurat') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('nama_ayah') ? 'has-error' : '') }}">
+                        {{ Form::label('nama_ayah', 'Nama Ayah', ['class' => 'control-label']) }}
+                        {{ Form::text('nama_ayah', ($action == 'edit') ? $user->nama_ayah : '', ['class' => 'form-control', 'placeholder' => 'Nama ayah', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('nama_ayah') ? $errors->first('nama_ayah') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('pekerjaan_ayah') ? 'has-error' : '') }}">
+                        {{ Form::label('pekerjaan_ayah', 'Pekerjaan', ['class' => 'control-label']) }}
+                        {{ Form::text('pekerjaan_ayah', ($action == 'edit') ? $user->pekerjaan_ayah : '', ['class' => 'form-control', 'placeholder' => 'Pekerjaan ayah', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('pekerjaan_ayah') ? $errors->first('pekerjaan_ayah') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('alamat_ayah') ? 'has-error' : '') }}">
+                        {{ Form::label('alamat_ayah', 'Alamat lengkap', ['class' => 'control-label']) }}
+                        {{ Form::textarea('alamat_ayah', ($action == 'edit') ? $user->alamat_ayah : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Alamat tinggal ayah', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('alamat_ayah') ? $errors->first('alamat_ayah') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('nama_ibu') ? 'has-error' : '') }}">
+                        {{ Form::label('nama_ibu', 'Nama Ibu', ['class' => 'control-label']) }}
+                        {{ Form::text('nama_ibu', ($action == 'edit') ? $user->nama_ibu : '', ['class' => 'form-control', 'placeholder' => 'Nama ibu', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('nama_ibu') ? $errors->first('nama_ibu') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('pekerjaan_ibu') ? 'has-error' : '') }}">
+                        {{ Form::label('pekerjaan_ibu', 'Pekerjaan', ['class' => 'control-label']) }}
+                        {{ Form::text('pekerjaan_ibu', ($action == 'edit') ? $user->pekerjaan_ibu : '', ['class' => 'form-control', 'placeholder' => 'Pekerjaan ibu', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('pekerjaan_ibu') ? $errors->first('pekerjaan_ibu') : '') }}</span>
+                    </div>
+                    <div class="form-group {{ ($errors->has('alamat_ibu') ? 'has-error' : '') }}">
+                        {{ Form::label('alamat_ibu', 'Alamat lengkap', ['class' => 'control-label']) }}
+                        {{ Form::textarea('alamat_ibu', ($action == 'edit') ? $user->alamat_ibu : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Alamat tinggal ibu', 'required']) }}
+                        <span class="help-block">{{ ($errors->has('alamat_ibu') ? $errors->first('alamat_ibu') : '') }}</span>
+                    </div>
+                </div>
+                <div class="card-body active-page-2">2</div>
+                <div class="card-body active-page-3">3</div>
+                <div class="card-footer d-flex justify-content-between">
+                    <div>
+                        <nav aria-label="...">
+                            <ul class="pagination">
+                                <li class="page page-item active" data-number="1"><a class="page-link" href="#">1</a></li>
+                                <li class="page page-item" data-number="2">
+                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="page page-item" data-number="3"><a class="page-link" href="#">3</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div>
+                        {{ Form::submit(($action == 'create') ? 'Tambahkan Data' : 'Simpan Data', ['class' => 'btn btn-primary save-btn-js']) }}
+                    </div>
                 </div>
                 {!! Form::close() !!}
             </div>
@@ -178,6 +238,11 @@
 <script>
     $('#intOnly2Anak').val(0);
     $('.form-anak').hide();
+    //paging
+    $('.active-page-1').show();
+    $('.active-page-2').hide();
+    $('.active-page-3').hide();
+    $('.save-btn-js').hide();
 
     $('input[type=radio][name=status]').change(function(){
         if (this.value == 'Belum Menikah') {
@@ -233,5 +298,29 @@
             $('.add-anak').append(html);
         }
     }
+
+    var page = 1;
+
+    $('.page').click(function(){
+        $('.page').removeClass('active');
+        $(this).addClass('active');
+        // console.warn($(this).attr('data-number'));
+        if($(this).attr('data-number') == 1){
+            $('.active-page-1').show();
+            $('.active-page-2').hide();
+            $('.active-page-3').hide();
+            $('.save-btn-js').hide();
+        } else if($(this).attr('data-number') == 2){
+            $('.active-page-1').hide();
+            $('.active-page-2').show();
+            $('.active-page-3').hide();
+            $('.save-btn-js').hide();
+        } else if($(this).attr('data-number') == 3){
+            $('.active-page-1').hide();
+            $('.active-page-2').hide();
+            $('.active-page-3').show();
+            $('.save-btn-js').show();
+        }
+    });
 </script>
 @endsection

@@ -144,6 +144,9 @@
         setInputFilter(document.getElementById("intOnly13"), function(value) {
         return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 9999999999999); });
 
+        setInputFilter(document.getElementById("intOnly13Darurat"), function(value) {
+        return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 9999999999999); });
+
         setInputFilter(document.getElementById("intOnly16"), function(value) {
         return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 9999999999999999); });
     </script>
