@@ -6,7 +6,7 @@
 
         @include('layouts.menu')
 
-        <div class="col-md-9">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div>Tambah Staf</div>
@@ -175,7 +175,7 @@
                     </div>
                     <div class="form-group {{ ($errors->has('tlp_darurat') ? 'has-error' : '') }}">
                         {{ Form::label('tlp_darurat', 'No. Telp', ['class' => 'control-label']) }}
-                        {{ Form::text('tlp_darurat', ($action == 'edit') ? $user->tlp_darurat : '', ['class' => 'form-control', 'id' => 'intOnly13Darurat', 'placeholder' => 'Telp. kerabat', 'required']) }}
+                        {{ Form::text('tlp_darurat', ($action == 'edit') ? $user->tlp_darurat : '', ['class' => 'form-control', 'onkeypress' => 'if ( isNaN( String.fromCharCode(event.keyCode) )) return false;', 'placeholder' => 'Telp. kerabat', 'required']) }}
                         <span class="help-block">{{ ($errors->has('phone_mobile') ? $errors->first('tlp_darurat') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('nama_ayah') ? 'has-error' : '') }}">
@@ -209,8 +209,242 @@
                         <span class="help-block">{{ ($errors->has('alamat_ibu') ? $errors->first('alamat_ibu') : '') }}</span>
                     </div>
                 </div>
-                <div class="card-body active-page-2">2</div>
+                {{-- page 1 --}}
+                <div class="card-body active-page-2">
+                    <h4>Pendidikan Formal</h4>
+                    <hr>
+                    <div class="d-flex">
+                        <div class="form-group col-3">
+                            <label for="anak" class="control-label">Pendidikan</label>
+                            <label for="anak" class="control-label">Sekolah Dasar</label>
+                            <input class="form-control" type="hidden" name="anak[]" id="" value="Sekolah Dasar">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="anak" class="control-label">Nama sekolah</label>
+                            <input class="form-control" type="text" name="anak[]" id="">
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="anak" class="control-label">Tempat</label>
+                            <input class="form-control" type="text" name="anak[]" id="">
+                        </div>
+                        <div class="form-group col-2">
+                            <label for="anak" class="control-label">Tahun Lulus</label>
+                            <input class="form-control" type="text" name="anak[]"  onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="form-group col-3">
+                            <label for="anak" class="control-label">Pendidikan</label>
+                            <br>
+                            <label for="anak" class="control-label">SMP</label>
+                            <input class="form-control" type="hidden" name="anak[]" id="" value="Sekolah Dasar">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="anak" class="control-label">Nama sekolah</label>
+                            <input class="form-control" type="text" name="anak[]" id="">
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="anak" class="control-label">Tempat</label>
+                            <input class="form-control" type="text" name="anak[]" id="">
+                        </div>
+                        <div class="form-group col-2">
+                            <label for="anak" class="control-label">Tahun Lulus</label>
+                            <input class="form-control" type="text" name="anak[]"  onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="form-group col-3">
+                            <label for="anak" class="control-label">Pendidikan</label>
+                            <br>
+                            <label for="anak" class="control-label">SLTA</label>
+                            <input class="form-control" type="hidden" name="anak[]" id="" value="Sekolah Dasar">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="anak" class="control-label">Nama sekolah</label>
+                            <input class="form-control" type="text" name="anak[]" id="">
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="anak" class="control-label">Tempat</label>
+                            <input class="form-control" type="text" name="anak[]" id="">
+                        </div>
+                        <div class="form-group col-2">
+                            <label for="anak" class="control-label">Tahun Lulus</label>
+                            <input class="form-control" type="text" name="anak[]"  onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="form-group col-3">
+                            <label for="anak" class="control-label">Pendidikan</label>
+                            <br>
+                            <label for="anak" class="control-label">Akademi/universitas</label>
+                            <input class="form-control" type="hidden" name="anak[]" id="" value="Sekolah Dasar">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="anak" class="control-label">Nama sekolah</label>
+                            <input class="form-control" type="text" name="anak[]" id="">
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="anak" class="control-label">Tempat</label>
+                            <input class="form-control" type="text" name="anak[]" id="">
+                        </div>
+                        <div class="form-group col-2">
+                            <label for="anak" class="control-label">Tahun Lulus</label>
+                            <input class="form-control" type="text" name="anak[]"  onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="form-group col-3">
+                            <label for="anak" class="control-label">Pendidikan</label>
+                            <br>
+                            <label for="anak" class="control-label">Universitas</label>
+                            <input class="form-control" type="hidden" name="anak[]" id="" value="Sekolah Dasar">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="anak" class="control-label">Nama sekolah</label>
+                            <input class="form-control" type="text" name="anak[]" id="">
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="anak" class="control-label">Tempat</label>
+                            <input class="form-control" type="text" name="anak[]" id="">
+                        </div>
+                        <div class="form-group col-2">
+                            <label for="anak" class="control-label">Tahun Lulus</label>
+                            <input class="form-control" type="text" name="anak[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <h4>Pendidikan Non - Formal</h4>
+                        <hr>
+                        <div class="d-flex">
+                            <div class="form-group col-3">
+                                <label for="nonformal" class="control-label">Macam</label>
+                                <input class="form-control" type="text" name="nonformal[]" id="">
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="nonformal" class="control-label">Instansi</label>
+                                <input class="form-control" type="text" name="nonformal[]" id="">
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="nonformal" class="control-label">Tempat</label>
+                                <input class="form-control" type="text" name="nonformal[]" id="">
+                            </div>
+                            <div class="form-group col-2">
+                                <label for="nonformal" class="control-label">Tahun</label>
+                                <input class="form-control" type="text" name="nonformal[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                            </div>
+                            <div class="col-1">
+                                {{-- <i data-feather="x"></i> --}}
+                            </div>
+                        </div>
+                        <div class="pendidikan-nonformal">
+                        </div>
+                        <div class="text-center mt-2">
+                            <span class="btn btn-success btn-sm btn-add-nonformal">Tambah Pendidikan</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h4>Kehidupan Berorganisasi</h4>
+                        <hr>
+                        <div class="d-flex">
+                            <div class="form-group col-3">
+                                <label for="organisasi" class="control-label">Nama Organisasi</label>
+                                <input class="form-control" type="text" name="organisasi[]" id="">
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="organisasi" class="control-label">Jabatan</label>
+                                <input class="form-control" type="text" name="organisasi[]" id="">
+                            </div>
+                            <div class="form-group col-2">
+                                <label for="organisasi" class="control-label">Tahun</label>
+                                <input class="form-control" type="text" name="organisasi[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="organisasi" class="control-label">Tempat</label>
+                                <input class="form-control" type="text" name="organisasi[]">
+                            </div>
+                            <div class="col-1">
+                                {{-- <i data-feather="x"></i> --}}
+                            </div>
+                        </div>
+                        <div class="kehidupan-berorganisasi"></div>
+                        <div class="text-center mt-2">
+                            <span class="btn btn-success btn-sm btn-add-berorganisasi">Tambah Organisasi</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h4>Pengalaman Bekerja</h4>
+                        <hr>
+                        <div class="d-flex">
+                            <div class="form-group col-2">
+                                <label for="pengalamanKerja" class="control-label">Perusahaan</label>
+                                <input class="form-control" type="text" name="pengalamanKerja[]" id="">
+                            </div>
+                            <div class="form-group col-2">
+                                <label for="pengalamanKerja" class="control-label">Jabatan</label>
+                                <input class="form-control" type="text" name="pengalamanKerja[]" id="">
+                            </div>
+                            <div class="form-group col-2">
+                                <label for="pengalamanKerja" class="control-label">Tahun Awal</label>
+                                <input class="form-control" type="text" name="pengalamanKerja[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                            </div>
+                            <div class="form-group col-2">
+                                <label for="pengalamanKerja" class="control-label">Tahun Akhir</label>
+                                <input class="form-control" type="text" name="pengalamanKerja[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="pengalamanKerja" class="control-label">Alasan Berhenti</label>
+                                <input class="form-control" type="text" name="pengalamanKerja[]">
+                            </div>
+                            <div class="col-1">
+                                {{-- <i data-feather="x"></i> --}}
+                            </div>
+                        </div>
+                        <div class="pengalaman-bekerja"></div>
+                        <div class="text-center mt-2">
+                            <span class="btn btn-success btn-sm btn-add-bekerja">Tambah Pengalaman</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h4>Pengalaman Mengajar</h4>
+                        <hr>
+                        <div class="d-flex">
+                            <div class="form-group col-2">
+                                <label for="pengalamanMengajar" class="control-label">Lembaga</label>
+                                <input class="form-control" type="text" name="pengalamanMengajar[]" id="">
+                            </div>
+                            <div class="form-group col-2">
+                                <label for="pengalamanMengajar" class="control-label">Materi</label>
+                                <input class="form-control" type="text" name="pengalamanMengajar[]" id="">
+                            </div>
+                            <div class="form-group col-2">
+                                <label for="pengalamanMengajar" class="control-label">Tahun Awal</label>
+                                <input class="form-control" type="text" name="pengalamanMengajar[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                            </div>
+                            <div class="form-group col-2">
+                                <label for="pengalamanMengajar" class="control-label">Tahun Akhir</label>
+                                <input class="form-control" type="text" name="pengalamanMengajar[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="pengalamanMengajar" class="control-label">Alasan Berhenti</label>
+                                <input class="form-control" type="text" name="pengalamanMengajar[]">
+                            </div>
+                            <div class="col-1">
+                                {{-- <i data-feather="x"></i> --}}
+                            </div>
+                        </div>
+                        <div class="pengalaman-mengajar"></div>
+                        <div class="text-center mt-2">
+                            <span class="btn btn-success btn-sm btn-add-mengajar">Tambah Pengalaman</span>
+                        </div>
+                    </div>
+                </div>
+                {{-- page 2 --}}
                 <div class="card-body active-page-3">3</div>
+                {{-- page 2 --}}
                 <div class="card-footer d-flex justify-content-between">
                     <div>
                         <nav aria-label="...">
@@ -321,6 +555,130 @@
             $('.active-page-3').show();
             $('.save-btn-js').show();
         }
+    });
+
+    $('.btn-add-nonformal').click(function(){
+        const html = `
+                    <div class="form-nonformal-css d-flex align-items-center">
+                        <div class="form-group col-3">
+                            <label for="anak" class="control-label">Macam</label>
+                            <input class="form-control" type="text" name="nonformal[]" id="">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="anak" class="control-label">Instansi</label>
+                            <input class="form-control" type="text" name="nonformal[]" id="">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="anak" class="control-label">Tempat</label>
+                            <input class="form-control" type="text" name="nonformal[]" id="">
+                        </div>
+                        <div class="form-group col-2">
+                            <label for="anak" class="control-label">Tahun</label>
+                            <input class="form-control" type="text" name="nonformal[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                        </div>
+                        <span class="col-1" onClick="$(this).parent().remove()">
+                            <i data-feather="x"></i>
+                        </span>
+                    </div>`;
+
+        // $('.pendidikan-nonformal').html('');
+        $('.pendidikan-nonformal').append(html);
+        replacefeather();
+    });
+
+    $('.btn-add-berorganisasi').click(function(){
+        const html = `
+                    <div class="d-flex align-items-center">
+                        <div class="form-group col-3">
+                            <label for="organisasi" class="control-label">Nama Organisasi</label>
+                            <input class="form-control" type="text" name="organisasi[]" id="">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="organisasi" class="control-label">Jabatan</label>
+                            <input class="form-control" type="text" name="organisasi[]" id="">
+                        </div>
+                        <div class="form-group col-2">
+                            <label for="organisasi" class="control-label">Tahun</label>
+                            <input class="form-control" type="text" name="organisasi[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="organisasi" class="control-label">Tempat</label>
+                            <input class="form-control" type="text" name="organisasi[]">
+                        </div>
+                        <span class="col-1" onClick="$(this).parent().remove()">
+                            <i data-feather="x"></i>
+                        </span>
+                    </div>`;
+
+        // $('.pendidikan-nonformal').html('');
+        $('.kehidupan-berorganisasi').append(html);
+        replacefeather();
+    });
+
+    $('.btn-add-bekerja').click(function(){
+        const html = `
+                    <div class="d-flex align-items-center">
+                        <div class="form-group col-2">
+                            <label for="pengalamanKerja" class="control-label">Perusahaan</label>
+                            <input class="form-control" type="text" name="pengalamanKerja[]" id="">
+                        </div>
+                        <div class="form-group col-2">
+                            <label for="pengalamanKerja" class="control-label">Jabatan</label>
+                            <input class="form-control" type="text" name="pengalamanKerja[]" id="">
+                        </div>
+                        <div class="form-group col-2">
+                            <label for="pengalamanKerja" class="control-label">Tahun Awal</label>
+                            <input class="form-control" type="text" name="pengalamanKerja[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                        </div>
+                        <div class="form-group col-2">
+                            <label for="pengalamanKerja" class="control-label">Tahun Akhir</label>
+                            <input class="form-control" type="text" name="pengalamanKerja[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="pengalamanKerja" class="control-label">Alasan Berhenti</label>
+                            <input class="form-control" type="text" name="pengalamanKerja[]">
+                        </div>
+                        <span class="col-1" onClick="$(this).parent().remove()">
+                            <i data-feather="x"></i>
+                        </span>
+                    </div>`;
+
+        // $('.pendidikan-nonformal').html('');
+        $('.pengalaman-bekerja').append(html);
+        replacefeather();
+    });
+
+    $('.btn-add-mengajar').click(function(){
+        const html = `
+                    <div class="d-flex align-items-center">
+                        <div class="form-group col-2">
+                            <label for="pengalamanMengajar" class="control-label">Lembaga</label>
+                            <input class="form-control" type="text" name="pengalamanMengajar[]" id="">
+                        </div>
+                        <div class="form-group col-2">
+                            <label for="pengalamanMengajar" class="control-label">Materi</label>
+                            <input class="form-control" type="text" name="pengalamanMengajar[]" id="">
+                        </div>
+                        <div class="form-group col-2">
+                            <label for="pengalamanMengajar" class="control-label">Tahun Awal</label>
+                            <input class="form-control" type="text" name="pengalamanMengajar[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                        </div>
+                        <div class="form-group col-2">
+                            <label for="pengalamanMengajar" class="control-label">Tahun Akhir</label>
+                            <input class="form-control" type="text" name="pengalamanMengajar[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="pengalamanMengajar" class="control-label">Alasan Berhenti</label>
+                            <input class="form-control" type="text" name="pengalamanMengajar[]">
+                        </div>
+                        <span class="col-1" onClick="$(this).parent().remove()">
+                            <i data-feather="x"></i>
+                        </span>
+                    </div>`;
+
+        // $('.pendidikan-nonformal').html('');
+        $('.pengalaman-mengajar').append(html);
+        replacefeather();
     });
 </script>
 @endsection

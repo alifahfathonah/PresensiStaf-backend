@@ -1,4 +1,4 @@
-<div class="col-md-3">
+<div class="col-md-2">
     <div class="menu">
         <a href="{{ route('employee.get') }}" class="item-menu d-flex color-red {{ setActive(['employee*']) }}">
             <i data-feather="users"></i>
@@ -69,6 +69,11 @@
 
     .color-orange > svg {
         color: #e76f1f;
+    }
+
+    .form-nonformal-css svg, .kehidupan-berorganisasi svg, .pengalaman-bekerja svg, .pengalaman-mengajar svg {
+        color: #df5757;
+        cursor: pointer;
     }
 </style>
 @endsection

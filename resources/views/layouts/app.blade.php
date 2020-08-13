@@ -29,7 +29,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
 
-    @yield('style')
+    @section('style')
+    @show
 
     {{-- icon --}}
     <script src="https://unpkg.com/feather-icons"></script>
@@ -93,10 +94,15 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-    @yield('js')
+    @section('js')
+    @show
 
     <script>
-        feather.replace()
+        replacefeather();
+
+        function replacefeather(){
+            feather.replace();
+        }
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
@@ -131,6 +137,9 @@
 
         setInputFilter(document.getElementById("intOnly2Anak"), function(value) {
         return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 15); });
+
+        setInputFilter(document.getElementById("intOnly4"), function(value) {
+        return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 2020); });
 
         setInputFilter(document.getElementById("intOnly6"), function(value) {
         return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 999999); });
