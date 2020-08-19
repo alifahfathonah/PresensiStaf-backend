@@ -26,33 +26,33 @@
                     </div>
                     <div class="form-group {{ ($errors->has('nick_name') ? 'has-error' : '') }}">
                         {{ Form::label('nick_name', 'Nama panggilan', ['class' => 'control-label']) }}
-                        {{ Form::text('nick_name', ($action == 'edit') ? $user->nick_name : '', ['class' => 'form-control', 'placeholder' => 'Nama panggilan', 'required']) }}
+                        {{ Form::text('nick_name', ($action == 'edit') ? $userDetail->nick_name : '', ['class' => 'form-control', 'placeholder' => 'Nama panggilan', 'required']) }}
                         <span class="help-block">{{ ($errors->has('nick_name') ? $errors->first('nick_name') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('birth_city') ? 'has-error' : '') }}">
                         {{ Form::label('birth_city', 'Kota kelahiran', ['class' => 'control-label']) }}
-                        {{ Form::text('birth_city', ($action == 'edit') ? $user->birth_city : '', ['class' => 'form-control', 'placeholder' => 'Kota kelahiran', 'required']) }}
+                        {{ Form::text('birth_city', ($action == 'edit') ? $userDetail->birth_city : '', ['class' => 'form-control', 'placeholder' => 'Kota kelahiran', 'required']) }}
                         <span class="help-block">{{ ($errors->has('birth_city') ? $errors->first('birth_city') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('birth_date') ? 'has-error' : '') }}">
                         {{ Form::label('birth_date', 'Tanggal lahir', ['class' => 'control-label']) }}
-                        {{ Form::text('birth_date', ($action == 'edit') ? $user->birth_date : '', ['class' => 'dob form-control', 'readonly' => 'readonly', 'placeholder' => 'Tanggal kelahiran', 'required']) }}
+                        {{ Form::text('birth_date', ($action == 'edit') ? $userDetail->birth_date : '', ['class' => 'dob form-control', 'readonly' => 'readonly', 'placeholder' => 'Tanggal kelahiran', 'required']) }}
                         <span class="help-block">{{ ($errors->has('birth_date') ? $errors->first('birth_date') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('address') ? 'has-error' : '') }}">
                         {{ Form::label('address', 'Alamat lengkap', ['class' => 'control-label']) }}
-                        {{ Form::textarea('address', ($action == 'edit') ? $user->address : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Alamat lengkap', 'required']) }}
+                        {{ Form::textarea('address', ($action == 'edit') ? $userDetail->address : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Alamat lengkap', 'required']) }}
                         <span class="help-block">{{ ($errors->has('address') ? $errors->first('address') : '') }}</span>
                     </div>
                     <div class="d-flex">
                         <div class="col-6 form-group {{ ($errors->has('address_city') ? 'has-error' : '') }}">
                             {{ Form::label('address_city', 'Tinggal di kota', ['class' => 'control-label']) }}
-                            {{ Form::text('address_city', ($action == 'edit') ? $user->address_city : '', ['class' => 'form-control', 'placeholder' => 'Tinggal di kota', 'required']) }}
+                            {{ Form::text('address_city', ($action == 'edit') ? $userDetail->address_city : '', ['class' => 'form-control', 'placeholder' => 'Tinggal di kota', 'required']) }}
                             <span class="help-block">{{ ($errors->has('address_city') ? $errors->first('address_city') : '') }}</span>
                         </div>
                         <div class="col-6 form-group {{ ($errors->has('address_postal_code') ? 'has-error' : '') }}">
                             {{ Form::label('address_postal_code', 'Kode POS', ['class' => 'control-label']) }}
-                            {{ Form::text('address_postal_code', ($action == 'edit') ? $user->address_postal_code : '', ['class' => 'form-control', 'id' => 'intOnly6', 'placeholder' => 'Kode POS', 'required']) }}
+                            {{ Form::text('address_postal_code', ($action == 'edit') ? $userDetail->address_postal_code : '', ['class' => 'form-control', 'id' => 'intOnly6', 'placeholder' => 'Kode POS', 'required']) }}
                             <span class="help-block">{{ ($errors->has('address_postal_code') ? $errors->first('address_postal_code') : '') }}</span>
                         </div>
                     </div>
@@ -60,17 +60,17 @@
                     <div class="d-flex">
                         <div class="col-4 form-group {{ ($errors->has('phone_home') ? 'has-error' : '') }}">
                             {{ Form::label('phone_home', 'Telp. Rumah', ['class' => 'control-label']) }}
-                            {{ Form::text('phone_home', ($action == 'edit') ? $user->phone_home : '', ['class' => 'form-control', 'id' => 'intOnly9', 'placeholder' => 'Telp. Rumah', 'required']) }}
+                            {{ Form::text('phone_home', ($action == 'edit') ? $userDetail->phone_home : '', ['class' => 'form-control', 'id' => 'intOnly9', 'placeholder' => 'Telp. Rumah', 'required']) }}
                             <span class="help-block">{{ ($errors->has('phone_home') ? $errors->first('phone_home') : '') }}</span>
                         </div>
                         <div class="col-4 form-group {{ ($errors->has('phone_mobile') ? 'has-error' : '') }}">
                             {{ Form::label('phone_mobile', 'No. Handphone', ['class' => 'control-label']) }}
-                            {{ Form::text('phone_mobile', ($action == 'edit') ? $user->phone_mobile : '', ['class' => 'form-control', 'id' => 'intOnly13', 'placeholder' => 'Telp. Handphone', 'required']) }}
+                            {{ Form::text('phone_mobile', ($action == 'edit') ? $userDetail->phone_mobile : '', ['class' => 'form-control', 'id' => 'intOnly13', 'placeholder' => 'Telp. Handphone', 'required']) }}
                             <span class="help-block">{{ ($errors->has('phone_mobile') ? $errors->first('phone_mobile') : '') }}</span>
                         </div>
                         <div class="col-4 form-group {{ ($errors->has('phone_office') ? 'has-error' : '') }}">
                             {{ Form::label('phone_office', 'Telp. Kantor', ['class' => 'control-label']) }}
-                            {{ Form::text('phone_office', ($action == 'edit') ? $user->phone_office : '', ['class' => 'form-control', 'id' => 'intOnly9Office', 'placeholder' => 'Telp. Kantor', 'required']) }}
+                            {{ Form::text('phone_office', ($action == 'edit') ? $userDetail->phone_office : '', ['class' => 'form-control', 'id' => 'intOnly9Office', 'placeholder' => 'Telp. Kantor', 'required']) }}
                             <span class="help-block">{{ ($errors->has('phone_office') ? $errors->first('phone_office') : '') }}</span>
                         </div>
                     </div>
@@ -87,125 +87,160 @@
                     <div class="form-group {{ ($errors->has('religion') ? 'has-error' : '') }}">
                         {{ Form::label('religion', 'Agama', ['class' => 'control-label']) }}
                         <div class="d-flex align-items-center">
-                            {{ Form::radio('religion', 'Islam', false, ['class' => 'mr-2']) }} <span class="mr-2">Islam</span>
-                            {{ Form::radio('religion', 'Katholik', false, ['class' => 'mr-2']) }} <span class="mr-2">Katholik</span>
-                            {{ Form::radio('religion', 'Kristen', false, ['class' => 'mr-2']) }} <span class="mr-2">Kristen</span>
-                            {{ Form::radio('religion', 'Budha', false, ['class' => 'mr-2']) }} <span class="mr-2">Budha</span>
-                            {{ Form::radio('religion', 'Hindu', false, ['class' => 'mr-2']) }} <span class="mr-2">Hindu</span>
+                            {{ Form::radio('religion', 'Islam', $action == 'edit' ? $userDetail->religion == 'Islam' ? true : false : true, ['class' => 'mr-2']) }} <span class="mr-2">Islam</span>
+                            {{ Form::radio('religion', 'Katholik', $action == 'edit' ? $userDetail->religion == 'Katholik' ? true : false : false, ['class' => 'mr-2']) }} <span class="mr-2">Katholik</span>
+                            {{ Form::radio('religion', 'Kristen', $action == 'edit' ? $userDetail->religion == 'Kristen' ? true : false : false, ['class' => 'mr-2']) }} <span class="mr-2">Kristen</span>
+                            {{ Form::radio('religion', 'Budha', $action == 'edit' ? $userDetail->religion == 'Budha' ? true : false : false, ['class' => 'mr-2']) }} <span class="mr-2">Budha</span>
+                            {{ Form::radio('religion', 'Hindu', $action == 'edit' ? $userDetail->religion == 'Hindu' ? true : false : false, ['class' => 'mr-2']) }} <span class="mr-2">Hindu</span>
                         </div>
                         <span class="help-block">{{ ($errors->has('religion') ? $errors->first('religion') : '') }}</span>
                     </div>
                     
                     <div class="form-group {{ ($errors->has('card_identity_number') ? 'has-error' : '') }}">
                         {{ Form::label('card_identity_number', 'No. KTP', ['class' => 'control-label']) }}
-                        {{ Form::text('card_identity_number', ($action == 'edit') ? $user->card_identity_number : '', ['class' => 'form-control', 'id' => 'intOnly16', 'placeholder' => 'No. KTP', 'required']) }}
+                        {{ Form::text('card_identity_number', ($action == 'edit') ? $userDetail->card_identity_number : '', ['class' => 'form-control', 'id' => 'intOnly16', 'placeholder' => 'No. KTP', 'required']) }}
                         <span class="help-block">{{ ($errors->has('card_identity_number') ? $errors->first('card_identity_number') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('number_of_siblings') ? 'has-error' : '') }}">
                         {{ Form::label('number_of_siblings', 'Anak Ke', ['class' => 'control-label']) }}
-                        {{ Form::text('number_of_siblings', ($action == 'edit') ? $user->number_of_siblings : '', ['class' => 'form-control', 'id' => 'intOnly2', 'placeholder' => 'Anak Ke ..', 'required']) }}
+                        {{ Form::text('number_of_siblings', ($action == 'edit') ? $userDetail->number_of_siblings : '', ['class' => 'form-control', 'id' => 'intOnly2', 'placeholder' => 'Anak Ke ..', 'required']) }}
                         <span class="help-block">{{ ($errors->has('number_of_siblings') ? $errors->first('number_of_siblings') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('status') ? 'has-error' : '') }}">
                         {{ Form::label('status', 'Status', ['class' => 'control-label']) }}
                         <div class="d-flex align-items-center">
-                            {{ Form::radio('status', 'Menikah', false, ['class' => 'mr-2']) }} <span class="mr-2">Menikah</span>
-                            {{ Form::radio('status', 'Belum Menikah', false, ['class' => 'mr-2']) }} <span class="mr-2">Belum Menikah</span>
-                            {{ Form::radio('status', 'Janda', false, ['class' => 'mr-2']) }} <span class="mr-2">Janda</span>
-                            {{ Form::radio('status', 'Duda', false, ['class' => 'mr-2']) }} <span class="mr-2">Duda</span>
+                            {{ Form::radio('status', 'Menikah', $action == 'edit' ? $userDetail->status == 'Menikah' ? true : false : true, ['class' => 'mr-2']) }} <span class="mr-2">Menikah</span>
+                            {{ Form::radio('status', 'Belum Menikah', $action == 'edit' ? $userDetail->status == 'Belum Menikah' ? true : false : false, ['class' => 'mr-2']) }} <span class="mr-2">Belum Menikah</span>
+                            {{ Form::radio('status', 'Janda', $action == 'edit' ? $userDetail->status == 'Janda' ? true : false : false, ['class' => 'mr-2']) }} <span class="mr-2">Janda</span>
+                            {{ Form::radio('status', 'Duda', $action == 'edit' ? $userDetail->status == 'Duda' ? true : false : false, ['class' => 'mr-2']) }} <span class="mr-2">Duda</span>
                         </div>
                         <span class="help-block">{{ ($errors->has('status') ? $errors->first('status') : '') }}</span>
                     </div>
                     <div id="isNotSingle">
                         <div class="form-group {{ ($errors->has('nama_istri_suami') ? 'has-error' : '') }}">
                             {{ Form::label('nama_istri_suami', 'Nama Istri / Suami', ['class' => 'control-label']) }}
-                            {{ Form::text('nama_istri_suami', ($action == 'edit') ? $user->nama_istri_suami : '', ['class' => 'form-control', 'placeholder' => 'Nama Istri / Suami', 'required']) }}
+                            {{ Form::text('nama_istri_suami', ($action == 'edit') ? $userDetail->nama_istri_suami : '', ['class' => 'form-control', 'placeholder' => 'Nama Istri / Suami', 'required']) }}
                             <span class="help-block">{{ ($errors->has('nama_istri_suami') ? $errors->first('nama_istri_suami') : '') }}</span>
                         </div>
                         <div class="form-group {{ ($errors->has('pekerjaan_istri_suami') ? 'has-error' : '') }}">
                             {{ Form::label('pekerjaan_istri_suami', 'Pekerjaan Istri / Suami', ['class' => 'control-label']) }}
-                            {{ Form::text('pekerjaan_istri_suami', ($action == 'edit') ? $user->pekerjaan_istri_suami : '', ['class' => 'form-control', 'placeholder' => 'Pekerjaan Istri / Suami', 'required']) }}
+                            {{ Form::text('pekerjaan_istri_suami', ($action == 'edit') ? $userDetail->pekerjaan_istri_suami : '', ['class' => 'form-control', 'placeholder' => 'Pekerjaan Istri / Suami', 'required']) }}
                             <span class="help-block">{{ ($errors->has('pekerjaan_istri_suami') ? $errors->first('pekerjaan_istri_suami') : '') }}</span>
                         </div>
                         <div class="form-group {{ ($errors->has('jumlah_anak') ? 'has-error' : '') }}">
                             {{ Form::label('jumlah_anak', 'Jumlah Anak', ['class' => 'control-label']) }}
-                            {{ Form::text('jumlah_anak', ($action == 'edit') ? $user->jumlah_anak : '', ['class' => 'form-control', 'id' => 'intOnly2Anak', 'placeholder' => 'Jumlah Anak', 'required']) }}
+                            {{ Form::text('jumlah_anak', ($action == 'edit') ? $userDetail->jumlah_anak : '', ['class' => 'form-control', 'id' => 'intOnly2Anak', 'placeholder' => 'Jumlah Anak', 'required']) }}
                             <span class="help-block">{{ ($errors->has('jumlah_anak') ? $errors->first('jumlah_anak') : '') }}</span>
                         </div>
                     </div>
-                    <div class="form-group form-anak {{ ($errors->has('anak') ? 'has-error' : '') }}">
-                        {{ Form::label('anak', 'Keterangan Anak', ['class' => 'control-label']) }}
-                        <div class="form-anak-dynamic d-flex">
-                            <div class="form-group col-3">
-                                {{ Form::label('anak', 'Nama anak', ['class' => 'control-label']) }}
-                                <input class="form-control" type="text" name="anak[]" id="">
+                    @if($action == 'create')
+                        <div class="form-group form-anak {{ ($errors->has('anak') ? 'has-error' : '') }}">
+                            {{ Form::label('anak', 'Keterangan Anak', ['class' => 'control-label']) }}
+                            <div class="form-anak-dynamic d-flex">
+                                <div class="form-group col-3">
+                                    {{ Form::label('anak', 'Nama anak', ['class' => 'control-label']) }}
+                                    <input class="form-control" type="text" name="anak[]" id="">
+                                </div>
+                                <div class="form-group col-3">
+                                    {{ Form::label('anak', 'Jenis Kelamin', ['class' => 'control-label']) }}
+                                    <select class="form-control" name="anak[]" id="">
+                                        <option value="l">L</option>
+                                        <option value="p">P</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-3">
+                                    {{ Form::label('anak', 'Tanggal lahir', ['class' => 'control-label']) }}
+                                    <input class="dob form-control" type="text" name="anak[]" id="" readonly>
+                                </div>
+                                <div class="form-group col-3">
+                                    {{ Form::label('anak', 'Pekerjaan / Pendidikan', ['class' => 'control-label']) }}
+                                    <input class="form-control" type="text" name="anak[]" id="">
+                                </div>
                             </div>
-                            <div class="form-group col-3">
-                                {{ Form::label('anak', 'Jenis Kelamin', ['class' => 'control-label']) }}
-                                <select class="form-control" name="anak[]" id="">
-                                    <option value="l">L</option>
-                                    <option value="p">P</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-3">
-                                {{ Form::label('anak', 'Tanggal lahir', ['class' => 'control-label']) }}
-                                <input class="dob form-control" type="text" name="anak[]" id="" readonly>
-                            </div>
-                            <div class="form-group col-3">
-                                {{ Form::label('anak', 'Pekerjaan / Pendidikan', ['class' => 'control-label']) }}
-                                <input class="form-control" type="text" name="anak[]" id="">
+                            <div class="add-anak">
+                                
                             </div>
                         </div>
-                        <div class="add-anak">
+                    @else
+                        <div class="form-group form-anak {{ ($errors->has('anak') ? 'has-error' : '') }}">
+                            {{ Form::label('anak', 'Keterangan Anak', ['class' => 'control-label']) }}
                             
+                            @if($userDetail->jumlah_anak != 0)
+                                @foreach($userDetail->anak as $anak)
+                                @php
+                                    $anak = json_decode($anak);
+                                @endphp
+                                <div class="form-anak-dynamic d-flex">
+                                    <div class="form-group col-3">
+                                        <label for="anak" class="control-label">Nama anak</label>
+                                        <input class="form-control" type="text" name="anak[]" value="{{ $anak->nama }}">
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label for="anak" class="control-label">Jenis Kelamin</label>
+                                        <select class="form-control" name="anak[]" id="">
+                                            <option value="l" {{ $anak->nama == 'l' ? 'selected' : '' }}>L</option>
+                                            <option value="p" {{ $anak->nama == 'p' ? 'selected' : '' }}>P</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label for="anak" class="control-label">Tanggal lahir</label>
+                                        <input class="dob form-control" type="text" name="anak[]"  value="{{ $anak->tgl_lahir }}" readonly="">
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label for="anak" class="control-label">Pekerjaan / Pendidikan</label>
+                                        <input class="form-control" type="text" name="anak[]" value="{{ $anak->pendidikan_pekerjaan }}">
+                                    </div>
+                                </div>
+                                @endforeach
+                            @endif
                         </div>
-                    </div>
+                    @endif
                     <div class="form-group">
                         {{ Form::label('label', 'Bila terjadi sesuatu pada diri Anda, kami dapat menghubungi:', ['class' => 'control-label']) }}
                     </div>
                     <div class="form-group {{ ($errors->has('nama_darurat') ? 'has-error' : '') }}">
                         {{ Form::label('nama_darurat', 'Nama', ['class' => 'control-label']) }}
-                        {{ Form::text('nama_darurat', ($action == 'edit') ? $user->nama_darurat : '', ['class' => 'form-control', 'placeholder' => 'Nama kerabat', 'required']) }}
+                        {{ Form::text('nama_darurat', ($action == 'edit') ? $userDetail->nama_darurat : '', ['class' => 'form-control', 'placeholder' => 'Nama kerabat', 'required']) }}
                         <span class="help-block">{{ ($errors->has('nama_darurat') ? $errors->first('nama_darurat') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('address_darurat') ? 'has-error' : '') }}">
                         {{ Form::label('address_darurat', 'Alamat lengkap', ['class' => 'control-label']) }}
-                        {{ Form::textarea('address_darurat', ($action == 'edit') ? $user->address_darurat : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Alamat kerabat', 'required']) }}
+                        {{ Form::textarea('address_darurat', ($action == 'edit') ? $userDetail->address_darurat : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Alamat kerabat', 'required']) }}
                         <span class="help-block">{{ ($errors->has('address_darurat') ? $errors->first('address_darurat') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('tlp_darurat') ? 'has-error' : '') }}">
                         {{ Form::label('tlp_darurat', 'No. Telp', ['class' => 'control-label']) }}
-                        {{ Form::text('tlp_darurat', ($action == 'edit') ? $user->tlp_darurat : '', ['class' => 'form-control', 'onkeypress' => 'if ( isNaN( String.fromCharCode(event.keyCode) )) return false;', 'placeholder' => 'Telp. kerabat', 'required']) }}
+                        {{ Form::text('tlp_darurat', ($action == 'edit') ? $userDetail->tlp_darurat : '', ['class' => 'form-control', 'onkeypress' => 'if ( isNaN( String.fromCharCode(event.keyCode) )) return false;', 'placeholder' => 'Telp. kerabat', 'required']) }}
                         <span class="help-block">{{ ($errors->has('phone_mobile') ? $errors->first('tlp_darurat') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('nama_ayah') ? 'has-error' : '') }}">
                         {{ Form::label('nama_ayah', 'Nama Ayah', ['class' => 'control-label']) }}
-                        {{ Form::text('nama_ayah', ($action == 'edit') ? $user->nama_ayah : '', ['class' => 'form-control', 'placeholder' => 'Nama ayah', 'required']) }}
+                        {{ Form::text('nama_ayah', ($action == 'edit') ? $userDetail->nama_ayah : '', ['class' => 'form-control', 'placeholder' => 'Nama ayah', 'required']) }}
                         <span class="help-block">{{ ($errors->has('nama_ayah') ? $errors->first('nama_ayah') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('pekerjaan_ayah') ? 'has-error' : '') }}">
                         {{ Form::label('pekerjaan_ayah', 'Pekerjaan', ['class' => 'control-label']) }}
-                        {{ Form::text('pekerjaan_ayah', ($action == 'edit') ? $user->pekerjaan_ayah : '', ['class' => 'form-control', 'placeholder' => 'Pekerjaan ayah', 'required']) }}
+                        {{ Form::text('pekerjaan_ayah', ($action == 'edit') ? $userDetail->pekerjaan_ayah : '', ['class' => 'form-control', 'placeholder' => 'Pekerjaan ayah', 'required']) }}
                         <span class="help-block">{{ ($errors->has('pekerjaan_ayah') ? $errors->first('pekerjaan_ayah') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('alamat_ayah') ? 'has-error' : '') }}">
                         {{ Form::label('alamat_ayah', 'Alamat lengkap', ['class' => 'control-label']) }}
-                        {{ Form::textarea('alamat_ayah', ($action == 'edit') ? $user->alamat_ayah : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Alamat tinggal ayah', 'required']) }}
+                        {{ Form::textarea('alamat_ayah', ($action == 'edit') ? $userDetail->alamat_ayah : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Alamat tinggal ayah', 'required']) }}
                         <span class="help-block">{{ ($errors->has('alamat_ayah') ? $errors->first('alamat_ayah') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('nama_ibu') ? 'has-error' : '') }}">
                         {{ Form::label('nama_ibu', 'Nama Ibu', ['class' => 'control-label']) }}
-                        {{ Form::text('nama_ibu', ($action == 'edit') ? $user->nama_ibu : '', ['class' => 'form-control', 'placeholder' => 'Nama ibu', 'required']) }}
+                        {{ Form::text('nama_ibu', ($action == 'edit') ? $userDetail->nama_ibu : '', ['class' => 'form-control', 'placeholder' => 'Nama ibu', 'required']) }}
                         <span class="help-block">{{ ($errors->has('nama_ibu') ? $errors->first('nama_ibu') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('pekerjaan_ibu') ? 'has-error' : '') }}">
                         {{ Form::label('pekerjaan_ibu', 'Pekerjaan', ['class' => 'control-label']) }}
-                        {{ Form::text('pekerjaan_ibu', ($action == 'edit') ? $user->pekerjaan_ibu : '', ['class' => 'form-control', 'placeholder' => 'Pekerjaan ibu', 'required']) }}
+                        {{ Form::text('pekerjaan_ibu', ($action == 'edit') ? $userDetail->pekerjaan_ibu : '', ['class' => 'form-control', 'placeholder' => 'Pekerjaan ibu', 'required']) }}
                         <span class="help-block">{{ ($errors->has('pekerjaan_ibu') ? $errors->first('pekerjaan_ibu') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('alamat_ibu') ? 'has-error' : '') }}">
                         {{ Form::label('alamat_ibu', 'Alamat lengkap', ['class' => 'control-label']) }}
-                        {{ Form::textarea('alamat_ibu', ($action == 'edit') ? $user->alamat_ibu : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Alamat tinggal ibu', 'required']) }}
+                        {{ Form::textarea('alamat_ibu', ($action == 'edit') ? $userDetail->alamat_ibu : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Alamat tinggal ibu', 'required']) }}
                         <span class="help-block">{{ ($errors->has('alamat_ibu') ? $errors->first('alamat_ibu') : '') }}</span>
                     </div>
                 </div>
@@ -213,103 +248,107 @@
                 <div class="card-body active-page-2">
                     <h4>Pendidikan Formal</h4>
                     <hr>
+                    @php
+                    if($action == 'edit'){
+                        $pendFormalSd = json_decode($userDetail->pendidikan_formal[0]);
+                        $pendFormalSmp = json_decode($userDetail->pendidikan_formal[1]);
+                        $pendFormalSlta = json_decode($userDetail->pendidikan_formal[2]);
+                        $pendFormalAkadUniv = json_decode($userDetail->pendidikan_formal[3]);
+                        $pendFormalUniv = json_decode($userDetail->pendidikan_formal[4]);
+                    }
+                    @endphp
                     <div class="d-flex">
                         <div class="form-group col-3">
                             <label for="anak" class="control-label">Pendidikan</label>
-                            <label for="anak" class="control-label">Sekolah Dasar</label>
-                            <input class="form-control" type="hidden" name="anak[]" id="" value="Sekolah Dasar">
+                            <label for="pendNormalSd" class="control-label">Sekolah Dasar</label>
                         </div>
                         <div class="form-group col-3">
-                            <label for="anak" class="control-label">Nama sekolah</label>
-                            <input class="form-control" type="text" name="anak[]" id="">
+                            <label for="pendNormalSd" class="control-label">Nama sekolah</label>
+                            <input class="form-control" type="text" name="pendNormalSd[]" value="{{ $action == 'edit' ? $pendFormalSd->nama_sekolah : '' }}">
                         </div>
                         <div class="form-group col-4">
-                            <label for="anak" class="control-label">Tempat</label>
-                            <input class="form-control" type="text" name="anak[]" id="">
+                            <label for="pendNormalSd" class="control-label">Tempat</label>
+                            <input class="form-control" type="text" name="pendNormalSd[]" value="{{ $action == 'edit' ? $pendFormalSd->tempat : '' }}">
                         </div>
                         <div class="form-group col-2">
-                            <label for="anak" class="control-label">Tahun Lulus</label>
-                            <input class="form-control" type="text" name="anak[]"  onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                            <label for="pendNormalSd" class="control-label">Tahun Lulus</label>
+                            <input class="form-control" type="text" name="pendNormalSd[]"  value="{{ $action == 'edit' ? $pendFormalSd->tahun_lulus : '' }}" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
                         </div>
                     </div>
                     <div class="d-flex">
                         <div class="form-group col-3">
-                            <label for="anak" class="control-label">Pendidikan</label>
+                            <label for="pendNormalSmp" class="control-label">Pendidikan</label>
                             <br>
-                            <label for="anak" class="control-label">SMP</label>
-                            <input class="form-control" type="hidden" name="anak[]" id="" value="Sekolah Dasar">
+                            <label for="pendNormalSmp" class="control-label">SMP</label>
                         </div>
                         <div class="form-group col-3">
-                            <label for="anak" class="control-label">Nama sekolah</label>
-                            <input class="form-control" type="text" name="anak[]" id="">
+                            <label for="pendNormalSmp" class="control-label">Nama sekolah</label>
+                            <input class="form-control" type="text" name="pendNormalSmp[]" value="{{ $action == 'edit' ? $pendFormalSmp->nama_sekolah : '' }}">
                         </div>
                         <div class="form-group col-4">
-                            <label for="anak" class="control-label">Tempat</label>
-                            <input class="form-control" type="text" name="anak[]" id="">
+                            <label for="pendNormalSmp" class="control-label">Tempat</label>
+                            <input class="form-control" type="text" name="pendNormalSmp[]" value="{{ $action == 'edit' ? $pendFormalSmp->tempat : '' }}">
                         </div>
                         <div class="form-group col-2">
-                            <label for="anak" class="control-label">Tahun Lulus</label>
-                            <input class="form-control" type="text" name="anak[]"  onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                            <label for="pendNormalSmp" class="control-label">Tahun Lulus</label>
+                            <input class="form-control" type="text" name="pendNormalSmp[]"  value="{{ $action == 'edit' ? $pendFormalSmp->tahun_lulus : '' }}" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
                         </div>
                     </div>
                     <div class="d-flex">
                         <div class="form-group col-3">
-                            <label for="anak" class="control-label">Pendidikan</label>
+                            <label for="pendNormalSlta" class="control-label">Pendidikan</label>
                             <br>
-                            <label for="anak" class="control-label">SLTA</label>
-                            <input class="form-control" type="hidden" name="anak[]" id="" value="Sekolah Dasar">
+                            <label for="pendNormalSlta" class="control-label">SLTA</label>
                         </div>
                         <div class="form-group col-3">
-                            <label for="anak" class="control-label">Nama sekolah</label>
-                            <input class="form-control" type="text" name="anak[]" id="">
+                            <label for="pendNormalSlta" class="control-label">Nama sekolah</label>
+                            <input class="form-control" type="text" name="pendNormalSlta[]" value="{{ $action == 'edit' ? $pendFormalSlta->nama_sekolah : '' }}">
                         </div>
                         <div class="form-group col-4">
-                            <label for="anak" class="control-label">Tempat</label>
-                            <input class="form-control" type="text" name="anak[]" id="">
+                            <label for="pendNormalSlta" class="control-label">Tempat</label>
+                            <input class="form-control" type="text" name="pendNormalSlta[]" value="{{ $action == 'edit' ? $pendFormalSlta->tempat : '' }}">
                         </div>
                         <div class="form-group col-2">
-                            <label for="anak" class="control-label">Tahun Lulus</label>
-                            <input class="form-control" type="text" name="anak[]"  onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                            <label for="pendNormalSlta" class="control-label">Tahun Lulus</label>
+                            <input class="form-control" type="text" name="pendNormalSlta[]"  value="{{ $action == 'edit' ? $pendFormalSlta->tahun_lulus : '' }}" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
                         </div>
                     </div>
                     <div class="d-flex">
                         <div class="form-group col-3">
-                            <label for="anak" class="control-label">Pendidikan</label>
+                            <label for="pendNormalAkadUniv" class="control-label">Pendidikan</label>
                             <br>
-                            <label for="anak" class="control-label">Akademi/universitas</label>
-                            <input class="form-control" type="hidden" name="anak[]" id="" value="Sekolah Dasar">
+                            <label for="pendNormalAkadUniv" class="control-label">Akademi/universitas</label>
                         </div>
                         <div class="form-group col-3">
-                            <label for="anak" class="control-label">Nama sekolah</label>
-                            <input class="form-control" type="text" name="anak[]" id="">
+                            <label for="pendNormalAkadUniv" class="control-label">Nama sekolah</label>
+                            <input class="form-control" type="text" name="pendNormalAkadUniv[]" value="{{ $action == 'edit' ? $pendFormalAkadUniv->nama_sekolah : '' }}">
                         </div>
                         <div class="form-group col-4">
-                            <label for="anak" class="control-label">Tempat</label>
-                            <input class="form-control" type="text" name="anak[]" id="">
+                            <label for="pendNormalAkadUniv" class="control-label">Tempat</label>
+                            <input class="form-control" type="text" name="pendNormalAkadUniv[]" value="{{ $action == 'edit' ? $pendFormalAkadUniv->tempat : '' }}">
                         </div>
                         <div class="form-group col-2">
-                            <label for="anak" class="control-label">Tahun Lulus</label>
-                            <input class="form-control" type="text" name="anak[]"  onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                            <label for="pendNormalAkadUniv" class="control-label">Tahun Lulus</label>
+                            <input class="form-control" type="text" name="pendNormalAkadUniv[]"  value="{{ $action == 'edit' ? $pendFormalAkadUniv->tahun_lulus : '' }}" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
                         </div>
                     </div>
                     <div class="d-flex">
                         <div class="form-group col-3">
-                            <label for="anak" class="control-label">Pendidikan</label>
+                            <label for="pendNormalUniv" class="control-label">Pendidikan</label>
                             <br>
-                            <label for="anak" class="control-label">Universitas</label>
-                            <input class="form-control" type="hidden" name="anak[]" id="" value="Sekolah Dasar">
+                            <label for="pendNormalUniv" class="control-label">Universitas</label>
                         </div>
                         <div class="form-group col-3">
-                            <label for="anak" class="control-label">Nama sekolah</label>
-                            <input class="form-control" type="text" name="anak[]" id="">
+                            <label for="pendNormalUniv" class="control-label">Nama sekolah</label>
+                            <input class="form-control" type="text" name="pendNormalUniv[]" value="{{ $action == 'edit' ? $pendFormalUniv->nama_sekolah : '' }}">
                         </div>
                         <div class="form-group col-4">
-                            <label for="anak" class="control-label">Tempat</label>
-                            <input class="form-control" type="text" name="anak[]" id="">
+                            <label for="pendNormalUniv" class="control-label">Tempat</label>
+                            <input class="form-control" type="text" name="pendNormalUniv[]" value="{{ $action == 'edit' ? $pendFormalUniv->tempat : '' }}">
                         </div>
                         <div class="form-group col-2">
-                            <label for="anak" class="control-label">Tahun Lulus</label>
-                            <input class="form-control" type="text" name="anak[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
+                            <label for="pendNormalUniv" class="control-label">Tahun Lulus</label>
+                            <input class="form-control" type="text" name="pendNormalUniv[]" value="{{ $action == 'edit' ? $pendFormalUniv->tahun_lulus : '' }}" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
                         </div>
                     </div>
                     
@@ -448,22 +487,22 @@
                     <hr>
                     <div class="form-group {{ ($errors->has('kk_mengajar_matkul') ? 'has-error' : '') }}">
                         {{ Form::label('kk_mengajar_matkul', 'Dapat mengajar mata pelajaran', ['class' => 'control-label']) }}
-                        {{ Form::text('kk_mengajar_matkul', ($action == 'edit') ? $user->kk_mengajar_matkul : '', ['class' => 'form-control', 'placeholder' => 'Nama mata pelajaran', 'required']) }}
+                        {{ Form::text('kk_mengajar_matkul', ($action == 'edit') ? $userDetail->kk_mengajar_matkul : '', ['class' => 'form-control', 'placeholder' => 'Nama mata pelajaran', 'required']) }}
                         <span class="help-block">{{ ($errors->has('kk_mengajar_matkul') ? $errors->first('kk_mengajar_matkul') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('kk_mengajar_matkul') ? 'has-error' : '') }}">
                         {{ Form::label('kk_software_dikuasai', 'Paket software yang dikuasai', ['class' => 'control-label']) }}
-                        {{ Form::text('kk_software_dikuasai', ($action == 'edit') ? $user->kk_software_dikuasai : '', ['class' => 'form-control', 'placeholder' => 'Nama software', 'required']) }}
+                        {{ Form::text('kk_software_dikuasai', ($action == 'edit') ? $userDetail->kk_software_dikuasai : '', ['class' => 'form-control', 'placeholder' => 'Nama software', 'required']) }}
                         <span class="help-block">{{ ($errors->has('kk_software_dikuasai') ? $errors->first('kk_software_dikuasai') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('kk_bahasa_pemograman') ? 'has-error' : '') }}">
                         {{ Form::label('kk_bahasa_pemograman', 'Bahasa pemograman yang dikuasai', ['class' => 'control-label']) }}
-                        {{ Form::text('kk_bahasa_pemograman', ($action == 'edit') ? $user->kk_bahasa_pemograman : '', ['class' => 'form-control', 'placeholder' => 'Nama bahasa pemograman', 'required']) }}
+                        {{ Form::text('kk_bahasa_pemograman', ($action == 'edit') ? $userDetail->kk_bahasa_pemograman : '', ['class' => 'form-control', 'placeholder' => 'Nama bahasa pemograman', 'required']) }}
                         <span class="help-block">{{ ($errors->has('kk_bahasa_pemograman') ? $errors->first('kk_bahasa_pemograman') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('kk_hardware_dikuasai') ? 'has-error' : '') }}">
                         {{ Form::label('kk_hardware_dikuasai', 'Permasalahan Hardware yang dikuasai', ['class' => 'control-label']) }}
-                        {{ Form::text('kk_hardware_dikuasai', ($action == 'edit') ? $user->kk_hardware_dikuasai : '', ['class' => 'form-control', 'placeholder' => 'Nama masalah Hardware', 'required']) }}
+                        {{ Form::text('kk_hardware_dikuasai', ($action == 'edit') ? $userDetail->kk_hardware_dikuasai : '', ['class' => 'form-control', 'placeholder' => 'Nama masalah Hardware', 'required']) }}
                         <span class="help-block">{{ ($errors->has('kk_hardware_dikuasai') ? $errors->first('kk_hardware_dikuasai') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('kk_menguasai_jaringan') ? 'has-error' : '') }}">
@@ -474,24 +513,24 @@
                         </div>
                         <span class="help-block">{{ ($errors->has('kk_menguasai_jaringan') ? $errors->first('kk_menguasai_jaringan') : '') }}</span>
                     </div>
-                    <div class="input-jaringan-dikuasai-js form-group {{ ($errors->has('kk_jaringan_dikuasai') ? 'has-error' : '') }}">
+                    <div id="input-jaringan-dikuasai-js" class="form-group {{ ($errors->has('kk_jaringan_dikuasai') ? 'has-error' : '') }}">
                         {{ Form::label('kk_jaringan_dikuasai', 'Jika Ya, dalam hal apa', ['class' => 'control-label']) }}
-                        {{ Form::text('kk_jaringan_dikuasai', ($action == 'edit') ? $user->kk_jaringan_dikuasai : '', ['class' => 'form-control', 'placeholder' => 'Mengenai hal jaringan', 'required']) }}
+                        {{ Form::text('kk_jaringan_dikuasai', ($action == 'edit') ? $userDetail->kk_jaringan_dikuasai : '', ['class' => 'form-control', 'placeholder' => 'Mengenai hal jaringan', 'required']) }}
                         <span class="help-block">{{ ($errors->has('kk_jaringan_dikuasai') ? $errors->first('kk_jaringan_dikuasai') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('kk_sofware_pernah_dibuat') ? 'has-error' : '') }}">
                         {{ Form::label('kk_sofware_pernah_dibuat', 'Software yang pernah dibuat', ['class' => 'control-label']) }}
-                        {{ Form::text('kk_sofware_pernah_dibuat', ($action == 'edit') ? $user->kk_sofware_pernah_dibuat : '', ['class' => 'form-control', 'placeholder' => 'Nama software', 'required']) }}
+                        {{ Form::text('kk_sofware_pernah_dibuat', ($action == 'edit') ? $userDetail->kk_sofware_pernah_dibuat : '', ['class' => 'form-control', 'placeholder' => 'Nama software', 'required']) }}
                         <span class="help-block">{{ ($errors->has('kk_sofware_pernah_dibuat') ? $errors->first('kk_sofware_pernah_dibuat') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('kk_sofware_pernah_dibuat_detail') ? 'has-error' : '') }}">
                         {{ Form::label('kk_sofware_pernah_dibuat_detail', 'Spesifikasi Masalah Software yang pernah dibuat', ['class' => 'control-label']) }}
-                        {{ Form::text('kk_sofware_pernah_dibuat_detail', ($action == 'edit') ? $user->kk_sofware_pernah_dibuat_detail : '', ['class' => 'form-control', 'placeholder' => 'Detail software yang pernah dibuat', 'required']) }}
+                        {{ Form::text('kk_sofware_pernah_dibuat_detail', ($action == 'edit') ? $userDetail->kk_sofware_pernah_dibuat_detail : '', ['class' => 'form-control', 'placeholder' => 'Detail software yang pernah dibuat', 'required']) }}
                         <span class="help-block">{{ ($errors->has('kk_sofware_pernah_dibuat_detail') ? $errors->first('kk_sofware_pernah_dibuat_detail') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('kk_sofware_pernah_dibuat_bahasa_pemograman') ? 'has-error' : '') }}">
                         {{ Form::label('kk_sofware_pernah_dibuat_bahasa_pemograman', 'Bahasa Pemograman Software yang pernah dibuat', ['class' => 'control-label']) }}
-                        {{ Form::text('kk_sofware_pernah_dibuat_bahasa_pemograman', ($action == 'edit') ? $user->kk_sofware_pernah_dibuat_bahasa_pemograman : '', ['class' => 'form-control', 'placeholder' => 'Bahasa Pemograman software yang pernah dibuat', 'required']) }}
+                        {{ Form::text('kk_sofware_pernah_dibuat_bahasa_pemograman', ($action == 'edit') ? $userDetail->kk_sofware_pernah_dibuat_bahasa_pemograman : '', ['class' => 'form-control', 'placeholder' => 'Bahasa Pemograman software yang pernah dibuat', 'required']) }}
                         <span class="help-block">{{ ($errors->has('kk_sofware_pernah_dibuat_bahasa_pemograman') ? $errors->first('kk_sofware_pernah_dibuat_bahasa_pemograman') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('kk_mengarang_buku') ? 'has-error' : '') }}">
@@ -502,26 +541,26 @@
                         </div>
                         <span class="help-block">{{ ($errors->has('kk_mengarang_buku') ? $errors->first('kk_mengarang_buku') : '') }}</span>
                     </div>
-                    <div class="input-karangan-buku-js">
+                    <div id="input-karangan-buku-js">
                         <div class="form-group {{ ($errors->has('kk_mengarang_buku_judul') ? 'has-error' : '') }}">
                             {{ Form::label('kk_mengarang_buku_judul', 'Jika Ya, Judul Buku', ['class' => 'control-label']) }}
-                            {{ Form::text('kk_mengarang_buku_judul', ($action == 'edit') ? $user->kk_mengarang_buku_judul : '', ['class' => 'form-control', 'placeholder' => 'Judul buku', 'required']) }}
+                            {{ Form::text('kk_mengarang_buku_judul', ($action == 'edit') ? $userDetail->kk_mengarang_buku_judul : '', ['class' => 'form-control', 'placeholder' => 'Judul buku', 'required']) }}
                             <span class="help-block">{{ ($errors->has('kk_mengarang_buku_judul') ? $errors->first('kk_mengarang_buku_judul') : '') }}</span>
                         </div>
                         <div class="form-group {{ ($errors->has('kk_mengarang_buku_penerbit') ? 'has-error' : '') }}">
                             {{ Form::label('kk_mengarang_buku_penerbit', 'Penerbit', ['class' => 'control-label']) }}
-                            {{ Form::text('kk_mengarang_buku_penerbit', ($action == 'edit') ? $user->kk_mengarang_buku_penerbit : '', ['class' => 'form-control', 'placeholder' => 'Nama Penerbit', 'required']) }}
+                            {{ Form::text('kk_mengarang_buku_penerbit', ($action == 'edit') ? $userDetail->kk_mengarang_buku_penerbit : '', ['class' => 'form-control', 'placeholder' => 'Nama Penerbit', 'required']) }}
                             <span class="help-block">{{ ($errors->has('kk_mengarang_buku_penerbit') ? $errors->first('kk_mengarang_buku_penerbit') : '') }}</span>
                         </div>
                         <div class="form-group {{ ($errors->has('kk_mengarang_buku_tahun_penerbit') ? 'has-error' : '') }}">
                             {{ Form::label('kk_mengarang_buku_tahun_penerbit', 'Tahun terbit buku', ['class' => 'control-label']) }}
-                            {{ Form::text('kk_mengarang_buku_tahun_penerbit', ($action == 'edit') ? $user->kk_mengarang_buku_tahun_penerbit : '', ['class' => 'form-control', 'onkeypress' => 'if ( isNaN( String.fromCharCode(event.keyCode) )) return false;', 'placeholder' => 'Tahun terbit buku', 'required']) }}
+                            {{ Form::text('kk_mengarang_buku_tahun_penerbit', ($action == 'edit') ? $userDetail->kk_mengarang_buku_tahun_penerbit : '', ['class' => 'form-control', 'onkeypress' => 'if ( isNaN( String.fromCharCode(event.keyCode) )) return false;', 'placeholder' => 'Tahun terbit buku', 'required']) }}
                             <span class="help-block">{{ ($errors->has('kk_mengarang_buku_tahun_penerbit') ? $errors->first('kk_mengarang_buku_tahun_penerbit') : '') }}</span>
                         </div>
                     </div>
                     <div class="form-group {{ ($errors->has('kk_keahlian_diluar_komputer') ? 'has-error' : '') }}">
                         {{ Form::label('kk_keahlian_diluar_komputer', 'Keahlian diluar komputer', ['class' => 'control-label']) }}
-                        {{ Form::textarea('kk_keahlian_diluar_komputer', ($action == 'edit') ? $user->kk_keahlian_diluar_komputer : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Deskripsikan', 'required']) }}
+                        {{ Form::textarea('kk_keahlian_diluar_komputer', ($action == 'edit') ? $userDetail->kk_keahlian_diluar_komputer : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Deskripsikan', 'required']) }}
                         <span class="help-block">{{ ($errors->has('kk_keahlian_diluar_komputer') ? $errors->first('kk_keahlian_diluar_komputer') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('olah_raga') ? 'has-error' : '') }}">
@@ -534,7 +573,7 @@
                     </div>
                     <div class="form-group {{ ($errors->has('macam_olahraga') ? 'has-error' : '') }}">
                         {{ Form::label('macam_olahraga', 'Macam olah raga', ['class' => 'control-label']) }}
-                        {{ Form::text('macam_olahraga', ($action == 'edit') ? $user->macam_olahraga : '', ['class' => 'form-control', 'placeholder' => 'Macam olah raga', 'required']) }}
+                        {{ Form::text('macam_olahraga', ($action == 'edit') ? $userDetail->macam_olahraga : '', ['class' => 'form-control', 'placeholder' => 'Macam olah raga', 'required']) }}
                         <span class="help-block">{{ ($errors->has('macam_olahraga') ? $errors->first('macam_olahraga') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('sakit_berat') ? 'has-error' : '') }}">
@@ -545,9 +584,9 @@
                         </div>
                         <span class="help-block">{{ ($errors->has('sakit_berat') ? $errors->first('sakit_berat') : '') }}</span>
                     </div>
-                    <div class="input-sakit-berat-js form-group {{ ($errors->has('macam_sakit_berat') ? 'has-error' : '') }}">
+                    <div id="input-sakit-berat-js" class="form-group {{ ($errors->has('macam_sakit_berat') ? 'has-error' : '') }}">
                         {{ Form::label('macam_sakit_berat', 'Jika Ya, Macamnya', ['class' => 'control-label']) }}
-                        {{ Form::text('macam_sakit_berat', ($action == 'edit') ? $user->macam_sakit_berat : '', ['class' => 'form-control', 'placeholder' => 'Macam sakit berat', 'required']) }}
+                        {{ Form::text('macam_sakit_berat', ($action == 'edit') ? $userDetail->macam_sakit_berat : '', ['class' => 'form-control', 'placeholder' => 'Macam sakit berat', 'required']) }}
                         <span class="help-block">{{ ($errors->has('macam_sakit_berat') ? $errors->first('macam_sakit_berat') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('kecelakaan_berat') ? 'has-error' : '') }}">
@@ -558,20 +597,20 @@
                         </div>
                         <span class="help-block">{{ ($errors->has('kecelakaan_berat') ? $errors->first('kecelakaan_berat') : '') }}</span>
                     </div>
-                    <div class="input-kecelakaan-js">
+                    <div id="input-kecelakaan-js">
                         <div class="form-group {{ ($errors->has('jenis_kecelakaan') ? 'has-error' : '') }}">
                             {{ Form::label('jenis_kecelakaan', 'Kecelakaan apa?', ['class' => 'control-label']) }}
-                            {{ Form::text('jenis_kecelakaan', ($action == 'edit') ? $user->jenis_kecelakaan : '', ['class' => 'form-control', 'placeholder' => 'Keterangan kecelakaan berat', 'required']) }}
+                            {{ Form::text('jenis_kecelakaan', ($action == 'edit') ? $userDetail->jenis_kecelakaan : '', ['class' => 'form-control', 'placeholder' => 'Keterangan kecelakaan berat', 'required']) }}
                             <span class="help-block">{{ ($errors->has('jenis_kecelakaan') ? $errors->first('jenis_kecelakaan') : '') }}</span>
                         </div>
                         <div class="form-group {{ ($errors->has('bila_mana_kecelakaan') ? 'has-error' : '') }}">
                             {{ Form::label('bila_mana_kecelakaan', 'Bilamana', ['class' => 'control-label']) }}
-                            {{ Form::text('bila_mana_kecelakaan', ($action == 'edit') ? $user->bila_mana_kecelakaan : '', ['class' => 'form-control', 'placeholder' => 'Bilamana', 'required']) }}
+                            {{ Form::text('bila_mana_kecelakaan', ($action == 'edit') ? $userDetail->bila_mana_kecelakaan : '', ['class' => 'form-control', 'placeholder' => 'Bilamana', 'required']) }}
                             <span class="help-block">{{ ($errors->has('bila_mana_kecelakaan') ? $errors->first('bila_mana_kecelakaan') : '') }}</span>
                         </div>
                         <div class="form-group {{ ($errors->has('akibat_kecelakaan') ? 'has-error' : '') }}">
                             {{ Form::label('akibat_kecelakaan', 'Apa akibatnya?', ['class' => 'control-label']) }}
-                            {{ Form::text('akibat_kecelakaan', ($action == 'edit') ? $user->akibat_kecelakaan : '', ['class' => 'form-control', 'placeholder' => 'Akibatnya ...', 'required']) }}
+                            {{ Form::text('akibat_kecelakaan', ($action == 'edit') ? $userDetail->akibat_kecelakaan : '', ['class' => 'form-control', 'placeholder' => 'Akibatnya ...', 'required']) }}
                             <span class="help-block">{{ ($errors->has('akibat_kecelakaan') ? $errors->first('akibat_kecelakaan') : '') }}</span>
                         </div>
                     </div>
@@ -598,12 +637,20 @@
         </div>
     </div>
 </div>
+
 @endsection
 
 @section('js')
 <script>
-    $('#intOnly2Anak').val(0);
-    $('.form-anak').hide();
+    @if($action == 'create')
+        $('#intOnly2Anak').val(0);
+        $('.form-anak').hide();
+    @endif
+
+    @if($action == 'edit' && $userDetail->status == 'Belum Menikah')
+        $('#isNotSingle').hide();
+    @endif
+    
     //paging
     $('.active-page-1').show();
     $('.active-page-2').hide();
@@ -693,19 +740,19 @@
         const html = `
                     <div class="form-nonformal-css d-flex align-items-center">
                         <div class="form-group col-3">
-                            <label for="anak" class="control-label">Macam</label>
+                            <label for="nonformal" class="control-label">Macam</label>
                             <input class="form-control" type="text" name="nonformal[]" id="">
                         </div>
                         <div class="form-group col-3">
-                            <label for="anak" class="control-label">Instansi</label>
+                            <label for="nonformal" class="control-label">Instansi</label>
                             <input class="form-control" type="text" name="nonformal[]" id="">
                         </div>
                         <div class="form-group col-3">
-                            <label for="anak" class="control-label">Tempat</label>
+                            <label for="nonformal" class="control-label">Tempat</label>
                             <input class="form-control" type="text" name="nonformal[]" id="">
                         </div>
                         <div class="form-group col-2">
-                            <label for="anak" class="control-label">Tahun</label>
+                            <label for="nonformal" class="control-label">Tahun</label>
                             <input class="form-control" type="text" name="nonformal[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;">
                         </div>
                         <span class="col-1" onClick="$(this).parent().remove()">
@@ -775,7 +822,6 @@
                         </span>
                     </div>`;
 
-        // $('.pendidikan-nonformal').html('');
         $('.pengalaman-bekerja').append(html);
         replacefeather();
     });
@@ -808,25 +854,32 @@
                         </span>
                     </div>`;
 
-        // $('.pendidikan-nonformal').html('');
         $('.pengalaman-mengajar').append(html);
         replacefeather();
     });
 
     $('input[type=radio][name=kk_menguasai_jaringan]').change(function(){
         if(this.value == 'Ya'){
-            $('.input-jaringan-dikuasai-js').show();
+            $('#input-jaringan-dikuasai-js').show();
+            $('#input-jaringan-dikuasai-js input[type=text]').each(function() {
+                $(this).attr('required', true);
+            });
         } else {
-            $('.input-jaringan-dikuasai-js').hide();
+            $('#input-jaringan-dikuasai-js').hide();
+            $('#input-jaringan-dikuasai-js').find('input[type=text]').removeAttr('required');
             $('[name=kk_jaringan_dikuasai]').val('');
         }
     });
 
     $('input[type=radio][name=kk_mengarang_buku]').change(function(){
         if(this.value == 'Ya'){
-            $('.input-karangan-buku-js').show();
+            $('#input-karangan-buku-js').show();
+            $('#input-karangan-buku-js input[type=text]').each(function() {
+                $(this).attr('required', true);
+            });
         } else {
-            $('.input-karangan-buku-js').hide();
+            $('#input-karangan-buku-js').hide();
+            $('#input-karangan-buku-js').find('input[type=text]').removeAttr('required');
             $('[name=kk_mengarang_buku_judul]').val('');
             $('[name=kk_mengarang_buku_penerbit]').val('');
             $('[name=kk_mengarang_buku_tahun_penerbit]').val('');
@@ -836,18 +889,26 @@
 
     $('input[type=radio][name=sakit_berat]').change(function(){
         if(this.value == 'Ya'){
-            $('.input-sakit-berat-js').show();
+            $('#input-sakit-berat-js').show();
+            $('#input-sakit-berat-js input[type=text]').each(function() {
+                $(this).attr('required', true);
+            });
         } else {
-            $('.input-sakit-berat-js').hide();
+            $('#input-sakit-berat-js').hide();
+            $('#input-sakit-berat-js').find('input[type=text]').removeAttr('required');
             $('[name=macam_sakit_berat]').val('');
         }
     });
 
     $('input[type=radio][name=kecelakaan_berat]').change(function(){
         if(this.value == 'Ya'){
-            $('.input-kecelakaan-js').show();
+            $('#input-kecelakaan-js').show();
+            $('#input-kecelakaan-js input[type=text]').each(function() {
+                $(this).attr('required', true);
+            });
         } else {
-            $('.input-kecelakaan-js').hide();
+            $('#input-kecelakaan-js').hide();
+            $('#input-kecelakaan-js').find('input[type=text]').removeAttr('required');
             $('[name=jenis_kecelakaan]').val('');
             $('[name=bila_mana_kecelakaan]').val('');
             $('[name=akibat_kecelakaan]').val('');

@@ -22,12 +22,12 @@ class CreateUsersDetailTable extends Migration
             $table->date('birth_date');
             $table->text('address');
             $table->string('address_city', 50);
-            $table->smallInteger('address_postal_code');
-            $table->mediumInteger('phone_office');
-            $table->mediumInteger('phone_mobile');
-            $table->mediumInteger('phone_home');
+            $table->bigInteger('address_postal_code');
+            $table->bigInteger('phone_office');
+            $table->bigInteger('phone_mobile');
+            $table->bigInteger('phone_home');
             $table->enum('religion', ['Islam', 'Katholik', 'Kristen', 'Budha', 'Hindu']);
-            $table->mediumInteger('card_identity_number');
+            $table->bigInteger('card_identity_number');
             $table->string('number_of_siblings', 5);
             $table->enum('status', ['Menikah', 'Belum Menikah', 'Janda', 'Duda']);
             $table->string('nama_istri_suami', 32);
@@ -36,7 +36,7 @@ class CreateUsersDetailTable extends Migration
             $table->text('anak'); // di isi array object nama,jenis_kelamin,tanggal_lahir,pekerjaan_pendidikan
             $table->string('nama_darurat', 32);
             $table->text('address_darurat');
-            $table->mediumInteger('tlp_darurat');
+            $table->bigInteger('tlp_darurat');
             $table->string('nama_ayah', 32);
             $table->string('pekerjaan_ayah', 32);
             $table->text('alamat_ayah');

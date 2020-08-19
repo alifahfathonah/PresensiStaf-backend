@@ -92,10 +92,16 @@ class UserController extends Controller
     }
 
     public function postEmployee() {
+
+        
+
+        // return response()->json(request()->all());
+
         $user = new User;
         $user->name = request()->name;
         $user->email = request()->email;
-        $user->password = Hash::make(request()->password);
+        // $user->password = Hash::make(request()->password);
+        $user->password = Hash::make('12345678');
 
         $user->save();
 
@@ -105,9 +111,10 @@ class UserController extends Controller
         $userDetail->nick_name = request()->nick_name;
         $userDetail->birth_city = request()->birth_city;
 
-        $birthDate = Carbon::parse(request()->birth_date);
+        // $birthDate = Carbon::parse(request()->birth_date);
 
-        $userDetail->birth_date = $birthDate->format('YYYY-MM-DD');
+        // $userDetail->birth_date = $birthDate->format('YYYY-MM-DD');
+        $userDetail->birth_date = request()->birth_date;
         $userDetail->address = request()->address;
         $userDetail->address_city = request()->address_city;
         $userDetail->address_postal_code = request()->address_postal_code;
@@ -115,13 +122,25 @@ class UserController extends Controller
         $userDetail->phone_mobile = request()->phone_mobile;
         $userDetail->phone_home = request()->phone_home;
         $userDetail->religion = request()->religion;
-        $userDetail->card_identity_number = request()->card_identity_number;
+        $userDetail->card_identity_number = substr(request()->card_identity_number, 0, 16);
         $userDetail->number_of_siblings = request()->number_of_siblings;
         $userDetail->status = request()->status;
         $userDetail->nama_istri_suami = request()->nama_istri_suami;
         $userDetail->pekerjaan_istri_suami = request()->pekerjaan_istri_suami;
         $userDetail->jumlah_anak = request()->jumlah_anak;
-        $userDetail->anak = request()->anak;
+
+        $allAnak = [];
+
+        for($i=0;$i < count(request()->anak);){
+            array_push($allAnak, json_encode([
+                'nama' => request()->anak[$i++],
+                'jenis_kelamin' => request()->anak[$i++],
+                'tgl_lahir' => request()->anak[$i++],
+                'pendidikan_pekerjaan' => request()->anak[$i++],
+            ]));
+        }
+
+        $userDetail->anak = request()->jumlah_anak != 0 ? json_encode($allAnak) : null;
         $userDetail->nama_darurat = request()->nama_darurat;
         $userDetail->address_darurat = request()->address_darurat;
         $userDetail->tlp_darurat = request()->tlp_darurat;
@@ -131,11 +150,82 @@ class UserController extends Controller
         $userDetail->nama_ibu = request()->nama_ibu;
         $userDetail->pekerjaan_ibu = request()->pekerjaan_ibu;
         $userDetail->alamat_ibu = request()->alamat_ibu;
-        $userDetail->pendidikan_formal = request()->pendidikan_formal;
-        $userDetail->pendidikan_nonformal = request()->pendidikan_nonformal;
-        $userDetail->kehidupan_berorganisasi = request()->kehidupan_berorganisasi;
-        $userDetail->pengalaman_bekerja = request()->pengalaman_bekerja;
-        $userDetail->pengalaman_mengajar = request()->pengalaman_mengajar;
+
+        $allPendFormal = [];
+        $mergePendFormal = array_merge(request()->pendNormalSd,
+        request()->pendNormalSmp,
+        request()->pendNormalSlta,
+        request()->pendNormalAkadUniv,
+        request()->pendNormalUniv);
+
+        for($i=0;$i < count($mergePendFormal);){
+            array_push($allPendFormal, json_encode([
+                'nama_sekolah' => $mergePendFormal[$i++],
+                'tempat' => $mergePendFormal[$i++],
+                'tahun_lulus' => $mergePendFormal[$i++],
+            ]));
+        }
+
+        $userDetail->pendidikan_formal = json_encode($allPendFormal);
+
+        if(request()->nonformal[0] != null){
+            $allPendNonFormal = [];
+            for($i=0;$i < count(request()->nonformal);){
+                array_push($allPendNonFormal, json_encode([
+                    'macam' => request()->nonformal[$i++],
+                    'instansi' => request()->nonformal[$i++],
+                    'tempat' => request()->nonformal[$i++],
+                    'tahun' => request()->nonformal[$i++],
+                ]));
+            }
+    
+            $userDetail->pendidikan_nonformal = json_encode($allPendNonFormal);
+        }
+
+        if(request()->organisasi[0] != null){
+            $allOrganisasi = [];
+            for($i=0;$i < count(request()->organisasi);){
+                array_push($allOrganisasi, json_encode([
+                    'nama_organisasi' => request()->organisasi[$i++],
+                    'jabatan' => request()->organisasi[$i++],
+                    'tahun' => request()->organisasi[$i++],
+                    'tempat' => request()->organisasi[$i++],
+                ]));
+            }
+
+            $userDetail->kehidupan_berorganisasi = json_encode($allOrganisasi);
+        }
+
+        if(request()->pengalamanKerja[0] != null){
+            $allpengalamanKerja = [];
+            for($i=0;$i < count(request()->pengalamanKerja);){
+                array_push($allpengalamanKerja, json_encode([
+                    'nama_perusahaan' => request()->pengalamanKerja[$i++],
+                    'jabatan' => request()->pengalamanKerja[$i++],
+                    'tahun_awal' => request()->pengalamanKerja[$i++],
+                    'tahun_akhir' => request()->pengalamanKerja[$i++],
+                    'alasan' => request()->pengalamanKerja[$i++],
+                ]));
+            }
+
+            $userDetail->pengalaman_bekerja = json_encode($allpengalamanKerja);
+        }
+
+        if(request()->pengalamanKerja[0] != null){
+            $allpengalamanMengajar = [];
+            for($i=0;$i < count(request()->pengalamanMengajar);){
+                array_push($allpengalamanMengajar, json_encode([
+                    'nama_lembaga' => request()->pengalamanMengajar[$i++],
+                    'materi' => request()->pengalamanMengajar[$i++],
+                    'tahun_awal' => request()->pengalamanMengajar[$i++],
+                    'tahun_akhir' => request()->pengalamanMengajar[$i++],
+                    'alasan' => request()->pengalamanMengajar[$i++],
+                ]));
+            }
+            $userDetail->pengalaman_mengajar = json_encode($allpengalamanMengajar);
+        }
+
+
         $userDetail->kk_mengajar_matkul = request()->kk_mengajar_matkul;
         $userDetail->kk_software_dikuasai = request()->kk_software_dikuasai;
         $userDetail->kk_bahasa_pemograman = request()->kk_bahasa_pemograman;
@@ -170,7 +260,15 @@ class UserController extends Controller
 
     public function getDetailEmployee($id) {
         $user = User::find($id);
-        $userDetail = UsersDetail::where('users_id',$user->id);
+        $userDetail = UsersDetail::where('users_id',$user->id)->first();
+
+        $userDetail->anak = json_decode($userDetail->anak);
+        $userDetail->pendidikan_formal = json_decode($userDetail->pendidikan_formal);
+        $userDetail->pendidikan_nonformal = json_decode($userDetail->pendidikan_nonformal);
+        $userDetail->kehidupan_berorganisasi = json_decode($userDetail->kehidupan_berorganisasi);
+        $userDetail->pengalaman_bekerja = json_decode($userDetail->pengalaman_bekerja);
+        $userDetail->pengalaman_mengajar = json_decode($userDetail->pengalaman_mengajar);
+
         if($userDetail){
             return view('employee.form', ['user' => $user, 'userDetail' => $userDetail, 'action' => 'edit']);
         }
@@ -256,7 +354,8 @@ class UserController extends Controller
 
     public function apiEmployee(){
         $item = User::select('users.id', 'users.name', 'users.email', 'users_detail.phone_mobile')
-                    ->leftJoin('users_detail', 'users_detail.id', '=', 'users.id')
+                    ->leftJoin('users_detail', 'users_detail.users_id', '=', 'users.id')
+                    ->orderBy('users_detail.created_at', 'DESC')
                     ->get();
 
         return Datatables::of($item)
