@@ -136,27 +136,6 @@
                     @if($action == 'create')
                         <div class="form-group form-anak {{ ($errors->has('anak') ? 'has-error' : '') }}">
                             {{ Form::label('anak', 'Keterangan Anak', ['class' => 'control-label']) }}
-                            <div class="form-anak-dynamic d-flex">
-                                <div class="form-group col-3">
-                                    {{ Form::label('anak', 'Nama anak', ['class' => 'control-label']) }}
-                                    <input class="form-control" type="text" name="anak[]" id="">
-                                </div>
-                                <div class="form-group col-3">
-                                    {{ Form::label('anak', 'Jenis Kelamin', ['class' => 'control-label']) }}
-                                    <select class="form-control" name="anak[]" id="">
-                                        <option value="l">L</option>
-                                        <option value="p">P</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-3">
-                                    {{ Form::label('anak', 'Tanggal lahir', ['class' => 'control-label']) }}
-                                    <input class="dob form-control" type="text" name="anak[]" id="" readonly>
-                                </div>
-                                <div class="form-group col-3">
-                                    {{ Form::label('anak', 'Pekerjaan / Pendidikan', ['class' => 'control-label']) }}
-                                    <input class="form-control" type="text" name="anak[]" id="">
-                                </div>
-                            </div>
                             <div class="add-anak">
                                 
                             </div>
