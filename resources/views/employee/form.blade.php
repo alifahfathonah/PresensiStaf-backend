@@ -11,8 +11,8 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div>Tambah Staf</div>
                 </div>
-                @if(isset($mitra))
-                {!! Form::model($mitra,['route' => ['employee.put', $mitra->id_kyc_mitras],
+                @if(isset($user))
+                {!! Form::model($user,['route' => ['employee.put', $user->id],
                 'method'=>'put', "enctype"=>"multipart/form-data", "id"=>"form"]) !!}
                 @else
                 {!! Form::open(['route'=>'employee.post', "enctype"=>"multipart/form-data",
@@ -355,6 +355,7 @@
                     <div class="mt-3">
                         <h4>Pendidikan Non - Formal</h4>
                         <hr>
+                        @if($action == 'create')
                         <div class="d-flex">
                             <div class="form-group col-3">
                                 <label for="nonformal" class="control-label">Macam</label>
@@ -378,6 +379,38 @@
                         </div>
                         <div class="pendidikan-nonformal">
                         </div>
+                        @else
+                        <div class="pendidikan-nonformal">
+                            @if($userDetail->pendidikan_nonformal != 0)
+                                @foreach($userDetail->pendidikan_nonformal as $nonformal)
+                                @php
+                                    $nonformal = json_decode($nonformal);
+                                @endphp
+                                <div class="form-nonformal-css d-flex align-items-center">
+                                    <div class="form-group col-3">
+                                        <label for="nonformal" class="control-label">Macam</label>
+                                        <input class="form-control" type="text" name="nonformal[]" id="" value="{{ $nonformal->macam }}">
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label for="nonformal" class="control-label">Instansi</label>
+                                        <input class="form-control" type="text" name="nonformal[]" id="" value="{{ $nonformal->instansi }}">
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label for="nonformal" class="control-label">Tempat</label>
+                                        <input class="form-control" type="text" name="nonformal[]" id="" value="{{ $nonformal->tempat }}">
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <label for="nonformal" class="control-label">Tahun</label>
+                                        <input class="form-control" type="text" name="nonformal[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" value="{{ $nonformal->tahun }}">
+                                    </div>
+                                    <span class="col-1" onClick="$(this).parent().remove()">
+                                        <i data-feather="x"></i>
+                                    </span>
+                                </div>
+                                @endforeach
+                            @endif
+                        </div>
+                        @endif
                         <div class="text-center mt-2">
                             <span class="btn btn-success btn-sm btn-add-nonformal">Tambah Pendidikan</span>
                         </div>
@@ -386,6 +419,7 @@
                     <div class="mt-4">
                         <h4>Kehidupan Berorganisasi</h4>
                         <hr>
+                        @if($action == 'create')
                         <div class="d-flex">
                             <div class="form-group col-3">
                                 <label for="organisasi" class="control-label">Nama Organisasi</label>
@@ -408,6 +442,39 @@
                             </div>
                         </div>
                         <div class="kehidupan-berorganisasi"></div>
+                        @else
+                        <div class="kehidupan-berorganisasi">
+
+                            @if($userDetail->kehidupan_berorganisasi != 0)
+                                @foreach($userDetail->kehidupan_berorganisasi as $org)
+                                    @php
+                                        $org = json_decode($org);
+                                    @endphp
+                                <div class="d-flex align-items-center">
+                                    <div class="form-group col-3">
+                                        <label for="organisasi" class="control-label">Nama Organisasi</label>
+                                        <input class="form-control" type="text" name="organisasi[]" id="" value="{{ $org->nama_organisasi }}">
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label for="organisasi" class="control-label">Jabatan</label>
+                                        <input class="form-control" type="text" name="organisasi[]" id="" value="{{ $org->jabatan }}">
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <label for="organisasi" class="control-label">Tahun</label>
+                                        <input class="form-control" type="text" name="organisasi[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" value="{{ $org->tahun }}">
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label for="organisasi" class="control-label">Tempat</label>
+                                        <input class="form-control" type="text" name="organisasi[]" value="{{ $org->tempat }}">
+                                    </div>
+                                    <span class="col-1" onClick="$(this).parent().remove()">
+                                        <i data-feather="x"></i>
+                                    </span>
+                                </div>
+                                @endforeach
+                            @endif
+                        </div>
+                        @endif
                         <div class="text-center mt-2">
                             <span class="btn btn-success btn-sm btn-add-berorganisasi">Tambah Organisasi</span>
                         </div>
@@ -416,6 +483,7 @@
                     <div class="mt-4">
                         <h4>Pengalaman Bekerja</h4>
                         <hr>
+                        @if($action == 'create')
                         <div class="d-flex">
                             <div class="form-group col-2">
                                 <label for="pengalamanKerja" class="control-label">Perusahaan</label>
@@ -442,6 +510,43 @@
                             </div>
                         </div>
                         <div class="pengalaman-bekerja"></div>
+                        @else
+                        <div class="pengalaman-bekerja">
+
+                            @if($userDetail->pengalaman_bekerja != 0)
+                                @foreach($userDetail->pengalaman_bekerja as $job)
+                                    @php
+                                        $job = json_decode($job);
+                                    @endphp
+                                <div class="d-flex align-items-center">
+                                    <div class="form-group col-2">
+                                        <label for="pengalamanKerja" class="control-label">Perusahaan</label>
+                                        <input class="form-control" type="text" name="pengalamanKerja[]" id="" value="{{ $job->nama_perusahaan }}">
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <label for="pengalamanKerja" class="control-label">Jabatan</label>
+                                        <input class="form-control" type="text" name="pengalamanKerja[]" id="" value="{{ $job->jabatan }}">
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <label for="pengalamanKerja" class="control-label">Tahun Awal</label>
+                                        <input class="form-control" type="text" name="pengalamanKerja[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" value="{{ $job->tahun_awal }}">
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <label for="pengalamanKerja" class="control-label">Tahun Akhir</label>
+                                        <input class="form-control" type="text" name="pengalamanKerja[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" value="{{ $job->tahun_akhir }}">
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label for="pengalamanKerja" class="control-label">Alasan Berhenti</label>
+                                        <input class="form-control" type="text" name="pengalamanKerja[]" value="{{ $job->alasan }}">
+                                    </div>
+                                    <span class="col-1" onClick="$(this).parent().remove()">
+                                        <i data-feather="x"></i>
+                                    </span>
+                                </div>
+                                @endforeach
+                            @endif
+                        </div>
+                        @endif
                         <div class="text-center mt-2">
                             <span class="btn btn-success btn-sm btn-add-bekerja">Tambah Pengalaman</span>
                         </div>
@@ -450,6 +555,7 @@
                     <div class="mt-4">
                         <h4>Pengalaman Mengajar</h4>
                         <hr>
+                        @if($action == 'create')
                         <div class="d-flex">
                             <div class="form-group col-2">
                                 <label for="pengalamanMengajar" class="control-label">Lembaga</label>
@@ -476,6 +582,42 @@
                             </div>
                         </div>
                         <div class="pengalaman-mengajar"></div>
+                        @else
+                        <div class="pengalaman-mengajar">
+                            @if($userDetail->pengalaman_mengajar != 0)
+                                @foreach($userDetail->pengalaman_mengajar as $teach)
+                                    @php
+                                        $teach = json_decode($teach);
+                                    @endphp
+                                <div class="d-flex align-items-center">
+                                    <div class="form-group col-2">
+                                        <label for="pengalamanMengajar" class="control-label">Lembaga</label>
+                                        <input class="form-control" type="text" name="pengalamanMengajar[]" id="" value="{{ $teach->nama_lembaga }}">
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <label for="pengalamanMengajar" class="control-label">Materi</label>
+                                        <input class="form-control" type="text" name="pengalamanMengajar[]" id="" value="{{ $teach->materi }}">
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <label for="pengalamanMengajar" class="control-label">Tahun Awal</label>
+                                        <input class="form-control" type="text" name="pengalamanMengajar[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" value="{{ $teach->tahun_awal }}">
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <label for="pengalamanMengajar" class="control-label">Tahun Akhir</label>
+                                        <input class="form-control" type="text" name="pengalamanMengajar[]" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;" value="{{ $teach->tahun_akhir }}">
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label for="pengalamanMengajar" class="control-label">Alasan Berhenti</label>
+                                        <input class="form-control" type="text" name="pengalamanMengajar[]" value="{{ $teach->alasan }}">
+                                    </div>
+                                    <span class="col-1" onClick="$(this).parent().remove()">
+                                        <i data-feather="x"></i>
+                                    </span>
+                                </div>
+                                @endforeach
+                            @endif
+                        </div>
+                        @endif
                         <div class="text-center mt-2">
                             <span class="btn btn-success btn-sm btn-add-mengajar">Tambah Pengalaman</span>
                         </div>
@@ -508,8 +650,8 @@
                     <div class="form-group {{ ($errors->has('kk_menguasai_jaringan') ? 'has-error' : '') }}">
                         {{ Form::label('kk_menguasai_jaringan', 'Menguasai Jaringan Komputer', ['class' => 'control-label']) }}
                         <div class="d-flex align-items-center">
-                            {{ Form::radio('kk_menguasai_jaringan', 'Ya', true, ['class' => 'mr-2']) }} <span class="mr-2">Ya</span>
-                            {{ Form::radio('kk_menguasai_jaringan', 'Tidak', false, ['class' => 'mr-2']) }} <span class="mr-2">Tidak</span>
+                            {{ Form::radio('kk_menguasai_jaringan', 'Ya', $action == 'edit' ? $userDetail->kk_menguasai_jaringan == 'Ya' ? true : false : true, ['class' => 'mr-2']) }} <span class="mr-2">Ya</span>
+                            {{ Form::radio('kk_menguasai_jaringan', 'Tidak', $action == 'edit' ? $userDetail->kk_menguasai_jaringan == 'Tidak' ? true : false : false, ['class' => 'mr-2']) }} <span class="mr-2">Tidak</span>
                         </div>
                         <span class="help-block">{{ ($errors->has('kk_menguasai_jaringan') ? $errors->first('kk_menguasai_jaringan') : '') }}</span>
                     </div>
@@ -536,8 +678,8 @@
                     <div class="form-group {{ ($errors->has('kk_mengarang_buku') ? 'has-error' : '') }}">
                         {{ Form::label('kk_mengarang_buku', 'Pernah mengarang buku?', ['class' => 'control-label']) }}
                         <div class="d-flex align-items-center">
-                            {{ Form::radio('kk_mengarang_buku', 'Ya', true, ['class' => 'mr-2']) }} <span class="mr-2">Ya</span>
-                            {{ Form::radio('kk_mengarang_buku', 'Tidak', false, ['class' => 'mr-2']) }} <span class="mr-2">Tidak</span>
+                            {{ Form::radio('kk_mengarang_buku', 'Ya', $action == 'edit' ? $userDetail->kk_mengarang_buku == 'Ya' ? true : false : true, ['class' => 'mr-2']) }} <span class="mr-2">Ya</span>
+                            {{ Form::radio('kk_mengarang_buku', 'Tidak', $action == 'edit' ? $userDetail->kk_mengarang_buku == 'Tidak' ? true : false : false, ['class' => 'mr-2']) }} <span class="mr-2">Tidak</span>
                         </div>
                         <span class="help-block">{{ ($errors->has('kk_mengarang_buku') ? $errors->first('kk_mengarang_buku') : '') }}</span>
                     </div>
@@ -566,8 +708,8 @@
                     <div class="form-group {{ ($errors->has('olah_raga') ? 'has-error' : '') }}">
                         {{ Form::label('olah_raga', 'Olah Raga', ['class' => 'control-label']) }}
                         <div class="d-flex align-items-center">
-                            {{ Form::radio('olah_raga', 'Aktif', true, ['class' => 'mr-2']) }} <span class="mr-2">Aktif</span>
-                            {{ Form::radio('olah_raga', 'Pasif', false, ['class' => 'mr-2']) }} <span class="mr-2">Pasif</span>
+                            {{ Form::radio('olah_raga', 'Aktif', $action == 'edit' ? $userDetail->olah_raga == 'Aktif' ? true : false : true, ['class' => 'mr-2']) }} <span class="mr-2">Aktif</span>
+                            {{ Form::radio('olah_raga', 'Pasif', $action == 'edit' ? $userDetail->olah_raga == 'Pasif' ? true : false : false, ['class' => 'mr-2']) }} <span class="mr-2">Pasif</span>
                         </div>
                         <span class="help-block">{{ ($errors->has('olah_raga') ? $errors->first('olah_raga') : '') }}</span>
                     </div>
@@ -579,8 +721,8 @@
                     <div class="form-group {{ ($errors->has('sakit_berat') ? 'has-error' : '') }}">
                         {{ Form::label('sakit_berat', 'Pernah sakit berat?', ['class' => 'control-label']) }}
                         <div class="d-flex align-items-center">
-                            {{ Form::radio('sakit_berat', 'Ya', true, ['class' => 'mr-2']) }} <span class="mr-2">Ya</span>
-                            {{ Form::radio('sakit_berat', 'Tidak', false, ['class' => 'mr-2']) }} <span class="mr-2">Tidak</span>
+                            {{ Form::radio('sakit_berat', 'Ya', $action == 'edit' ? $userDetail->sakit_berat == 'Ya' ? true : false : true, ['class' => 'mr-2']) }} <span class="mr-2">Ya</span>
+                            {{ Form::radio('sakit_berat', 'Tidak', $action == 'edit' ? $userDetail->sakit_berat == 'Tidak' ? true : false : false, ['class' => 'mr-2']) }} <span class="mr-2">Tidak</span>
                         </div>
                         <span class="help-block">{{ ($errors->has('sakit_berat') ? $errors->first('sakit_berat') : '') }}</span>
                     </div>
@@ -592,8 +734,8 @@
                     <div class="form-group {{ ($errors->has('kecelakaan_berat') ? 'has-error' : '') }}">
                         {{ Form::label('kecelakaan_berat', 'Pernah mengalami kecelakaan berat?', ['class' => 'control-label']) }}
                         <div class="d-flex align-items-center">
-                            {{ Form::radio('kecelakaan_berat', 'Ya', true, ['class' => 'mr-2']) }} <span class="mr-2">Ya</span>
-                            {{ Form::radio('kecelakaan_berat', 'Tidak', false, ['class' => 'mr-2']) }} <span class="mr-2">Tidak</span>
+                            {{ Form::radio('kecelakaan_berat', 'Ya', $action == 'edit' ? $userDetail->kecelakaan_berat == 'Ya' ? true : false : true, ['class' => 'mr-2']) }} <span class="mr-2">Ya</span>
+                            {{ Form::radio('kecelakaan_berat', 'Tidak', $action == 'edit' ? $userDetail->kecelakaan_berat == 'Tidak' ? true : false : false, ['class' => 'mr-2']) }} <span class="mr-2">Tidak</span>
                         </div>
                         <span class="help-block">{{ ($errors->has('kecelakaan_berat') ? $errors->first('kecelakaan_berat') : '') }}</span>
                     </div>
@@ -650,7 +792,35 @@
     @if($action == 'edit' && $userDetail->status == 'Belum Menikah')
         $('#isNotSingle').hide();
     @endif
+
+    @if($action == 'edit' && $userDetail->kk_menguasai_jaringan == 'Tidak')
+        $('#input-jaringan-dikuasai-js').hide();
+        $('#input-jaringan-dikuasai-js').find('input[type=text]').removeAttr('required');
+        $('[name=kk_jaringan_dikuasai]').val('');
+    @endif
+
+    @if($action == 'edit' && $userDetail->kk_mengarang_buku == 'Tidak')
+    $('#input-karangan-buku-js').hide();
+    $('#input-karangan-buku-js').find('input[type=text]').removeAttr('required');
+    $('[name=kk_mengarang_buku_judul]').val('');
+    $('[name=kk_mengarang_buku_penerbit]').val('');
+    $('[name=kk_mengarang_buku_tahun_penerbit]').val('');
+    @endif
     
+    @if($action == 'edit' && $userDetail->sakit_berat == 'Tidak')
+        $('#input-sakit-berat-js').hide();
+        $('#input-sakit-berat-js').find('input[type=text]').removeAttr('required');
+        $('[name=macam_sakit_berat]').val('');
+    @endif
+
+    @if($action == 'edit' && $userDetail->kecelakaan_berat == 'Tidak')
+        $('#input-kecelakaan-js').hide();
+        $('#input-kecelakaan-js').find('input[type=text]').removeAttr('required');
+        $('[name=jenis_kecelakaan]').val('');
+        $('[name=bila_mana_kecelakaan]').val('');
+        $('[name=akibat_kecelakaan]').val('');
+    @endif
+
     //paging
     $('.active-page-1').show();
     $('.active-page-2').hide();
