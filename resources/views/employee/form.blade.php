@@ -166,32 +166,38 @@
                             {{ Form::label('anak', 'Keterangan Anak', ['class' => 'control-label']) }}
                             
                             @if($userDetail->jumlah_anak != 0)
-                                @foreach($userDetail->anak as $anak)
-                                @php
-                                    $anak = json_decode($anak);
-                                @endphp
-                                <div class="form-anak-dynamic d-flex">
-                                    <div class="form-group col-3">
-                                        <label for="anak" class="control-label">Nama anak</label>
-                                        <input class="form-control" type="text" name="anak[]" value="{{ $anak->nama }}">
+                                <div class="add-anak">
+                                    @foreach($userDetail->anak as $anak)
+                                    @php
+                                        $anak = json_decode($anak);
+                                    @endphp
+                                    <div class="form-anak-dynamic d-flex">
+                                        <div class="form-group col-3">
+                                            <label for="anak" class="control-label">Nama anak</label>
+                                            <input class="form-control" type="text" name="anak[]" value="{{ $anak->nama }}">
+                                        </div>
+                                        <div class="form-group col-3">
+                                            <label for="anak" class="control-label">Jenis Kelamin</label>
+                                            <select class="form-control" name="anak[]" id="">
+                                                <option value="l" {{ $anak->nama == 'l' ? 'selected' : '' }}>L</option>
+                                                <option value="p" {{ $anak->nama == 'p' ? 'selected' : '' }}>P</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-3">
+                                            <label for="anak" class="control-label">Tanggal lahir</label>
+                                            <input class="dob form-control" type="text" name="anak[]"  value="{{ $anak->tgl_lahir }}" readonly="">
+                                        </div>
+                                        <div class="form-group col-3">
+                                            <label for="anak" class="control-label">Pekerjaan / Pendidikan</label>
+                                            <input class="form-control" type="text" name="anak[]" value="{{ $anak->pendidikan_pekerjaan }}">
+                                        </div>
                                     </div>
-                                    <div class="form-group col-3">
-                                        <label for="anak" class="control-label">Jenis Kelamin</label>
-                                        <select class="form-control" name="anak[]" id="">
-                                            <option value="l" {{ $anak->nama == 'l' ? 'selected' : '' }}>L</option>
-                                            <option value="p" {{ $anak->nama == 'p' ? 'selected' : '' }}>P</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-3">
-                                        <label for="anak" class="control-label">Tanggal lahir</label>
-                                        <input class="dob form-control" type="text" name="anak[]"  value="{{ $anak->tgl_lahir }}" readonly="">
-                                    </div>
-                                    <div class="form-group col-3">
-                                        <label for="anak" class="control-label">Pekerjaan / Pendidikan</label>
-                                        <input class="form-control" type="text" name="anak[]" value="{{ $anak->pendidikan_pekerjaan }}">
-                                    </div>
+                                    @endforeach
                                 </div>
-                                @endforeach
+                            @else
+                            <div class="add-anak">
+                                
+                            </div>
                             @endif
                         </div>
                     @endif
@@ -877,9 +883,10 @@
                     </div>`;
 
         $('.add-anak').html('');
-        for(var i = 1;i < $('#intOnly2Anak').val();i++){
+        for(var i = 0;i < Number($('#intOnly2Anak').val());i++){
             $('.add-anak').append(html);
         }
+        dob();
     }
 
     var page = 1;

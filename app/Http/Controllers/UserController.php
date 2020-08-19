@@ -131,13 +131,15 @@ class UserController extends Controller
 
         $allAnak = [];
 
-        for($i=0;$i < count(request()->anak);){
-            array_push($allAnak, json_encode([
-                'nama' => request()->anak[$i++],
-                'jenis_kelamin' => request()->anak[$i++],
-                'tgl_lahir' => request()->anak[$i++],
-                'pendidikan_pekerjaan' => request()->anak[$i++],
-            ]));
+        if(request()->jumlah_anak != 0) {
+            for($i=0;$i < count(request()->anak);){
+                array_push($allAnak, json_encode([
+                    'nama' => request()->anak[$i++],
+                    'jenis_kelamin' => request()->anak[$i++],
+                    'tgl_lahir' => request()->anak[$i++],
+                    'pendidikan_pekerjaan' => request()->anak[$i++],
+                ]));
+            }
         }
 
         $userDetail->anak = request()->jumlah_anak != 0 ? json_encode($allAnak) : null;
@@ -310,14 +312,15 @@ class UserController extends Controller
         $userDetail->jumlah_anak = request()->jumlah_anak;
 
         $allAnak = [];
-
-        for($i=0;$i < count(request()->anak);){
-            array_push($allAnak, json_encode([
-                'nama' => request()->anak[$i++],
-                'jenis_kelamin' => request()->anak[$i++],
-                'tgl_lahir' => request()->anak[$i++],
-                'pendidikan_pekerjaan' => request()->anak[$i++],
-            ]));
+        if(request()->jumlah_anak != 0) {
+            for($i=0;$i < count(request()->anak);){
+                array_push($allAnak, json_encode([
+                    'nama' => request()->anak[$i++],
+                    'jenis_kelamin' => request()->anak[$i++],
+                    'tgl_lahir' => request()->anak[$i++],
+                    'pendidikan_pekerjaan' => request()->anak[$i++],
+                ]));
+            }
         }
 
         $userDetail->anak = request()->jumlah_anak != 0 ? json_encode($allAnak) : null;
