@@ -19,11 +19,25 @@
                 "id"=>"form"]) !!}
                 @endif
                 <div class="card-body active-page-1">
-                    <div class="form-group {{ ($errors->has('name') ? 'has-error' : '') }}">
+                    <div class="row">
+                    <div class="form-group col-md-6 {{ ($errors->has('name') ? 'has-error' : '') }}">
                         {{ Form::label('name', 'Nama lengkap', ['class' => 'control-label']) }}
                         {{ Form::text('name', ($action == 'edit') ? $user->name : '', ['class' => 'form-control', 'placeholder' => 'Nama karyawan', 'required']) }}
                         <span class="help-block">{{ ($errors->has('name') ? $errors->first('name') : '') }}</span>
                     </div>
+                    <div class="form-group col-md-6 {{ ($errors->has('foto') ? 'has-error' : '') }}">
+                        {{ Form::label('foto', 'Foto', ['class' => 'control-label']) }}
+                        {{ Form::file('foto', ['class' => 'form-control']) }}
+
+                        <span class="help-block">{{ ($errors->has('foto') ? $errors->first('foto') : '') }}</span>
+                        @if($action == 'edit' && $userDetail->foto !== null)
+                        <span class="help-block">{{ ($errors->has('foto') ? $errors->first('foto') : 'Kosongkan bila tidak ingin mengganti foto') }}</span>
+                            <div class="text-center mt-2">
+                                <img src="{{ asset('foto/employee/' . $userDetail->foto) }}" style="height: 250px" alt="" srcset="">
+                            </div>
+                        @endif
+                    </div>
+                </div>
                     <div class="form-group {{ ($errors->has('nick_name') ? 'has-error' : '') }}">
                         {{ Form::label('nick_name', 'Nama panggilan', ['class' => 'control-label']) }}
                         {{ Form::text('nick_name', ($action == 'edit') ? $userDetail->nick_name : '', ['class' => 'form-control', 'placeholder' => 'Nama panggilan', 'required']) }}

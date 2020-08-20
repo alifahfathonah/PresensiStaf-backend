@@ -55,6 +55,23 @@ class AttendanceController extends Controller
         $token = JWTAuth::getToken();
         $user = JWTAuth::toUser($token);
 
+        if(request()->hasFile('foto')){
+            $file = request()->file('foto');
+     
+            $nama_file = $user->id.'.'.$file->getClientOriginalExtension();
+     
+            $tujuan_upload = 'foto/employee_temp';
+            $file->move($tujuan_upload,$nama_file);
+
+            // compare image with service face recognition
+                // put condition here
+            // compare image with service face recognition
+
+            // if authorized unlink / delete image temporary
+            // unlink($tujuan_upload.'/'.$nama_file);
+            return response()->json(['file' => $nama_file]);
+        }
+
         if($radius < $entity->radius){
             // out of area
             $attendance = Attendance::where("user_id", $user->id)

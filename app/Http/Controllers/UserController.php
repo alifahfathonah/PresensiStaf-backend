@@ -111,6 +111,16 @@ class UserController extends Controller
         $userDetail->nick_name = request()->nick_name;
         $userDetail->birth_city = request()->birth_city;
 
+        if(request()->hasFile('foto')){
+            $file = request()->file('foto');
+     
+            $nama_file = $user->id.'.'.$file->getClientOriginalExtension();
+     
+            $tujuan_upload = 'foto/employee';
+            $file->move($tujuan_upload,$nama_file);
+            $userDetail->foto = $nama_file;
+        }
+
         // $birthDate = Carbon::parse(request()->birth_date);
 
         // $userDetail->birth_date = $birthDate->format('YYYY-MM-DD');
@@ -292,6 +302,16 @@ class UserController extends Controller
         $userDetail->full_name = request()->name;
         $userDetail->nick_name = request()->nick_name;
         $userDetail->birth_city = request()->birth_city;
+
+        if(request()->hasFile('foto')){
+            $file = request()->file('foto');
+     
+            $nama_file = $user->id.'.'.$file->getClientOriginalExtension();
+     
+            $tujuan_upload = 'foto/employee';
+            $file->move($tujuan_upload,$nama_file);
+            $userDetail->foto = $nama_file;
+        }
 
         // $birthDate = Carbon::parse(request()->birth_date);
 
