@@ -309,6 +309,10 @@ class UserController extends Controller
             $nama_file = $user->id.'.'.$file->getClientOriginalExtension();
      
             $tujuan_upload = 'foto/employee';
+
+            // replace image with new image
+            unlink($tujuan_upload.'/'.$nama_file);
+            
             $file->move($tujuan_upload,$nama_file);
             $userDetail->foto = $nama_file;
         }
