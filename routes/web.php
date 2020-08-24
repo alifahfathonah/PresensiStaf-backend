@@ -27,3 +27,6 @@ Route::get('/employee/{id}/edit', 'UserController@getDetailEmployee')->name('emp
 Route::put('/employee/{id}/put', 'UserController@updateEmployee')->name('employee.put');
 Route::delete('/employee/{id}/delete', 'UserController@userDashboard')->name('employee.delete');
 Route::get('api/employee', 'UserController@apiEmployee')->name('api.employee'); // untuk datatable yajra
+
+Route::resource('sick', 'SickController');
+Route::get('api/sick', 'SickController@apiSick')->name('api.sick'); // untuk datatable yajra

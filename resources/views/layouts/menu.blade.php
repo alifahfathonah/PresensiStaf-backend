@@ -8,17 +8,17 @@
             <i data-feather="calendar"></i>
             <span>Presensi</span>
         </a>
-        <a class="item-menu d-flex color-blue {{ setActive(['sick*']) }}">
+        <a href="{{ route('sick.index') }}" class="item-menu d-flex color-blue {{ setActive(['sick*']) }}">
             <i data-feather="activity"></i>
-            <span>Kelola Sakit</span>
+            <span>Sakit</span>
         </a>
         <a class="item-menu d-flex color-orange {{ setActive(['leave*']) }}">
             <i data-feather="clipboard"></i>
-            <span>Kelola Cuti</span>
+            <span>Cuti</span>
         </a>
         <a class="item-menu d-flex color-red {{ setActive(['permit*']) }}">
             <i data-feather="flag"></i>
-            <span>Kelola Izin</span>
+            <span>Izin</span>
         </a>
     </div>
 </div>
