@@ -30,3 +30,5 @@ Route::get('api/employee', 'UserController@apiEmployee')->name('api.employee'); 
 
 Route::resource('sick', 'SickController');
 Route::get('api/sick', 'SickController@apiSick')->name('api.sick'); // untuk datatable yajra
+Route::resource('periode', 'PeriodeController');
+Route::get('api/periode', 'PeriodeController@apiPeriode')->name('api.periode'); // untuk datatable yajra

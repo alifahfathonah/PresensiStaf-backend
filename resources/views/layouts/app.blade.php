@@ -109,12 +109,20 @@
 
     <script>
         dob();
+        datepicker();
         function dob() {
             $('.dob').datepicker({
                 autoclose: true,
                 todayHighlight: true,
                 format: 'yyyy-mm-dd',
                 endDate: new Date(),
+            });
+        }
+        function datepicker() {
+            $('.datepicker').datepicker({
+                autoclose: true,
+                todayHighlight: true,
+                format: 'yyyy-mm-dd',
             });
         }
 
