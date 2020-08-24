@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         $entity = Entity::first();
-        return view('home', ['entity' => $entity]);
+        return view('maps', ['entity' => $entity]);
     }
 
     public function updateEntity($id)
@@ -37,7 +37,7 @@ class HomeController extends Controller
         $entity->save();
 
         // return view('home', ['entity' => $entity, 'msg' => 'Success Update Data!']);
-        return redirect()->route('home')
+        return redirect()->route('maps')
         ->with('success','Success Update Data!');
     }
 }

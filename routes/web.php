@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/maps', 'HomeController@index')->name('maps');
 Route::post('/entity/{id}', 'HomeController@updateEntity')->name('update.entity');
 
 Route::get('/employee/get', 'UserController@getEmployee')->name('employee.get');

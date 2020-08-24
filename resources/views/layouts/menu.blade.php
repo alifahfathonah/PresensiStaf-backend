@@ -20,6 +20,10 @@
             <i data-feather="flag"></i>
             <span>Izin</span>
         </a>
+        <a href="{{ url('maps') }}" class="item-menu d-flex color-red {{ setActive(['maps*']) }}">
+            <i data-feather="settings"></i>
+            <span>Maps</span>
+        </a>
     </div>
 </div>
 

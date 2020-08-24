@@ -2,14 +2,19 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="row">
+
+        @include('layouts.menu')
+
+        <div class="col-md-9">
             <div class="card">
-                <div class="card-header">Setup Lokasi Kampus</div>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div>Setting Lokasi</div>
+                </div>
 
                 <form action="{{ route('update.entity', $entity->id) }}" method="post">
-                    @csrf
                     <div class="card-body">
+                        @csrf
                         @if (session('success'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('success') }}
@@ -32,10 +37,12 @@
                         </div>
 
                         <div id="map"></div>
-                    </div>
 
-                    <div class="card-footer">
-                        <input type="submit" value="Simpan" class="btn btn-primary mr-auto">
+                    </div>
+                    <div class="card-footer d-flex justify-content-end">
+                        <div>
+                            <input type="submit" value="Simpan" class="btn btn-primary mr-auto">
+                        </div>
                     </div>
                 </form>
             </div>
