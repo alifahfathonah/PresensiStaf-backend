@@ -66,10 +66,10 @@ class SickController extends Controller
         $sick->save();
 
         if($sick){
-            return view('sick.index')->with('success','Data berhasil disimpan!');
+            return redirect()->route('sick.index')->with('success','Data berhasil disimpan!');
         }
 
-        return view('sick.form')->with('danger','Terjadi masalah!');
+        return redirect()->route('sick.create')->with('danger','Terjadi masalah!');
     }
 
     /**
@@ -131,10 +131,10 @@ class SickController extends Controller
         $sick->save();
 
         if($sick){
-            return view('sick.index')->with('success','Data berhasil dirubah!');
+            return redirect()->route('sick.index')->with('success','Data berhasil dirubah!');
         }
 
-        return view('sick.form')->with('danger','Terjadi masalah!');
+        return redirect()->route('sick.create')->with('danger','Terjadi masalah!');
     }
 
     /**
@@ -145,7 +145,10 @@ class SickController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Sick::findOrFail($id);
+        $data->delete();
+
+        return redirect()->route('sick.index')->with('success','Data berhasil dihapus!');
     }
 
     public function apiSick(){
