@@ -12,7 +12,7 @@
             <i data-feather="activity"></i>
             <span>Sakit</span>
         </a>
-        <a class="item-menu d-flex color-orange {{ setActive(['leave*']) }}">
+        <a href="{{ route('leave.index') }}" class="item-menu d-flex color-orange {{ setActive(['leave*', 'leave_staf*']) }}">
             <i data-feather="clipboard"></i>
             <span>Cuti</span>
         </a>
