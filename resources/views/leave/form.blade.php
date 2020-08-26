@@ -80,7 +80,9 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script>
 $(function() {
-    $("[name=periode_id]").html("");
+    @if($action == 'create')
+        $("[name=periode_id]").html("");
+    @endif
 
     $('.daterange').daterangepicker({
         // minDate: moment(),
