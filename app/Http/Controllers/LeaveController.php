@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Yajra\DataTables\Datatables;
 use App\Leave;
+use App\LeaveStaf;
 
 class LeaveController extends Controller
 {
@@ -62,6 +63,17 @@ class LeaveController extends Controller
         $leave->request_to = 1;
         $leave->note_from_manager = 'note_from_manager';
         $leave->save();
+
+        // update balance
+        $leaveStaf = LeaveStaf::where('users_id', $leave->users_id)->where('periode_id', request()->periode_id)->first();
+        
+        if(request()->status == "approved"){
+            $leaveStaf->balance = $leaveStaf->balance - $leave->amount;
+            $leaveStaf->save();
+        } else if(request()->status == "rejected") {
+            $leaveStaf->balance = $leaveStaf->balance + $leave->amount;
+            $leaveStaf->save();
+        }
 
         if($leave){
             return redirect()->route('leave.index')->with('success','Data berhasil disimpan!');
@@ -127,6 +139,17 @@ class LeaveController extends Controller
         $leave->note_from_manager = 'note_from_manager';
         $leave->save();
 
+        // update balance
+        $leaveStaf = LeaveStaf::where('users_id', $leave->users_id)->where('periode_id', request()->periode_id)->first();
+        
+        if(request()->status == "approved"){
+            $leaveStaf->balance = $leaveStaf->balance - $leave->amount;
+            $leaveStaf->save();
+        } else if(request()->status == "rejected") {
+            $leaveStaf->balance = $leaveStaf->balance + $leave->amount;
+            $leaveStaf->save();
+        }
+
         if($leave){
             return redirect()->route('leave.index')->with('success','Data berhasil diedit!');
         }
@@ -181,5 +204,15 @@ class LeaveController extends Controller
 
                     return null;
                 })->rawColumns(['action'])->make(true);
+    }
+
+    public function getPeriodeByUsers() {
+        $data = LeaveStaf::where('users_id', request()->users_id)->with(['periode', 'users'])->get();
+
+        $dataPeriode = [];
+        foreach($data as $dataHakCuti){
+            array_push($dataPeriode, $dataHakCuti->periode);
+        }
+        return response()->json(['data' => $dataPeriode]);
     }
 }

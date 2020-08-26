@@ -36,3 +36,6 @@ Route::resource('leave_staf', 'LeaveStafController');
 Route::get('api/leave_staf', 'LeaveStafController@apiLeaveStaf')->name('api.leave_staf'); // untuk datatable yajra
 Route::resource('periode', 'PeriodeController');
 Route::get('api/periode', 'PeriodeController@apiPeriode')->name('api.periode'); // untuk datatable yajra
+
+
+Route::post('/api/getPeriodeByUsers', 'LeaveController@getPeriodeByUsers');
