@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group {{ ($errors->has('periode_id') ? 'has-error' : '') }}">
                         {{ Form::label('periode_id', 'Periode', ['class' => 'control-label']) }}
-                        {{ Form::select('periode_id', App\LeaveStaf::with(['periode', 'users'])->get()->pluck('periode.name', 'periode.id'), null, ['class' => 'form-control','placeholder' => 'Pilih Periode']) }}
+                        {{ Form::select('periode_id', App\Periode::pluck('name', 'id'), null, ['class' => 'form-control','placeholder' => 'Pilih Periode']) }}
                         <span class="help-block">{{ ($errors->has('periode_id') ? $errors->first('periode_id') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('date_leave') ? 'has-error' : '') }}">

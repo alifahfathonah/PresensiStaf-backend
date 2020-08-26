@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Yajra\DataTables\Datatables;
@@ -172,10 +173,18 @@ class LeaveController extends Controller
     }
 
     public function apiLeave(){
-        $item = Leave::select('leave.id', 'users.name', 'leave.created_at', 'leave.status')
-        ->leftJoin('users', 'users.id', '=', 'leave.users_id')
-        ->orderBy('leave.created_at', 'DESC')
-        ->get();
+        if(Auth::user()->id == 1) { // jika admin
+            $item = Leave::select('leave.id', 'users.name', 'leave.created_at', 'leave.status')
+            ->leftJoin('users', 'users.id', '=', 'leave.users_id')
+            ->orderBy('leave.created_at', 'DESC')
+            ->get();
+        } else {
+            $item = Leave::select('leave.id', 'users.name', 'leave.created_at', 'leave.status')
+            ->leftJoin('users', 'users.id', '=', 'leave.users_id')
+            ->where('users_id', Auth::user()->id)
+            ->orderBy('leave.created_at', 'DESC')
+            ->get();
+        }
 
         return Datatables::of($item)
                 ->addIndexColumn()

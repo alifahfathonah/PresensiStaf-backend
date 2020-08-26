@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use App\User;
@@ -152,10 +153,18 @@ class SickController extends Controller
     }
 
     public function apiSick(){
+        if(Auth::user()->id == 1) { // jika admin
         $item = Sick::select('sicks.id', 'users.name', 'sicks.created_at', 'sicks.status')
                     ->leftJoin('users', 'users.id', '=', 'sicks.users_id')
                     ->orderBy('sicks.created_at', 'DESC')
                     ->get();
+        } else {
+        $item = Sick::select('sicks.id', 'users.name', 'sicks.created_at', 'sicks.status')
+                    ->leftJoin('users', 'users.id', '=', 'sicks.users_id')
+                    ->where('users_id', Auth::user()->id)
+                    ->orderBy('sicks.created_at', 'DESC')
+                    ->get();
+        }
 
         return Datatables::of($item)
                 ->addIndexColumn()

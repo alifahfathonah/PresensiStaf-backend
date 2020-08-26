@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use JWTAuth;
@@ -466,10 +467,18 @@ class UserController extends Controller
     }
 
     public function apiEmployee(){
+        if(Auth::user()->id == 1) { // jika admin
         $item = User::select('users.id', 'users.name', 'users.email', 'users_detail.phone_mobile')
                     ->leftJoin('users_detail', 'users_detail.users_id', '=', 'users.id')
                     ->orderBy('users_detail.created_at', 'DESC')
                     ->get();
+        } else {
+            $item = User::select('users.id', 'users.name', 'users.email', 'users_detail.phone_mobile')
+                        ->leftJoin('users_detail', 'users_detail.users_id', '=', 'users.id')
+                        ->where('users.id', Auth::user()->id)
+                        ->orderBy('users_detail.created_at', 'DESC')
+                        ->get();
+        }
 
         return Datatables::of($item)
                 ->addIndexColumn()

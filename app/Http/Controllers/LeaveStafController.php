@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Datatables;
 use App\LeaveStaf;
 
@@ -108,11 +109,20 @@ class LeaveStafController extends Controller
     }
 
     public function apiLeaveStaf(){
-        $item = LeaveStaf::select('leave_staf.id', 'users.name', 'leave_staf.created_at', 'periode.name as nama_periode', 'leave_staf.balance')
-                    ->leftJoin('users', 'users.id', '=', 'leave_staf.users_id')
-                    ->leftJoin('periode', 'periode.id', '=', 'leave_staf.periode_id')
-                    ->orderBy('leave_staf.created_at', 'DESC')
-                    ->get();
+        if(Auth::user()->id == 1) { // jika admin
+            $item = LeaveStaf::select('leave_staf.id', 'users.name', 'leave_staf.created_at', 'periode.name as nama_periode', 'leave_staf.balance')
+                        ->leftJoin('users', 'users.id', '=', 'leave_staf.users_id')
+                        ->leftJoin('periode', 'periode.id', '=', 'leave_staf.periode_id')
+                        ->orderBy('leave_staf.created_at', 'DESC')
+                        ->get();
+        } else {
+            $item = LeaveStaf::select('leave_staf.id', 'users.name', 'leave_staf.created_at', 'periode.name as nama_periode', 'leave_staf.balance')
+                        ->leftJoin('users', 'users.id', '=', 'leave_staf.users_id')
+                        ->leftJoin('periode', 'periode.id', '=', 'leave_staf.periode_id')
+                        ->where('users_id', Auth::user()->id)
+                        ->orderBy('leave_staf.created_at', 'DESC')
+                        ->get();
+        }
 
         return Datatables::of($item)
                 ->addIndexColumn()
