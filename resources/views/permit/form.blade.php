@@ -9,14 +9,14 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <div>Ajukan Sakit</div>
+                    <div>Ajukan Izin</div>
                 </div>
 
-                @if(isset($sick))
-                {!! Form::model($sick,['route' => ['sick.update', $sick->id],
+                @if(isset($permit))
+                {!! Form::model($permit,['route' => ['permit.update', $permit->id],
                 'method'=>'put', "enctype"=>"multipart/form-data", "id"=>"form"]) !!}
                 @else
-                {!! Form::open(['route'=>'sick.store', "enctype"=>"multipart/form-data",
+                {!! Form::open(['route'=>'permit.store', "enctype"=>"multipart/form-data",
                 "id"=>"form"]) !!}
                 @endif
                 <div class="card-body">
@@ -29,28 +29,28 @@
                         @endif
                         <span class="help-block">{{ ($errors->has('users_id') ? $errors->first('users_id') : '') }}</span>
                     </div>
-                    <div class="form-group {{ ($errors->has('date_sick') ? 'has-error' : '') }}">
-                        {{ Form::label('date_sick', 'Tanggal Sakit', ['class' => 'control-label']) }}
+                    <div class="form-group {{ ($errors->has('date_permit') ? 'has-error' : '') }}">
+                        {{ Form::label('date_permit', 'Tanggal Sakit', ['class' => 'control-label']) }}
                         @php
                         if($action == 'edit') {
-                            $dateStart = json_decode($sick->date_sick);
-                            $dateEnd = json_decode($sick->date_sick);
+                            $dateStart = json_decode($permit->date_permit);
+                            $dateEnd = json_decode($permit->date_permit);
                         }
                         @endphp
                         @if($action == 'edit')
-                        <input type="text" name="date_sick" class="daterange form-control" id="" value="{{ date('m/d/Y', strtotime(reset($dateStart))). ' - ' .date('m/d/Y', strtotime(end($dateEnd)))}}">
+                        <input type="text" name="date_permit" class="daterange form-control" id="" value="{{ date('m/d/Y', strtotime(reset($dateStart))). ' - ' .date('m/d/Y', strtotime(end($dateEnd)))}}">
                         @else
-                        {{ Form::text('date_sick', ($action == 'edit') ? $sick->date_sick : '', ['class' => 'daterange form-control', 'readonly' => 'readonly', 'placeholder' => 'Tanggal sakit', 'required']) }}
+                        {{ Form::text('date_permit', ($action == 'edit') ? $permit->date_permit : '', ['class' => 'daterange form-control', 'readonly' => 'readonly', 'placeholder' => 'Tanggal sakit', 'required']) }}
                         @endif
-                        <span class="help-block">{{ ($errors->has('date_sick') ? $errors->first('date_sick') : '') }}</span>
+                        <span class="help-block">{{ ($errors->has('date_permit') ? $errors->first('date_permit') : '') }}</span>
                     </div>
                     @if(Auth::user()->id == 1)
                     <div class="form-group {{ ($errors->has('status') ? 'has-error' : '') }}">
                         {{ Form::label('status', 'Status', ['class' => 'control-label']) }}
                         <select class="form-control" name="status" id="status">
-                            <option value="pending" {{ $action == 'edit' ? $sick->status == 'pending' ? 'selected' : '' : '' }}>Pending</option>
-                            <option value="approved" {{ $action == 'edit' ? $sick->status == 'approved' ? 'selected' : '' : '' }}>Approved</option>
-                            <option value="rejected" {{ $action == 'edit' ? $sick->status == 'rejected' ? 'selected' : '' : '' }}>Rejected</option>
+                            <option value="pending" {{ $action == 'edit' ? $permit->status == 'pending' ? 'selected' : '' : '' }}>Pending</option>
+                            <option value="approved" {{ $action == 'edit' ? $permit->status == 'approved' ? 'selected' : '' : '' }}>Approved</option>
+                            <option value="rejected" {{ $action == 'edit' ? $permit->status == 'rejected' ? 'selected' : '' : '' }}>Rejected</option>
                         </select>
                         <span class="help-block">{{ ($errors->has('status') ? $errors->first('status') : '') }}</span>
                     </div>
@@ -59,7 +59,7 @@
                     @endif
                     <div class="form-group {{ ($errors->has('note') ? 'has-error' : '') }}">
                         {{ Form::label('note', 'Catatan', ['class' => 'control-label']) }}
-                        {{ Form::textarea('note', ($action == 'edit') ? $sick->note : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Catatan sakit', 'required']) }}
+                        {{ Form::textarea('note', ($action == 'edit') ? $permit->note : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Catatan izin', 'required']) }}
                         <span class="help-block">{{ ($errors->has('note') ? $errors->first('note') : '') }}</span>
                     </div>
                 </div>

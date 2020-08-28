@@ -770,7 +770,9 @@
                         </nav>
                     </div>
                     <div>
+                        @if(Auth::user()->id == 1)
                         {{ Form::submit(($action == 'create') ? 'Tambahkan Data' : 'Simpan Data', ['class' => 'btn btn-primary save-btn-js']) }}
+                        @endif
                     </div>
                 </div>
                 {!! Form::close() !!}

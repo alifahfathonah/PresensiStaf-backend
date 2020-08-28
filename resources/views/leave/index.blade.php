@@ -14,11 +14,13 @@
                 </div>
 
                 <div class="card-body">
+                    @if(Auth::user()->id == 1)
                     <div class="row">
                         <div class="col-md-12">
                             <a href="{{ route('leave_staf.index') }}" class="btn btn-primary">Kelola Cuti Staf</a>
                         </div>
                     </div>
+                    @endif
 
                         @if (session('success'))
                             <div class="alert alert-success mt-4" role="alert">

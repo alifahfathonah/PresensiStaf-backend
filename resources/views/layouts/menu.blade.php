@@ -16,18 +16,20 @@
             <i data-feather="clipboard"></i>
             <span>Cuti</span>
         </a>
-        <a class="item-menu d-flex color-red {{ setActive(['permit*']) }}">
+        <a href="{{ route('permit.index') }}" class="item-menu d-flex color-red {{ setActive(['permit*']) }}">
             <i data-feather="flag"></i>
             <span>Izin</span>
         </a>
-        <a href="{{ route('periode.index') }}" class="item-menu d-flex color-red {{ setActive(['periode*']) }}">
-            <i data-feather="settings"></i>
+        @if(Auth::user()->id == 1)
+        <a href="{{ route('periode.index') }}" class="item-menu d-flex color-blue {{ setActive(['periode*']) }}">
+            <i data-feather="map"></i>
             <span>Periode</span>
         </a>
         <a href="{{ url('maps') }}" class="item-menu d-flex color-red {{ setActive(['maps*']) }}">
-            <i data-feather="settings"></i>
+            <i data-feather="map-pin"></i>
             <span>Maps</span>
         </a>
+        @endif
     </div>
 </div>
 

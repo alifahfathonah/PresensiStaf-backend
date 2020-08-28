@@ -22,12 +22,16 @@
                 <div class="card-body">
                     <div class="form-group {{ ($errors->has('users_id') ? 'has-error' : '') }}">
                         {{ Form::label('users_id', 'Staf', ['class' => 'control-label']) }}
+                        @if(Auth::user()->id == 1)
                         {{ Form::select('users_id', App\LeaveStaf::with('users')->get()->pluck('users.name', 'users.id'), null, ['class' => 'form-control','placeholder' => 'Pilih Staf']) }}
+                        @else
+                        {{ Form::select('users_id', App\User::where('id', Auth::user()->id)->get()->pluck('name', 'id'), null, ['class' => 'form-control','placeholder' => 'Pilih Staf']) }}
+                        @endif
                         <span class="help-block">{{ ($errors->has('users_id') ? $errors->first('users_id') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('periode_id') ? 'has-error' : '') }}">
                         {{ Form::label('periode_id', 'Periode', ['class' => 'control-label']) }}
-                        {{ Form::select('periode_id', App\Periode::pluck('name', 'id'), null, ['class' => 'form-control','placeholder' => 'Pilih Periode']) }}
+                        {{ Form::select('periode_id', App\Periode::pluck('name', 'id'), null, ['class' => 'form-control','placeholder' => 'Pilih Periode','required']) }}
                         <span class="help-block">{{ ($errors->has('periode_id') ? $errors->first('periode_id') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('date_leave') ? 'has-error' : '') }}">
@@ -45,6 +49,7 @@
                         @endif
                         <span class="help-block">{{ ($errors->has('date_leave') ? $errors->first('date_leave') : '') }}</span>
                     </div>
+                    @if(Auth::user()->id == 1)
                     <div class="form-group {{ ($errors->has('status') ? 'has-error' : '') }}">
                         {{ Form::label('status', 'Status', ['class' => 'control-label']) }}
                         <select class="form-control" name="status" id="status">
@@ -54,6 +59,9 @@
                         </select>
                         <span class="help-block">{{ ($errors->has('status') ? $errors->first('status') : '') }}</span>
                     </div>
+                    @else
+                    <input type="hidden" name="status" value="pending">
+                    @endif
                     <div class="form-group {{ ($errors->has('note') ? 'has-error' : '') }}">
                         {{ Form::label('note', 'Catatan', ['class' => 'control-label']) }}
                         {{ Form::textarea('note', ($action == 'edit') ? $leave->note : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Catatan sakit', 'required']) }}

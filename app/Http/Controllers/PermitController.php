@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use App\User;
-use App\Sick;
+use App\Permit;
 use Yajra\DataTables\Datatables;
 
-class SickController extends Controller
+class PermitController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class SickController extends Controller
      */
     public function index()
     {
-        return view('sick.index');
+        return view('permit.index');
     }
 
     /**
@@ -29,7 +29,7 @@ class SickController extends Controller
      */
     public function create()
     {
-        return view('sick.form', ['action' => 'create']);
+        return view('permit.form', ['action' => 'create']);
     }
 
     /**
@@ -40,7 +40,7 @@ class SickController extends Controller
      */
     public function store(Request $request)
     {
-        $date = explode(" - ", request()->date_sick, 2);
+        $date = explode(" - ", request()->date_permit, 2);
         
         $dateStart = Carbon::parse($date[0]);
         $dateEnd = Carbon::parse($date[1]);
@@ -55,22 +55,21 @@ class SickController extends Controller
             array_push($dates, $date->format('Y-m-d'));
         }
 
-        $sick = new Sick;
-        $sick->users_id = request()->users_id;
-        $sick->date_sick = json_encode($dates);
-        $sick->amount = count($dates);
-        $sick->status = request()->status;
-        $sick->is_sick_letter = 1;
-        $sick->note = request()->note;
-        $sick->request_to = 1;
-        $sick->note_from_manager = 'note_from_manager';
-        $sick->save();
+        $permit = new Permit;
+        $permit->users_id = request()->users_id;
+        $permit->date_permit = json_encode($dates);
+        $permit->amount = count($dates);
+        $permit->status = request()->status;
+        $permit->note = request()->note;
+        $permit->request_to = 1;
+        $permit->note_from_manager = 'note_from_manager';
+        $permit->save();
 
-        if($sick){
-            return redirect()->route('sick.index')->with('success','Data berhasil disimpan!');
+        if($permit){
+            return redirect()->route('permit.index')->with('success','Data berhasil disimpan!');
         }
 
-        return redirect()->route('sick.create')->with('danger','Terjadi masalah!');
+        return redirect()->route('permit.create')->with('danger','Terjadi masalah!');
     }
 
     /**
@@ -92,8 +91,8 @@ class SickController extends Controller
      */
     public function edit($id)
     {
-        $sick = Sick::findOrFail($id);
-        return view('sick.form', ['action' => 'edit', 'sick' => $sick]);
+        $permit = Permit::findOrFail($id);
+        return view('permit.form', ['action' => 'edit', 'permit' => $permit]);
     }
 
     /**
@@ -105,7 +104,7 @@ class SickController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $date = explode(" - ", request()->date_sick, 2);
+        $date = explode(" - ", request()->date_permit, 2);
         
         $dateStart = Carbon::parse($date[0]);
         $dateEnd = Carbon::parse($date[1]);
@@ -120,22 +119,21 @@ class SickController extends Controller
             array_push($dates, $date->format('Y-m-d'));
         }
 
-        $sick = Sick::findOrFail($id);
-        $sick->users_id = request()->users_id;
-        $sick->date_sick = json_encode($dates);
-        $sick->amount = count($dates);
-        $sick->status = request()->status;
-        $sick->is_sick_letter = 1;
-        $sick->note = request()->note;
-        $sick->request_to = 1;
-        $sick->note_from_manager = 'note_from_manager';
-        $sick->save();
+        $permit = Permit::findOrFail($id);
+        $permit->users_id = request()->users_id;
+        $permit->date_permit = json_encode($dates);
+        $permit->amount = count($dates);
+        $permit->status = request()->status;
+        $permit->note = request()->note;
+        $permit->request_to = 1;
+        $permit->note_from_manager = 'note_from_manager';
+        $permit->save();
 
-        if($sick){
-            return redirect()->route('sick.index')->with('success','Data berhasil dirubah!');
+        if($permit){
+            return redirect()->route('permit.index')->with('success','Data berhasil dirubah!');
         }
 
-        return redirect()->route('sick.create')->with('danger','Terjadi masalah!');
+        return redirect()->route('permit.create')->with('danger','Terjadi masalah!');
     }
 
     /**
@@ -146,23 +144,23 @@ class SickController extends Controller
      */
     public function destroy($id)
     {
-        $data = Sick::findOrFail($id);
+        $data = Permit::findOrFail($id);
         $data->delete();
 
-        return redirect()->route('sick.index')->with('success','Data berhasil dihapus!');
+        return redirect()->route('permit.index')->with('success','Data berhasil dihapus!');
     }
 
-    public function apiSick(){
+    public function apiPermit(){
         if(Auth::user()->id == 1) { // jika admin
-        $item = Sick::select('sicks.id', 'users.name', 'sicks.created_at', 'sicks.status')
-                    ->leftJoin('users', 'users.id', '=', 'sicks.users_id')
-                    ->orderBy('sicks.created_at', 'DESC')
+        $item = Permit::select('permit.id', 'users.name', 'permit.created_at', 'permit.status')
+                    ->leftJoin('users', 'users.id', '=', 'permit.users_id')
+                    ->orderBy('permit.created_at', 'DESC')
                     ->get();
         } else {
-        $item = Sick::select('sicks.id', 'users.name', 'sicks.created_at', 'sicks.status')
-                    ->leftJoin('users', 'users.id', '=', 'sicks.users_id')
+        $item = Permit::select('permit.id', 'users.name', 'permit.created_at', 'permit.status')
+                    ->leftJoin('users', 'users.id', '=', 'permit.users_id')
                     ->where('users_id', Auth::user()->id)
-                    ->orderBy('sicks.created_at', 'DESC')
+                    ->orderBy('permit.created_at', 'DESC')
                     ->get();
         }
 
@@ -175,8 +173,8 @@ class SickController extends Controller
                     if($item->status == 'pending') {
                         return 
                         // '<a href="#" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-eye-open"></i> Show</a> '.
-                        '<a href="'.route("sick.edit", $item->id).'" class="mr-2"><svg viewBox="0 0 24 24" width="18" height="18" stroke="#ffc107" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a> '.
-                        '<form id="delete-form-'.$item->id.'" method="post" action="'.route("sick.destroy",$item->id).'" style="display: none">
+                        '<a href="'.route("permit.edit", $item->id).'" class="mr-2"><svg viewBox="0 0 24 24" width="18" height="18" stroke="#ffc107" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a> '.
+                        '<form id="delete-form-'.$item->id.'" method="post" action="'.route("permit.destroy",$item->id).'" style="display: none">
                             '.csrf_field().'
                             '.method_field("DELETE").'
                         </form>'.
