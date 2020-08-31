@@ -107,8 +107,6 @@ class AttendanceController extends Controller
                     "note_end" => 'note end'
                 ];
             }
-
-            return response()->json(['attendance_data' => $data]);
         
         } else {
             // out of area
