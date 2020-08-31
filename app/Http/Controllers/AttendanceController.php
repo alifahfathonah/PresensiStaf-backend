@@ -61,14 +61,18 @@ class AttendanceController extends Controller
             $nama_file = $user->id.'.'.$file->getClientOriginalExtension();
      
             $tujuan_upload = 'foto/employee_temp';
+
+            if(file_exists($tujuan_upload.'/'.$nama_file)) {
+                unlink(__DIR__ . '../../../'.$tujuan_upload.'/'.$nama_file);
+            }
+
             $file->move($tujuan_upload,$nama_file);
 
             // compare image with service face recognition
                 // put condition here
             // compare image with service face recognition
 
-            // if authorized unlink / delete image temporary
-            // unlink($tujuan_upload.'/'.$nama_file);
+           
             return response()->json(['file' => $nama_file]);
         }
 
