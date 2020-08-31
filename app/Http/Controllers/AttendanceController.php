@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Attendance;
 use App\Entity;
+use App\UsersDetail;
 
 use function Geodistance\meters;
 use Geodistance\Location;
@@ -54,27 +55,6 @@ class AttendanceController extends Controller
 
         $token = JWTAuth::getToken();
         $user = JWTAuth::toUser($token);
-
-        if(request()->hasFile('foto')){
-            $file = request()->file('foto');
-     
-            $nama_file = $user->id.'.'.$file->getClientOriginalExtension();
-     
-            $tujuan_upload = 'foto/employee_temp';
-
-            if(file_exists($tujuan_upload.'/'.$nama_file)) {
-                unlink(__DIR__ . '../../../'.$tujuan_upload.'/'.$nama_file);
-            }
-
-            $file->move($tujuan_upload,$nama_file);
-
-            // compare image with service face recognition
-                // put condition here
-            // compare image with service face recognition
-
-           
-            return response()->json(['file' => $nama_file]);
-        }
 
         if($radius < $entity->radius){
             // out of area
@@ -136,5 +116,94 @@ class AttendanceController extends Controller
         }
         
         return response()->json($data);
+    }
+
+
+
+    public function setAttendanceWithFace() {
+
+        $now = Carbon::now();
+        $now->addHours(7);
+        $data = null;
+        $lat = request()->lat;
+        $lng = request()->lng;
+
+
+        $entity = Entity::where('id', 1)->first();
+
+        $insidePoint = new Location($lat, $lng);
+        $office = new Location((float) $entity->lat, (float) $entity->lng);
+        $radius = meters($insidePoint, $office);
+
+        $token = JWTAuth::getToken();
+        $user = JWTAuth::toUser($token);
+
+        $userDetail = UsersDetail::where('users_id', $user->id)->first();
+
+        if($radius < $entity->radius){
+            $data = [
+                'status' => 200,
+                'in_area' => true
+            ];
+        } else {
+            // out of area
+            $data = [
+                'msg' => 'Kamu berada diluar area!'
+            ];
+        }
+
+        if(request()->foto){
+            $nama_file = $user->id.'.jpg';
+            $tujuan_upload = 'foto/employee_temp/';
+
+            if(file_exists($tujuan_upload . $nama_file)) {
+                unlink(__DIR__ . '../../../public/'.$tujuan_upload . $nama_file);
+            }
+
+            $image = request("foto");
+            $image = base64_decode($image);
+            $file = fopen(public_path($tujuan_upload . $nama_file), 'wb');
+            fwrite($file, $image);
+            fclose($file);
+
+            // match face
+            $face = http_request("https://www.facexapi.com/match_faces", "img_1=".public_path($tujuan_upload . $nama_file) . "&img_2=". public_path('foto/employee/' . $userDetail->foto));
+
+            $resultFace = json_decode($face, TRUE);
+
+           
+            return response()->json(['file' => $face]);
+        }
+        
+        return response()->json($data);
+    }
+
+    public function http_request($url, $data){
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => $data,
+            CURLOPT_HTTPHEADER => array(
+                "user_id: 5f3bc90b5bab1b52bae885e8",
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            return $err;
+        } else {
+            return $response;
+        }
     }
 }
