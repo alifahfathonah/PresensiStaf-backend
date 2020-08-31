@@ -162,9 +162,9 @@ class AttendanceController extends Controller
 
             $image = request("foto");
             $image = base64_decode($image);
-            $file = fopen(public_path($tujuan_upload . $nama_file), 'wb');
-            fwrite($file, $image);
-            fclose($file);
+            // $file = fopen(public_path($tujuan_upload . $nama_file), 'wb');
+            // fwrite($file, $image);
+            // fclose($file);
             
            
             return response()->json([
