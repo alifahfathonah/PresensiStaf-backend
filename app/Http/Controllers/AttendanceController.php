@@ -55,7 +55,7 @@ class AttendanceController extends Controller
 
         $token = JWTAuth::getToken();
         $user = JWTAuth::toUser($token);
-        return response()->json(['radius' => $entity->radius]);
+        
         if($radius < $entity->radius){
             // out of area
             $attendance = Attendance::where("user_id", $user->id)
@@ -107,6 +107,8 @@ class AttendanceController extends Controller
                     "note_end" => 'note end'
                 ];
             }
+
+            return response()->json(['attendance_data' => $data]);
         
         } else {
             // out of area
