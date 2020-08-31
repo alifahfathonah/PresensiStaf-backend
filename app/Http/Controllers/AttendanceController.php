@@ -39,7 +39,7 @@ class AttendanceController extends Controller
     }
 
     public function setAttendance() {
-        return response()->json(request()->all());
+        
         $now = Carbon::now();
         $now->addHours(7);
         $data = null;
@@ -55,7 +55,7 @@ class AttendanceController extends Controller
 
         $token = JWTAuth::getToken();
         $user = JWTAuth::toUser($token);
-
+        return response()->json(['radius' => $entity->radius]);
         if($radius < $entity->radius){
             // out of area
             $attendance = Attendance::where("user_id", $user->id)
