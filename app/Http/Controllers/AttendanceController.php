@@ -156,20 +156,19 @@ class AttendanceController extends Controller
             $nama_file = $user->id.'.jpg';
             $tujuan_upload = 'foto/employee_temp/';
 
-            // if(file_exists($tujuan_upload . $nama_file)) {
-            //     unlink(public_path($tujuan_upload . $nama_file));
-            // }
+            if(file_exists($tujuan_upload . $nama_file)) {
+                unlink(public_path($tujuan_upload . $nama_file));
+            }
 
             $image = request("foto");
             $image = base64_decode($image);
-            // $file = fopen(public_path($tujuan_upload . $nama_file), 'wb');
-            // fwrite($file, $image);
-            // fclose($file);
+            $file = public_path($tujuan_upload . $nama_file);
+            file_put_contents($file, $image);
             
            
             return response()->json([
-                'img_1' => public_path($tujuan_upload . $nama_file),
-                'img_2' => public_path('foto/employee/' . $userDetail->foto)
+                'img_1' => $tujuan_upload . $nama_file,
+                'img_2' => 'foto/employee/' . $userDetail->foto
             ]);
         }
         
