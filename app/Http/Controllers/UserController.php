@@ -313,7 +313,7 @@ class UserController extends Controller
 
             // replace image with new image
             if($userDetail->foto && file_exists($tujuan_upload.'/'.$userDetail->foto)) {
-                unlink(public_path($tujuan_upload . '/' . $nama_file));
+                unlink(public_path($tujuan_upload . '/' . $userDetail->foto));
             }
             
             $file->move($tujuan_upload,$nama_file);
