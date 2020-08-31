@@ -165,14 +165,12 @@ class AttendanceController extends Controller
             $file = fopen(public_path($tujuan_upload . $nama_file), 'wb');
             fwrite($file, $image);
             fclose($file);
-
-            // match face
-            $face = http_request("https://www.facexapi.com/match_faces", "img_1=".public_path($tujuan_upload . $nama_file) . "&img_2=". public_path('foto/employee/' . $userDetail->foto));
-
-            $resultFace = json_decode($face, TRUE);
-
+            
            
-            return response()->json(['file' => $face]);
+            return response()->json([
+                'img_1' => public_path($tujuan_upload . $nama_file),
+                'img_2' => public_path('foto/employee/' . $userDetail->foto)
+            ]);
         }
         
         return response()->json($data);
