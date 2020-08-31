@@ -312,7 +312,9 @@ class UserController extends Controller
             $tujuan_upload = 'foto/employee';
 
             // replace image with new image
-            unlink($tujuan_upload.'/'.$userDetail->foto);
+            if($userDetail->foto && file_exists($tujuan_upload.'/'.$userDetail->foto)) {
+                unlink(__DIR__ . '../../../'.$tujuan_upload.'/'.$userDetail->foto);
+            }
             
             $file->move($tujuan_upload,$nama_file);
             $userDetail->foto = $nama_file;
