@@ -163,7 +163,6 @@ class AttendanceController extends Controller
             $image = request("foto");
             $image = base64_decode($image);
             $file = public_path($tujuan_upload . $nama_file);
-            chmod(public_path($tujuan_upload), 755);
             file_put_contents($file, $image);
             
            
