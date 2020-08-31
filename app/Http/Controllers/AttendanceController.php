@@ -157,7 +157,7 @@ class AttendanceController extends Controller
             $tujuan_upload = 'foto/employee_temp/';
 
             if(file_exists($tujuan_upload . $nama_file)) {
-                unlink(__DIR__ . '../../../public/'.$tujuan_upload . $nama_file);
+                unlink(public_path($tujuan_upload . $nama_file));
             }
 
             $image = request("foto");
