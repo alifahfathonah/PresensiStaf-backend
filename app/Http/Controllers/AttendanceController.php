@@ -38,6 +38,23 @@ class AttendanceController extends Controller
         }
     }
 
+    public function getSchedule() {
+        $token = JWTAuth::getToken();
+        $user = JWTAuth::toUser($token);
+        $now = Carbon::now();
+
+        $getDays = Days::where('name_day', $now->format('l'))->first();
+
+        $schedule = Schedule::where('users_id', $user->id)->where('days_id', $getDays->id)->with(['Days','Users'])->first();
+
+        $data = (array) $schedule;
+        if($data){
+            return response()->json($schedule);
+        } else {
+            return response()->json(['msg' => 'Has no record schedule!']);
+        }
+    }
+
     public function setAttendance() {
         
         $now = Carbon::now();

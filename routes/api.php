@@ -26,7 +26,7 @@ Route::middleware('jwt.auth')->group(function () {
     Route::get('user', 'UserController@getAuthenticatedUser');
     Route::get('getStateForToday', 'AttendanceController@getStateForToday');
 
-    Route::get('test', 'UserController@getSchedule');
+    Route::get('test', 'AttendanceController@getSchedule');
 
 });
 
