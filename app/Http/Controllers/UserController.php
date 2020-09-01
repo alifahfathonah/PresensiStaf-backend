@@ -35,9 +35,10 @@ class UserController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
-        $user = User::with('userDetail')->where('email', request('email'))->first();
+        $user = User::where('email', request('email'))->first();
+        $userDetail = UserDetaul::where('users_id', $user->id)->first();
 
-        return response()->json(['user' => $user, 'token' => $token]);
+        return response()->json(['user' => $user, 'user_detail' => $userDetail,'token' => $token]);
     }
 
     public function getAuthenticatedUser()
