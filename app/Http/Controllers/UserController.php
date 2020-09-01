@@ -36,7 +36,7 @@ class UserController extends Controller
         }
 
         $user = User::where('email', request('email'))->first();
-        $userDetail = UserDetaul::where('users_id', $user->id)->first();
+        $userDetail = UsersDetail::where('users_id', $user->id)->first();
 
         return response()->json(['user' => $user, 'user_detail' => $userDetail,'token' => $token]);
     }
