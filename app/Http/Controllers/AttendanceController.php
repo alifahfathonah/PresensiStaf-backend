@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Attendance;
 use App\Entity;
+use App\Days;
+use App\Schedule;
 use App\UsersDetail;
 
 use function Geodistance\meters;

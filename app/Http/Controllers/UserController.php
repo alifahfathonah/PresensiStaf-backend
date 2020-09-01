@@ -12,8 +12,6 @@ use Yajra\DataTables\Datatables;
 
 use App\User;
 use App\UsersDetail;
-use App\Schedule;
-use App\Days;
 
 class UserController extends Controller
 {
