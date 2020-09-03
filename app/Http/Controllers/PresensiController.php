@@ -113,7 +113,10 @@ class PresensiController extends Controller
                     return date('d-m-Y H:i', strtotime($item->start));
                 })
                 ->editColumn('end', function ($item) {
-                    return date('d-m-Y H:i', strtotime($item->end));
+                    if($item->hours){
+                        return date('d-m-Y H:i', strtotime($item->end));
+                    }
+                    return '-';
                 })
                 ->editColumn('hours', function ($item) {
                     if($item->hours){
