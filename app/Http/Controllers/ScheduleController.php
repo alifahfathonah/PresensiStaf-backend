@@ -40,9 +40,25 @@ class ScheduleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $userid)
     {
-        //
+        $schedule = new Schedule;
+        $schedule->users_id = $userid;
+        $schedule->days_id = request()->days_id;
+
+        $clockIn = Carbon::parse(request()->clock_in);
+        $clockOut = Carbon::parse(request()->clock_out);
+
+        $schedule->clock_in = $clockIn->format('H:i:s');
+        $schedule->clock_out = $clockOut->format('H:i:s');
+        $schedule->hours = '0'.$clockOut->diffInHours($clockIn).':00:00';
+        $schedule->save();
+
+        if($schedule){
+            return redirect()->route('schedule.index', $userid)->with('success','Data berhasil disimpan!');
+        }
+
+        return redirect()->route('schedule.create')->with('danger','Terjadi masalah!');
     }
 
     /**
@@ -62,9 +78,11 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($userid, $id)
     {
-        //
+        $user = User::find($userid);
+        $schedule = Schedule::find($id);
+        return view('schedule.form', ['user' => $user, 'action' => 'edit', 'schedule' => $schedule]);
     }
 
     /**
@@ -74,9 +92,24 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $userid, $id)
     {
-        //
+        $schedule = Schedule::find($id);
+        $schedule->days_id = request()->days_id;
+
+        $clockIn = Carbon::parse(request()->clock_in);
+        $clockOut = Carbon::parse(request()->clock_out);
+
+        $schedule->clock_in = $clockIn->format('H:i:s');
+        $schedule->clock_out = $clockOut->format('H:i:s');
+        $schedule->hours = '0'.$clockOut->diffInHours($clockIn).':00:00';
+        $schedule->save();
+
+        if($schedule){
+            return redirect()->route('schedule.index', $userid)->with('success','Data berhasil disimpan!');
+        }
+
+        return redirect()->route('schedule.create')->with('danger','Terjadi masalah!');
     }
 
     /**
@@ -85,9 +118,12 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($userid, $id)
     {
-        //
+        $data = Schedule::findOrFail($id);
+        $data->delete();
+
+        return redirect()->route('schedule.index', $userid)->with('success','Data berhasil dihapus!');
     }
 
     public function apiSchedule($id){
@@ -115,14 +151,14 @@ class ScheduleController extends Controller
                 ->addColumn('action', function($item){
                         return 
                         // '<a href="#" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-eye-open"></i> Show</a> '.
-                        '<a href="'.route("sick.edit", $item->id).'" class="mr-2"><svg viewBox="0 0 24 24" width="18" height="18" stroke="#ffc107" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a> '.
-                        '<form id="delete-form-'.$item->id.'" method="post" action="'.route("sick.destroy",$item->id).'" style="display: none">
+                        '<a href="'.route("schedule.edit", ['userid' => $item->idUser, 'id' => $item->id]).'" class="mr-2"><svg viewBox="0 0 24 24" width="18" height="18" stroke="#ffc107" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a> '.
+                        '<form id="delete-form-'.$item->id.'" method="post" action="'.route("schedule.destroy",['userid' => $item->idUser, 'id' => $item->id]).'" style="display: none">
                             '.csrf_field().'
                             '.method_field("DELETE").'
                         </form>'.
                         '<a
                         onclick="
-                        if(confirm(\'Are you sure, You Want to delete '.$item->name.'?\'))
+                        if(confirm(\'Are you sure, You Want to delete '.$item->name_day.'?\'))
                             {
                                 event.preventDefault();
                                 document.getElementById(\'delete-form-'.$item->id.'\').submit();

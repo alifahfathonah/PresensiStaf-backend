@@ -9,70 +9,49 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <div>Ajukan Sakit</div>
+                    <div>Form Schedule</div>
                 </div>
 
-                @if(isset($sick))
-                {!! Form::model($sick,['route' => ['sick.update', $sick->id],
+                @if(isset($schedule))
+                {!! Form::model($schedule,['route' => ['schedule.update', $user->id, $schedule->id],
                 'method'=>'put', "enctype"=>"multipart/form-data", "id"=>"form"]) !!}
                 @else
-                {!! Form::open(['route'=>'sick.store', "enctype"=>"multipart/form-data",
+                {!! Form::open(['route'=>['schedule.store', $user->id], "enctype"=>"multipart/form-data",
                 "id"=>"form"]) !!}
                 @endif
                 <div class="card-body">
-                    <div class="form-group {{ ($errors->has('users_id') ? 'has-error' : '') }}">
-                        {{ Form::label('users_id', 'Staf', ['class' => 'control-label']) }}
-                        @if(Auth::user()->id == 1)
-                        {{ Form::select('users_id', App\User::pluck('name', 'id'), null, ['class' => 'form-control','placeholder' => 'Pilih Staf']) }}
-                        @else
-                        {{ Form::select('users_id', App\User::where('id', Auth::user()->id)->get()->pluck('name', 'id'), null, ['class' => 'form-control']) }}
-                        @endif
-                        <span class="help-block">{{ ($errors->has('users_id') ? $errors->first('users_id') : '') }}</span>
-                    </div>
-                    <div class="form-group {{ ($errors->has('date_sick') ? 'has-error' : '') }}">
-                        {{ Form::label('date_sick', 'Tanggal Sakit', ['class' => 'control-label']) }}
-                        @php
-                        if($action == 'edit') {
-                            $dateStart = json_decode($sick->date_sick);
-                            $dateEnd = json_decode($sick->date_sick);
-                        }
-                        @endphp
-                        @if($action == 'edit')
-                        <input type="text" name="date_sick" class="daterange form-control" id="" value="{{ date('m/d/Y', strtotime(reset($dateStart))). ' - ' .date('m/d/Y', strtotime(end($dateEnd)))}}">
-                        @else
-                        {{ Form::text('date_sick', ($action == 'edit') ? $sick->date_sick : '', ['class' => 'daterange form-control', 'readonly' => 'readonly', 'placeholder' => 'Tanggal sakit', 'required']) }}
-                        @endif
-                        <span class="help-block">{{ ($errors->has('date_sick') ? $errors->first('date_sick') : '') }}</span>
-                    </div>
-                    @if(Auth::user()->id == 1)
-                    <div class="form-group {{ ($errors->has('status') ? 'has-error' : '') }}">
-                        {{ Form::label('status', 'Status', ['class' => 'control-label']) }}
-                        <select class="form-control" name="status" id="status">
-                            <option value="pending" {{ $action == 'edit' ? $sick->status == 'pending' ? 'selected' : '' : '' }}>Pending</option>
-                            <option value="approved" {{ $action == 'edit' ? $sick->status == 'approved' ? 'selected' : '' : '' }}>Approved</option>
-                            <option value="rejected" {{ $action == 'edit' ? $sick->status == 'rejected' ? 'selected' : '' : '' }}>Rejected</option>
+                    <div class="form-group {{ ($errors->has('days_id') ? 'has-error' : '') }}">
+                        {{ Form::label('days_id', 'Hari', ['class' => 'control-label']) }}
+                        {{-- {{ Form::select('days_id', App\Days::pluck('name_day', 'id'), null, ['class' => 'form-control','placeholder' => 'Pilih Hari']) }} --}}
+                        <select class="form-control" name="days_id" id="days_id">
+                            <option value="1" {{ $action == 'edit' ? $schedule->days_id == '1' ? 'selected' : '' : '' }}>Senin</option>
+                            <option value="2" {{ $action == 'edit' ? $schedule->days_id == '2' ? 'selected' : '' : '' }}>Selasa</option>
+                            <option value="3" {{ $action == 'edit' ? $schedule->days_id == '3' ? 'selected' : '' : '' }}>Rabu</option>
+                            <option value="4" {{ $action == 'edit' ? $schedule->days_id == '4' ? 'selected' : '' : '' }}>Kamis</option>
+                            <option value="5" {{ $action == 'edit' ? $schedule->days_id == '5' ? 'selected' : '' : '' }}>Jumat</option>
+                            <option value="6" {{ $action == 'edit' ? $schedule->days_id == '6' ? 'selected' : '' : '' }}>Sabtu</option>
                         </select>
-                        <span class="help-block">{{ ($errors->has('status') ? $errors->first('status') : '') }}</span>
+                        <span class="help-block">{{ ($errors->has('days_id') ? $errors->first('days_id') : '') }}</span>
                     </div>
-                    @else
-                    <input type="hidden" name="status" value="pending">
-                    @endif
-                    <div class="form-group {{ ($errors->has('note') ? 'has-error' : '') }}">
-                        {{ Form::label('note', 'Catatan', ['class' => 'control-label']) }}
-                        {{ Form::textarea('note', ($action == 'edit') ? $sick->note : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Catatan sakit', 'required']) }}
-                        <span class="help-block">{{ ($errors->has('note') ? $errors->first('note') : '') }}</span>
+                    <div class="form-group {{ ($errors->has('clock_in') ? 'has-error' : '') }}">
+                        {{ Form::label('clock_in', 'Clock In', ['class' => 'control-label']) }}
+                        <div class="input-group clockpicker">
+                            {{-- <input type="text" class="form-control" value="09:30"> --}}
+                            {{ Form::text('clock_in', ($action == 'edit') ? $schedule->clock_in : '', ['class' => 'form-control', 'placeholder' => 'Clock In', 'required', 'readonly']) }}
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                        </div>
                     </div>
-                    <div class="form-group {{ ($errors->has('foto') ? 'has-error' : '') }}">
-                        {{ Form::label('foto', 'Foto', ['class' => 'control-label']) }}
-                        {{ Form::file('foto', ['class' => 'form-control']) }}
-
-                        <span class="help-block">{{ ($errors->has('foto') ? $errors->first('foto') : '') }}</span>
-                        @if($action == 'edit' && $sick->foto !== null)
-                        <span class="help-block">{{ ($errors->has('foto') ? $errors->first('foto') : 'Kosongkan bila tidak ingin mengganti foto') }}</span>
-                            <div class="text-center mt-2">
-                                <img src="{{ asset('foto/sick/' . $sick->foto) }}" style="height: 250px" alt="" srcset="">
-                            </div>
-                        @endif
+                    <div class="form-group {{ ($errors->has('clock_out') ? 'has-error' : '') }}">
+                        {{ Form::label('clock_out', 'Clock Out', ['class' => 'control-label']) }}
+                        <div class="input-group clockpicker">
+                            {{-- <input type="text" class="form-control" value="09:30"> --}}
+                            {{ Form::text('clock_out', ($action == 'edit') ? $schedule->clock_out : '', ['class' => 'form-control', 'placeholder' => 'Clock Out', 'required', 'readonly']) }}
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                        </div>
                     </div>
                 </div>
 

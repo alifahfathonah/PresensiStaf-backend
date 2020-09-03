@@ -39,8 +39,12 @@ Route::get('api/leave', 'LeaveController@apiLeave')->name('api.leave'); // untuk
 Route::resource('leave_staf', 'LeaveStafController');
 Route::get('api/leave_staf', 'LeaveStafController@apiLeaveStaf')->name('api.leave_staf'); // untuk datatable yajra
 // Route::resource('schedule', 'ScheduleController');
-Route::get('/employee/{id}/schedule', 'ScheduleController@index')->name('schedule.index'); // untuk datatable yajra
-Route::get('/employee/{id}/schedule/create', 'ScheduleController@create')->name('schedule.create'); // untuk datatable yajra
+Route::get('/employee/{id}/schedule', 'ScheduleController@index')->name('schedule.index');
+Route::get('/employee/{id}/schedule/create', 'ScheduleController@create')->name('schedule.create');
+Route::post('/employee/{userid}/schedule/store', 'ScheduleController@store')->name('schedule.store');
+Route::get('/employee/{userid}/schedule/{id}/edit', 'ScheduleController@edit')->name('schedule.edit');
+Route::put('/employee/{userid}/schedule/{id}/edit', 'ScheduleController@update')->name('schedule.update');
+Route::delete('/employee/{userid}/schedule/{id}/destroy', 'ScheduleController@destroy')->name('schedule.destroy');
 Route::get('api/schedule/{id}', 'ScheduleController@apiSchedule')->name('api.schedule'); // untuk datatable yajra
 Route::resource('periode', 'PeriodeController');
 Route::get('api/periode', 'PeriodeController@apiPeriode')->name('api.periode'); // untuk datatable yajra
