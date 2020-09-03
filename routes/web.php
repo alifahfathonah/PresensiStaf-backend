@@ -38,6 +38,8 @@ Route::resource('leave', 'LeaveController');
 Route::get('api/leave', 'LeaveController@apiLeave')->name('api.leave'); // untuk datatable yajra
 Route::resource('leave_staf', 'LeaveStafController');
 Route::get('api/leave_staf', 'LeaveStafController@apiLeaveStaf')->name('api.leave_staf'); // untuk datatable yajra
+Route::resource('schedule', 'ScheduleController');
+Route::get('api/schedule', 'ScheduleController@apiSchedule')->name('api.schedule'); // untuk datatable yajra
 Route::resource('periode', 'PeriodeController');
 Route::get('api/periode', 'PeriodeController@apiPeriode')->name('api.periode'); // untuk datatable yajra
 

@@ -21,6 +21,10 @@
             <span>Izin</span>
         </a>
         @if(Auth::user()->id == 1)
+        <a href="{{ route('schedule.index') }}" class="item-menu d-flex color-green {{ setActive(['schedule*']) }}">
+            <i data-feather="clock"></i>
+            <span>Schedule</span>
+        </a>
         <a href="{{ route('periode.index') }}" class="item-menu d-flex color-blue {{ setActive(['periode*']) }}">
             <i data-feather="map"></i>
             <span>Periode</span>
