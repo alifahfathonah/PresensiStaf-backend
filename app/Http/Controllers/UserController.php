@@ -455,12 +455,14 @@ class UserController extends Controller
         $item = User::select('users.id', 'users.name', 'users.email', 'users_detail.phone_mobile')
                     ->leftJoin('users_detail', 'users_detail.users_id', '=', 'users.id')
                     ->orderBy('users_detail.created_at', 'DESC')
+                    ->where('users.id', '!=', 1)
                     ->get();
         } else {
             $item = User::select('users.id', 'users.name', 'users.email', 'users_detail.phone_mobile')
                         ->leftJoin('users_detail', 'users_detail.users_id', '=', 'users.id')
                         ->where('users.id', Auth::user()->id)
                         ->orderBy('users_detail.created_at', 'DESC')
+                        ->where('users.id', '!=', 1)
                         ->get();
         }
 
