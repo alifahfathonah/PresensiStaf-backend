@@ -64,6 +64,24 @@ class SickController extends Controller
         $sick->note = request()->note;
         $sick->request_to = 1;
         $sick->note_from_manager = 'note_from_manager';
+
+
+        if(request()->hasFile('foto')){
+            $file = request()->file('foto');
+     
+            $nama_file = request()->users_id.'.'.$file->getClientOriginalExtension();
+     
+            $tujuan_upload = 'foto/sick';
+
+            // replace image with new image
+            if($sick->foto && file_exists($tujuan_upload.'/'.$sick->foto)) {
+                unlink(public_path($tujuan_upload . '/' . $sick->foto));
+            }
+            
+            $file->move($tujuan_upload,$nama_file);
+            $sick->foto = $nama_file;
+        }
+
         $sick->save();
 
         if($sick){
@@ -129,6 +147,24 @@ class SickController extends Controller
         $sick->note = request()->note;
         $sick->request_to = 1;
         $sick->note_from_manager = 'note_from_manager';
+
+
+        if(request()->hasFile('foto')){
+            $file = request()->file('foto');
+     
+            $nama_file = request()->users_id.'.'.$file->getClientOriginalExtension();
+     
+            $tujuan_upload = 'foto/sick';
+
+            // replace image with new image
+            if($sick->foto && file_exists($tujuan_upload.'/'.$sick->foto)) {
+                unlink(public_path($tujuan_upload . '/' . $sick->foto));
+            }
+            
+            $file->move($tujuan_upload,$nama_file);
+            $sick->foto = $nama_file;
+        }
+
         $sick->save();
 
         if($sick){

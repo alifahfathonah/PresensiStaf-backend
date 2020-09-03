@@ -62,6 +62,18 @@
                         {{ Form::textarea('note', ($action == 'edit') ? $sick->note : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Catatan sakit', 'required']) }}
                         <span class="help-block">{{ ($errors->has('note') ? $errors->first('note') : '') }}</span>
                     </div>
+                    <div class="form-group {{ ($errors->has('foto') ? 'has-error' : '') }}">
+                        {{ Form::label('foto', 'Foto', ['class' => 'control-label']) }}
+                        {{ Form::file('foto', ['class' => 'form-control']) }}
+
+                        <span class="help-block">{{ ($errors->has('foto') ? $errors->first('foto') : '') }}</span>
+                        @if($action == 'edit' && $sick->foto !== null)
+                        <span class="help-block">{{ ($errors->has('foto') ? $errors->first('foto') : 'Kosongkan bila tidak ingin mengganti foto') }}</span>
+                            <div class="text-center mt-2">
+                                <img src="{{ asset('foto/sick/' . $sick->foto) }}" style="height: 250px" alt="" srcset="">
+                            </div>
+                        @endif
+                    </div>
                 </div>
 
                 <div class="card-footer d-flex justify-content-end">
