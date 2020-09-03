@@ -4,7 +4,7 @@
             <i data-feather="users"></i>
             <span>Data Staf</span>
         </a>
-        <a class="item-menu d-flex color-green {{ setActive(['presensi*']) }}">
+        <a href="{{ route('presensi.index') }}" class="item-menu d-flex color-green {{ setActive(['presensi*']) }}">
             <i data-feather="calendar"></i>
             <span>Presensi</span>
         </a>

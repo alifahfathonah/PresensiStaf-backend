@@ -137,8 +137,6 @@ class AttendanceController extends Controller
         return response()->json($data);
     }
 
-
-
     public function setAttendanceWithFace() {
 
         $now = Carbon::now();
@@ -193,4 +191,5 @@ class AttendanceController extends Controller
         
         return response()->json($data);
     }
+    
 }
