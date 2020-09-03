@@ -152,7 +152,7 @@ class SickController extends Controller
         if(request()->hasFile('foto')){
             $file = request()->file('foto');
      
-            $nama_file = request()->users_id.'.'.$file->getClientOriginalExtension();
+            $nama_file = Carbon::now()->format('dmy').'-'.request()->users_id.'.'.$file->getClientOriginalExtension();
      
             $tujuan_upload = 'foto/sick';
 
