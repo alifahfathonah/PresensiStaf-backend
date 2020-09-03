@@ -238,6 +238,8 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
 
+        'Helper' => App\Helpers\MyHelper::class, 
+
         //yajra
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 

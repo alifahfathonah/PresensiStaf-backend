@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div>Data Schedule Staf</div>
-                    <a href="{{ route('schedule.create') }}" class="btn btn-success btn-sm">Tambah baru</a>
+                    <a href="{{ route('schedule.create', $user->id) }}" class="btn btn-success btn-sm">Tambah baru</a>
                 </div>
 
                 <div class="card-body">
@@ -21,12 +21,15 @@
                         </div>
                     @endif
 
+                    <h3 style="margin-bottom:32px">Schedule : {{$user->name}}</h3>
+
                     <table id="schedule-table" class="table table-bordered table-striped">
                         <thead>
                         <tr>
                             <th width="30">No.</th>
                             <th>Name</th>
-                            <th>Total Jam</th>
+                            <th>Clock In</th>
+                            <th>Clock Out</th>
                             <th width="190">Action</th>
                         </tr>
                         </thead>
@@ -50,16 +53,25 @@
     var table = $('#schedule-table').dataTable({
                     processing: true,
                     serverSide: true,
-                    ajax : "{{ route('api.schedule') }}",
+                    ajax : "{{ route('api.schedule', $user->id) }}",
                     'columnDefs': [
                     {
+                        "targets": 2,
+                        "className": "text-center",
+                    },
+                    {
                         "targets": 3,
+                        "className": "text-center",
+                    },
+                    {
+                        "targets": 4,
                         "className": "text-center",
                     }],
                     columns: [
                         {data:'DT_RowIndex', name:'DT_RowIndex'},
-                        {data:'name', name:'name'},
-                        {data:'total_jam', name:'total_jam'},
+                        {data:'name_day', name:'name_day'},
+                        {data:'clock_in', name:'clock_in'},
+                        {data:'clock_out', name:'clock_out'},
                         {data:'action', name:'action', orderable: false, searchable: false}
                     ]
                 });

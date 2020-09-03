@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Schedule;
+use App\User;
 use Yajra\DataTables\Datatables;
+use Helper;
 
 class ScheduleController extends Controller
 {
@@ -15,9 +17,10 @@ class ScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        return view('schedule.index');
+        $user = User::find($id);
+        return view('schedule.index', ['user' => $user]);
     }
 
     /**
@@ -25,9 +28,10 @@ class ScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $user = User::find($id);
+        return view('schedule.form', ['user' => $user, 'action' => 'create']);
     }
 
     /**
@@ -86,26 +90,22 @@ class ScheduleController extends Controller
         //
     }
 
-    public function apiSchedule(){
-        if(Auth::user()->id == 1) { // jika admin
-        $item = Schedule::select('schedule.id', 'users.name', 'schedule.created_at', 'schedule.hours', 'schedule.clock_in', 'schedule.clock_out')
+    public function apiSchedule($id){
+        $item = Schedule::select('schedule.id', 'users.id as idUser','users.name', 'schedule.created_at', 'schedule.hours', 'schedule.clock_in', 'schedule.clock_out', 'days.name_day')
                     ->leftJoin('users', 'users.id', '=', 'schedule.users_id')
                     ->leftJoin('days', 'days.id', '=', 'schedule.days_id')
+                    ->where('users.id', $id)
                     ->orderBy('users.name', 'ASC')
                     ->get();
-        } else {
-        $item = Schedule::select('schedule.id', 'users.name', 'schedule.created_at', 'schedule.hours', 'schedule.clock_in', 'schedule.clock_out')
-                    ->leftJoin('users', 'users.id', '=', 'schedule.users_id')
-                    ->leftJoin('days', 'days.id', '=', 'schedule.days_id')
-                    ->where('users_id', Auth::user()->id)
-                    ->orderBy('users.name', 'ASC')
-                    ->get();
-        }
 
         return Datatables::of($item)
                 ->addIndexColumn()
                 ->editColumn('created_at', function ($item) {
                     return date('d-m-Y', strtotime($item->created_at));
+                })
+                ->editColumn('name_day', function ($item) {
+
+                    return Helper::getDayIndo($item->name_day);
                 })
                 ->addColumn('total_jam', function ($item) {
                     $clockIn = Carbon::parse($item->clock_in);

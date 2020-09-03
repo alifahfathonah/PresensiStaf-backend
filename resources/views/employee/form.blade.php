@@ -10,6 +10,9 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div>Tambah Staf</div>
+                    @if($action == 'edit')
+                    <a href="{{ route('schedule.index',$user->id) }}" class="btn btn-success btn-sm"><i data-feather="clock"></i> Schedule Staf</a>
+                    @endif
                 </div>
                 @if(isset($user))
                 {!! Form::model($user,['route' => ['employee.put', $user->id],
