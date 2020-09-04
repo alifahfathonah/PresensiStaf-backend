@@ -9,6 +9,9 @@ use Carbon\CarbonPeriod;
 use Yajra\DataTables\Datatables;
 use App\Leave;
 use App\LeaveStaf;
+use App\Days;
+use App\Attendance;
+use App\Schedule;
 
 class LeaveController extends Controller
 {
@@ -60,6 +63,30 @@ class LeaveController extends Controller
         $leave->date_leave = json_encode($dates);
         $leave->amount = count($dates);
         $leave->status = request()->status;
+        $leave->periode_id = request()->periode_id;
+
+        if(request()->status == 'approved'){
+            foreach($dates as $date){
+                $dateLeave = Carbon::parse($date);
+                $getDays = Days::where('name_day', $dateLeave->format('l'))->first();
+                $getSchedule = Schedule::where('users_id', $leave->users_id)->where('days_id', $getDays->id)->first();
+                
+                if($getSchedule){ // jika ada jadwalnya, maka create
+                    Attendance::create([
+                        "user_id" => $leave->users_id,
+                        // "user_id" => 1,
+                        "start" => Carbon::parse($date.' '.$getSchedule->clock_in)->addHour(7),
+                        "end" => Carbon::parse($date.' '.$getSchedule->clock_out)->addHour(7),
+                        "is_on_area" => "0",
+                        "hours" => $getSchedule->hours,
+                        "note_start" => '',
+                        "note_end" => '',
+                        "status" => 'cuti'
+                    ]);
+                }
+            }
+        }
+
         $leave->note = request()->note;
         $leave->request_to = 1;
         $leave->note_from_manager = 'note_from_manager';
@@ -135,6 +162,58 @@ class LeaveController extends Controller
         $leave->date_leave = json_encode($dates);
         $leave->amount = count($dates);
         $leave->status = request()->status;
+        $leave->periode_id = request()->periode_id;
+
+        // bersihkan data sebelumnya
+        $leaveOld = Leave::findOrFail($id);
+        foreach(json_decode($leaveOld->date_leave) as $date){
+            $dateLeave = Carbon::parse($date);
+            $getDays = Days::where('name_day', $dateLeave->format('l'))->first();
+            $getSchedule = Schedule::where('users_id', $leave->users_id)->where('days_id', $getDays->id)->first();
+            
+            if($getSchedule){ // jika ada jadwalnya, maka create
+                $dataAttendance = Attendance::whereDate('start',$date)->where('user_id', $leave->users_id)->first();
+                if($dataAttendance){
+                    $dataAttendance->delete();
+                }
+            }
+        }
+
+        if(request()->status == 'approved'){
+            foreach($dates as $date){
+                $dateLeave = Carbon::parse($date);
+                $getDays = Days::where('name_day', $dateLeave->format('l'))->first();
+                $getSchedule = Schedule::where('users_id', $leave->users_id)->where('days_id', $getDays->id)->first();
+                
+                if($getSchedule){ // jika ada jadwalnya, maka create
+                    Attendance::create([
+                        "user_id" => $leave->users_id,
+                        // "user_id" => 1,
+                        "start" => Carbon::parse($date.' '.$getSchedule->clock_in)->addHour(7),
+                        "end" => Carbon::parse($date.' '.$getSchedule->clock_out)->addHour(7),
+                        "is_on_area" => "0",
+                        "hours" => $getSchedule->hours,
+                        "note_start" => '',
+                        "note_end" => '',
+                        "status" => 'cuti'
+                    ]);
+                }
+            }
+        } else {
+            foreach($dates as $date){
+                $dateLeave = Carbon::parse($date);
+                $getDays = Days::where('name_day', $dateLeave->format('l'))->first();
+                $getSchedule = Schedule::where('users_id', $leave->users_id)->where('days_id', $getDays->id)->first();
+                
+                if($getSchedule){ // jika ada jadwalnya, maka create
+                    $dataAttend = Attendance::whereDate('start',$date)->where('user_id', $leave->users_id)->first();
+                    if($dataAttend){
+                        $dataAttend->delete();
+                    }
+                }
+            }
+        }
+
         $leave->note = request()->note;
         $leave->request_to = 1;
         $leave->note_from_manager = 'note_from_manager';
@@ -167,6 +246,20 @@ class LeaveController extends Controller
     public function destroy($id)
     {
         $data = Leave::findOrFail($id);
+
+        foreach(json_decode($data->date_leave) as $date){
+            $datePermit = Carbon::parse($date);
+            $getDays = Days::where('name_day', $datePermit->format('l'))->first();
+            $getSchedule = Schedule::where('users_id', $data->users_id)->where('days_id', $getDays->id)->first();
+            
+            if($getSchedule){ // jika ada jadwalnya, maka create
+                $dataAttend = Attendance::whereDate('start',$date)->where('user_id', $data->users_id)->first();
+                if($dataAttend){
+                    $dataAttend->delete();
+                }
+            }
+        }
+
         $data->delete();
 
         return redirect()->route('leave.index')->with('success','Data berhasil dihapus!');
@@ -192,7 +285,7 @@ class LeaveController extends Controller
                     return date('d-m-Y', strtotime($item->created_at));
                 })
                 ->addColumn('action', function($item){
-                    if($item->status == 'pending') {
+                    // if($item->status == 'pending') {
                         return 
                         '<a href="'.route("leave.edit", $item->id).'" class="mr-2"><svg viewBox="0 0 24 24" width="18" height="18" stroke="#ffc107" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a> '.
                         '<form id="delete-form-'.$item->id.'" method="post" action="'.route("leave.destroy",$item->id).'" style="display: none">
@@ -209,9 +302,7 @@ class LeaveController extends Controller
                                 event.preventDefault();
                         }" 
                         class=""><svg viewBox="0 0 24 24" width="18" height="18" stroke="#dc3545" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a>';
-                    }
-
-                    return null;
+                    // }
                 })->rawColumns(['action'])->make(true);
     }
 

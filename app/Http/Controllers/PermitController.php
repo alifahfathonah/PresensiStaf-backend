@@ -150,7 +150,22 @@ class PermitController extends Controller
         $permit->date_permit = json_encode($dates);
         $permit->amount = count($dates);
         $permit->status = request()->status;
-
+        
+        // bersihkan data sebelumnya
+        $permitOld = Permit::findOrFail($id);
+        foreach(json_decode($permitOld->date_permit) as $date){
+            $datePermit = Carbon::parse($date);
+            $getDays = Days::where('name_day', $datePermit->format('l'))->first();
+            $getSchedule = Schedule::where('users_id', $permit->users_id)->where('days_id', $getDays->id)->first();
+            
+            if($getSchedule){ // jika ada jadwalnya, maka create
+                $dataAttendance = Attendance::whereDate('start',$date)->where('user_id', $permit->users_id)->first();
+                if($dataAttendance){
+                    $dataAttendance->delete();
+                }
+            }
+        }
+        
         if(request()->status == 'approved'){
             foreach($dates as $date){
                 $datePermit = Carbon::parse($date);
@@ -178,8 +193,10 @@ class PermitController extends Controller
                 $getSchedule = Schedule::where('users_id', $permit->users_id)->where('days_id', $getDays->id)->first();
                 
                 if($getSchedule){ // jika ada jadwalnya, maka create
-                    $data = Attendance::whereDate('start',$date)->where('user_id', $permit->users_id)->first();
-                    $data->delete();
+                    $dataAttendance = Attendance::whereDate('start',$date)->where('user_id', $permit->users_id)->first();
+                    if($dataAttendance){
+                        $dataAttendance->delete();
+                    }
                 }
             }
         }
@@ -214,7 +231,9 @@ class PermitController extends Controller
             
             if($getSchedule){ // jika ada jadwalnya, maka create
                 $dataAttendance = Attendance::whereDate('start',$date)->where('user_id', $data->users_id)->first();
-                $dataAttendance->delete();
+                if($dataAttendance){
+                    $dataAttendance->delete();
+                }
             }
         }
 
