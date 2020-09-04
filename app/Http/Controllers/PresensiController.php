@@ -95,13 +95,13 @@ class PresensiController extends Controller
         if(Auth::user()->id == 1) { // jika admin
         $item = Attendance::select('attendance.id', 'users.name', 'attendance.created_at', 'attendance.start', 'attendance.end', 'attendance.hours', 'attendance.status')
                     ->leftJoin('users', 'users.id', '=', 'attendance.user_id')
-                    // ->whereDate('start', $now->format('Y-m-d'))
+                    ->whereDate('start', $now->format('Y-m-d'))
                     ->orderBy('attendance.created_at', 'DESC')
                     ->get();
         } else {
         $item = Attendance::select('attendance.id', 'users.name', 'attendance.created_at', 'attendance.start', 'attendance.end', 'attendance.hours', 'attendance.status')
                     ->leftJoin('users', 'users.id', '=', 'attendance.user_id')
-                    // ->whereDate('start', $now->format('Y-m-d'))
+                    ->whereDate('start', $now->format('Y-m-d'))
                     ->where('users_id', Auth::user()->id)
                     ->orderBy('attendance.created_at', 'DESC')
                     ->get();
