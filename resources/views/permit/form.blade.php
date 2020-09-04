@@ -84,10 +84,13 @@
 <script>
 $(function() {
     $('.daterange').daterangepicker({
-        // minDate: moment(),
-        minDate: moment().subtract(29, 'days'),
-        maxDate: moment().add('1', 'days'),
-        opens: 'right'
+        // minDate: moment().subtract(29, 'days'),
+        // maxDate: moment().add('1', 'days'),
+        opens: 'right',
+        isInvalidDate: function(date) {
+            // return (date.day() == 0 || date.day() == 6);
+            return (date.day() == 0);
+        }
     }, function(start, end, label) {
         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
     });
