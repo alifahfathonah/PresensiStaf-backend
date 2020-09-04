@@ -50,4 +50,4 @@ Route::resource('periode', 'PeriodeController');
 Route::get('api/periode', 'PeriodeController@apiPeriode')->name('api.periode'); // untuk datatable yajra
 
 
-Route::post('/api/getPeriodeByUsers', 'LeaveController@getPeriodeByUsers');
+Route::get('/api/getPeriodeByUsers', 'LeaveController@getPeriodeByUsers');

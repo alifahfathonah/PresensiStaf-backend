@@ -112,7 +112,7 @@ $(function() {
         if($(this).val() != 0) {
             request = $.ajax({
                 url: "{{url('/api/getPeriodeByUsers')}}",
-                type: "post",
+                type: "get",
                 data: {users_id: Number($(this).val())}
             });
 
