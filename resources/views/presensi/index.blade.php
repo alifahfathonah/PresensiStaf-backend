@@ -28,7 +28,8 @@
                             <th>Name</th>
                             <th>Start</th>
                             <th>End</th>
-                            <th>Hours</th>
+                            {{-- <th>Hours</th> --}}
+                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody></tbody>
@@ -62,7 +63,8 @@
                         {data:'name', name:'name'},
                         {data:'start', name:'start'},
                         {data:'end', name:'end'},
-                        {data:'hours', name:'hours'},
+                        // {data:'hours', name:'hours'},
+                        {data:'status', name:'status'},
                     ]
                 });
 
