@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div>Data Presensi</div>
-                    {{-- <a href="{{ route('presensi.create') }}" class="btn btn-success btn-sm">Tambah baru</a> --}}
+                    <a href="{{ route('presensi.recap') }}" class="btn btn-success btn-sm">Rekap Presensi</a>
                 </div>
 
                 <div class="card-body">

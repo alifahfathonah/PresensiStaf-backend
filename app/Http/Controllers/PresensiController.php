@@ -9,6 +9,7 @@ use Carbon\CarbonPeriod;
 use App\User;
 use App\Attendance;
 use Yajra\DataTables\Datatables;
+use DB;
 
 class PresensiController extends Controller
 {
@@ -124,6 +125,89 @@ class PresensiController extends Controller
                     }
                     return '-';
                 })
+                ->make(true);
+    }
+
+    public function recap(){
+        return view('presensi.recap.index');
+        // return response()->json(['23']);
+    }
+
+    public function apiPresensiRecap(){
+        $now = Carbon::now();
+        $now->addHours(7);
+
+        $data = User::leftJoin('users_detail', 'users_detail.users_id', '=', 'users.id')
+            ->where('users.id', '!=', "1")
+            ->select(
+                "users.id",
+                "users_detail.full_name",
+                DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND (attendance.start BETWEEN '" . request("start") . "' AND '" . request("end") . "') ) as present_total"),
+
+                DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='hadir' AND start IS NOT NULL AND end IS NOT NULL AND (attendance.start BETWEEN '" . request("start") . "' AND '" . request("end") . "') ) as present_full_time"),
+                
+                DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='hadir' AND note_start != '' AND (attendance.start BETWEEN '" . request("start") . "' AND '" . request("end") . "') ) as present_late"),
+                
+                DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='sakit' AND (attendance.start BETWEEN '" . request("start") . "' AND '" . request("end") . "') ) as sick_present"),
+                
+                DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='izin' AND (attendance.start BETWEEN '" . request("start") . "' AND '" . request("end") . "') ) as permit_present"),
+                
+                DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='cuti' AND (attendance.start BETWEEN '" . request("start") . "' AND '" . request("end") . "') ) as leave_present"),
+                
+                DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='alpha' AND (attendance.start BETWEEN '" . request("start") . "' AND '" . request("end") . "') ) as not_present"),
+            )->get();
+            // ->select(
+            //     "users.id",
+            //     "users_detail.full_name",
+            //     DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND (attendance.start BETWEEN '" . "2020-08-27" . "' AND '" . "2020-08-27" . "') ) as present_total"),
+
+            //     DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='hadir' AND start IS NOT NULL AND end IS NOT NULL AND (attendance.start BETWEEN '" . "2020-08-27" . "' AND '" . "2020-08-27" . "') ) as present_full_time"),
+                
+            //     DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='hadir' AND note_start != '' AND (attendance.start BETWEEN '" . "2020-08-27" . "' AND '" . "2020-08-27" . "') ) as present_late"),
+                
+            //     DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='sakit' AND (attendance.start BETWEEN '" . "2020-08-27" . "' AND '" . "2020-08-27" . "') ) as sick_present"),
+                
+            //     DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='izin' AND (attendance.start BETWEEN '" . "2020-08-27" . "' AND '" . "2020-08-27" . "') ) as permit_present"),
+                
+            //     DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='cuti' AND (attendance.start BETWEEN '" . "2020-08-27" . "' AND '" . "2020-08-27" . "') ) as leave_present"),
+                
+            //     DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='alpha' AND (attendance.start BETWEEN '" . "2020-08-27" . "' AND '" . "2020-08-27" . "') ) as not_present"),
+            // )->toSql();
+
+
+        // return $data;
+        return Datatables::of($data)
+                ->addIndexColumn()
+                ->editColumn('present_total', function ($item) {
+                    return $item->present_total ? $item->present_total : 0;
+                })
+                ->editColumn('present_full_time', function ($item) {
+                    return $item->present_full_time ? $item->present_full_time : 0;
+                })
+                ->editColumn('present_late', function ($item) {
+                    return $item->present_late ? $item->present_late : 0;
+                })
+                ->editColumn('sick_present', function ($item) {
+                    return $item->sick_present ? $item->sick_present : 0;
+                })
+                ->editColumn('permit_present', function ($item) {
+                    return $item->permit_present ? $item->permit_present : 0;
+                })
+                ->editColumn('leave_present', function ($item) {
+                    return $item->leave_present ? $item->leave_present : 0;
+                })
+                ->editColumn('not_present', function ($item) {
+                    return $item->not_present ? $item->not_present : 0;
+                })
+                ->rawColumns([
+                    'present_total',
+                    'present_full_time',
+                    'present_late',
+                    'sick',
+                    'permit',
+                    'leave_present',
+                    'not_present',
+                ])
                 ->make(true);
     }
 }

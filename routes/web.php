@@ -29,7 +29,9 @@ Route::delete('/employee/{id}/delete', 'UserController@userDashboard')->name('em
 Route::get('api/employee', 'UserController@apiEmployee')->name('api.employee'); // untuk datatable yajra
 
 Route::resource('presensi', 'PresensiController');
+Route::get('presensi/recap/db', 'PresensiController@recap')->name('presensi.recap');
 Route::get('api/presensi', 'PresensiController@apiPresensi')->name('api.presensi'); // untuk datatable yajra
+Route::get('api/presensi/recap/db', 'PresensiController@apiPresensiRecap')->name('api.presensi.recap'); // untuk datatable yajra
 Route::resource('sick', 'SickController');
 Route::get('api/sick', 'SickController@apiSick')->name('api.sick'); // untuk datatable yajra
 Route::resource('permit', 'PermitController');
