@@ -82,8 +82,6 @@ class AttendanceController extends Controller
             // $attendance = Attendance::where("user_id", 1)
             ->whereDate('start', $now->format('Y-m-d'))
             ->first();
-            
-            return response()->json(['attend' => $attendance]);
 
             if($attendance){
             
