@@ -74,14 +74,17 @@ class AttendanceController extends Controller
 
         $token = JWTAuth::getToken();
         $user = JWTAuth::toUser($token);
+
         
         if($radius < $entity->radius){
             // out of area
             $attendance = Attendance::where("user_id", $user->id)
             // $attendance = Attendance::where("user_id", 1)
-                ->whereDate('start', $now->format('Y-m-d'))
-                ->first();
+            ->whereDate('start', $now->format('Y-m-d'))
+            ->first();
             
+            return response()->json(['attend' => $attendance]);
+
             if($attendance){
             
                 $start = new Carbon($attendance->start);
