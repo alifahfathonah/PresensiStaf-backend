@@ -30,7 +30,7 @@
                         <span class="help-block">{{ ($errors->has('users_id') ? $errors->first('users_id') : '') }}</span>
                     </div>
                     <div class="form-group {{ ($errors->has('date_permit') ? 'has-error' : '') }}">
-                        {{ Form::label('date_permit', 'Tanggal Sakit', ['class' => 'control-label']) }}
+                        {{ Form::label('date_permit', 'Tanggal Izin', ['class' => 'control-label']) }}
                         @php
                         if($action == 'edit') {
                             $dateStart = json_decode($permit->date_permit);
