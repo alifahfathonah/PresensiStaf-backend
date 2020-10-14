@@ -32,25 +32,31 @@
                     <div class="form-group {{ ($errors->has('type_permit') ? 'has-error' : '') }}">
                         {{ Form::label('type_permit', 'Tipe Izin', ['class' => 'control-label']) }}
                         <select class="form-control" name="type_permit" id="type_permit">
-                            <option value="akademis" {{ $action == 'akademis' ? $permit->type_permit == 'akademis' ? 'selected' : '' : '' }}>Akademis</option>
-                            <option value="khusus" {{ $action == 'khusus' ? $permit->type_permit == 'khusus' ? 'selected' : '' : '' }}>Khusus</option>
+                            <option value="akademis" {{ $action == 'edit' ? $permit->type_permit == 'akademis' ? 'selected' : '' : '' }}>Akademis</option>
+                            <option value="khusus" {{ $action == 'edit' ? $permit->type_permit == 'khusus' ? 'selected' : '' : '' }}>Khusus</option>
                         </select>
                         <span class="help-block">{{ ($errors->has('type_permit') ? $errors->first('type_permit') : '') }}</span>
                     </div>
-                    <div class="form-group tgl-akadamis {{ ($errors->has('date_permit') ? 'has-error' : '') }}">
+                    <div class="form-group {{ ($errors->has('date_permit') ? 'has-error' : '') }}">
                         {{ Form::label('date_permit', 'Tanggal Izin', ['class' => 'control-label']) }}
                         @php
                         if($action == 'edit') {
-                            $dateStart = json_decode($permit->date_permit);
-                            $dateEnd = json_decode($permit->date_permit);
+                            $date = json_decode($permit->date_permit);
+                            // $dateEnd = json_decode($permit->date_permit);
+                            $datePermit = '';
+                            for ($i=0; $i < count($date); $i++) {
+                                // echo $date[$i];
+                                $datePermit .= $i == 0 ? $date[$i] : ','.$date[$i];
+                            }
                         }
                         @endphp
                         @if($action == 'edit')
-                        <input type="text" name="date_permit" class="daterange form-control" id="" value="{{ date('m/d/Y', strtotime(reset($dateStart))). ' - ' .date('m/d/Y', strtotime(end($dateEnd)))}}">
+                        <input type="text" name="date_permit" class="datepicker-permit form-control" id="" value="{{ $datePermit }}">
                         @else
-                        {{ Form::text('date_permit', ($action == 'edit') ? $permit->date_permit : '', ['class' => 'daterange form-control', 'readonly' => 'readonly', 'placeholder' => 'Tanggal sakit', 'required']) }}
+                        {{ Form::text('date_permit', ($action == 'edit') ? $permit->date_permit : '', ['class' => 'datepicker-permit form-control', 'readonly' => 'readonly', 'placeholder' => 'Tanggal sakit', 'required']) }}
                         @endif
                         <span class="help-block">{{ ($errors->has('date_permit') ? $errors->first('date_permit') : '') }}</span>
+                        <span class="help-block msg-maxdate text-danger mt-2"></span>
                     </div>
                     @if(Auth::user()->id == 1)
                     <div class="form-group {{ ($errors->has('status') ? 'has-error' : '') }}">
@@ -65,6 +71,19 @@
                     @else
                     <input type="hidden" name="status" value="pending">
                     @endif
+
+                    <div class="form-group foto-izin {{ ($errors->has('foto') ? 'has-error' : '') }}">
+                        {{ Form::label('foto', 'Foto Bukti', ['class' => 'control-label']) }}
+                        {{ Form::file('foto', ['class' => 'form-control']) }}
+
+                        <span class="help-block">{{ ($errors->has('foto') ? $errors->first('foto') : '') }}</span>
+                        @if($action == 'edit' && $permit->foto !== null)
+                        <span class="help-block">{{ ($errors->has('foto') ? $errors->first('foto') : 'Kosongkan bila tidak ingin mengganti foto') }}</span>
+                            <div class="text-center mt-2 col-md-6">
+                                <img src="{{ asset('foto/izin/' . $permit->foto) }}" style="height: 250px" alt="" srcset="">
+                            </div>
+                        @endif
+                    </div>
                     <div class="form-group {{ ($errors->has('note') ? 'has-error' : '') }}">
                         {{ Form::label('note', 'Catatan', ['class' => 'control-label']) }}
                         {{ Form::textarea('note', ($action == 'edit') ? $permit->note : '', ['class' => 'form-control', 'rows' => 3, 'cols' => 40, 'placeholder' => 'Catatan izin', 'required']) }}
@@ -87,62 +106,50 @@
 
 @section('js')
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+{{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
 <script>
 $(function() {
     $('[name=type_permit]').change();
+    setDatePicker();
 
-    $('.daterange').daterangepicker({
-        // minDate: moment().subtract(29, 'days'),
-        // maxDate: moment().add('1', 'days'),
-        opens: 'right',
-        isInvalidDate: function(date) {
-            // return (date.day() == 0 || date.day() == 6);
-            return (date.day() == 0);
-        }
-    }, function(start, end, label) {
-        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-    });
+    function setDatePicker(){
+        $(".datepicker-permit").datepicker({
+            format: "yyyy-mm-dd",
+            multidate: 10,
+            daysOfWeekDisabled: [0, 6],
+            clearBtn: true,
+            todayHighlight: true,
+            // daysOfWeekHighlighted: [1, 2, 3, 4, 5]
+        }).attr("readonly", "readonly").css({"cursor":"pointer", "background":"white"})
+        .on("changeDate", function(evt){
+            var length = $("[name=date_permit]").val().split(",").length
+    
+            if(length > 2 && $('[name=type_permit]').val() == 'khusus'){
+                $('.msg-maxdate').html('Maksimal 2 hari Untuk izin Khusus');
+                $(':input[type="submit"]').prop('disabled', true);
+            } else {
+                $('.msg-maxdate').html('');
+                $(':input[type="submit"]').prop('disabled', false);
+            }
+        });
+    }
 
 
     $('[name=type_permit]').change(function(){
+        $('.datepicker-permit').click();
+        $('.clear').click();
+        $('.datepicker-permit').val('');
+
+        
         if($(this).val() == 'akadamis'){
-            console.log($(this).val());
-            $('.tgl-akadamis').hide();
+            $('.foto-izin').show();
         } else {
-            console.log($(this).val());
-            $('.tgl-akadamis').show();
+            $('.foto-izin').hide();
         }
+        $(".datepicker-permit").datepicker('update');
     });
-
-
-
-    $('.daterange-1').daterangepicker({
-        opens: 'right',
-        isInvalidDate: function(date) {
-            // return (date.day() == 0 || date.day() == 6);
-            return (date.day() == 0);
-        }
-    }, function(start, end, label) {
-        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-    });
-
-    $('.daterange-2').daterangepicker({
-        // minDate: moment().subtract(29, 'days'),
-        // maxDate: moment().add('1', 'days'),
-        opens: 'right',
-        isInvalidDate: function(date) {
-            // return (date.day() == 0 || date.day() == 6);
-            return (date.day() == 0);
-        }
-    }, function(start, end, label) {
-        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-    });
-
-    // $('.daterange').on('apply.daterangepicker', function(ev, picker) {
-    //     $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
-    // });
 });
 </script>
 @endsection

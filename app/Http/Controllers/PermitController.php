@@ -43,30 +43,40 @@ class PermitController extends Controller
      */
     public function store(Request $request)
     {
-        $date = explode(" - ", request()->date_permit, 2);
+        $dateInput = explode(",", request()->date_permit);
         
-        $dateStart = Carbon::parse($date[0]);
-        $dateEnd = Carbon::parse($date[1]);
-        $date1 = date('Y-m-d', strtotime($dateStart->toDateTimeString()));
-        $date2 = date('Y-m-d', strtotime($dateEnd->toDateTimeString()));
+        // $dateStart = Carbon::parse($date[0]);
+        // $dateEnd = Carbon::parse($date[1]);
+        // $date1 = date('Y-m-d', strtotime($dateStart->toDateTimeString()));
+        // $date2 = date('Y-m-d', strtotime($dateEnd->toDateTimeString()));
 
-        $period = CarbonPeriod::create($date1, $date2);
+        // $period = CarbonPeriod::create($date1, $date2);
 
         // Iterate over the period
-        $dates = [];
-        foreach ($period as $date) {
-            array_push($dates, $date->format('Y-m-d'));
-        }
+        // $dates = [];
+        // foreach ($period as $date) {
+        //     array_push($dates, $date->format('Y-m-d'));
+        // }
 
         $permit = new Permit;
         $permit->users_id = request()->users_id;
         $permit->type_permit = request()->type_permit;
-        $permit->date_permit = json_encode($dates);
-        $permit->amount = count($dates);
+        $permit->date_permit = json_encode($dateInput);
+        $permit->amount = count($dateInput);
         $permit->status = request()->status;
 
+        if(request()->hasFile('foto') && request()->type_permit == 'akademis'){
+            $file = request()->file('foto');
+     
+            $nama_file = Carbon::now().'.'.$file->getClientOriginalExtension();
+     
+            $tujuan_upload = 'foto/izin';
+            $file->move($tujuan_upload,$nama_file);
+            $permit->foto = $nama_file;
+        }
+
         if(request()->status == 'approved'){
-            foreach($dates as $date){
+            foreach($dateInput as $date){
                 $datePermit = Carbon::parse($date);
                 $getDays = Days::where('name_day', $datePermit->format('l'))->first();
                 $getSchedule = Schedule::where('users_id', $permit->users_id)->where('days_id', $getDays->id)->first();
@@ -131,27 +141,39 @@ class PermitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $date = explode(" - ", request()->date_permit, 2);
+        $datePermitInput = explode(",", request()->date_permit);
         
-        $dateStart = Carbon::parse($date[0]);
-        $dateEnd = Carbon::parse($date[1]);
-        $date1 = date('Y-m-d', strtotime($dateStart->toDateTimeString()));
-        $date2 = date('Y-m-d', strtotime($dateEnd->toDateTimeString()));
+        // $dateStart = Carbon::parse($date[0]);
+        // $dateEnd = Carbon::parse($date[1]);
+        // $date1 = date('Y-m-d', strtotime($dateStart->toDateTimeString()));
+        // $date2 = date('Y-m-d', strtotime($dateEnd->toDateTimeString()));
 
-        $period = CarbonPeriod::create($date1, $date2);
+        // $period = CarbonPeriod::create($date1, $date2);
 
-        // Iterate over the period
-        $dates = [];
-        foreach ($period as $date) {
-            array_push($dates, $date->format('Y-m-d'));
-        }
+        // // Iterate over the period
+        // $dates = [];
+        // foreach ($period as $date) {
+        //     array_push($dates, $date->format('Y-m-d'));
+        // }
 
         $permit = Permit::findOrFail($id);
         $permit->users_id = request()->users_id;
         $permit->type_permit = request()->type_permit;
-        $permit->date_permit = json_encode($dates);
-        $permit->amount = count($dates);
+        $permit->date_permit = json_encode($datePermitInput);
+        $permit->amount = count($datePermitInput);
         $permit->status = request()->status;
+
+        if(request()->hasFile('foto') && request()->type_permit == 'akademis'){
+            $file = request()->file('foto');
+     
+            $nama_file = Carbon::now().'.'.$file->getClientOriginalExtension();
+     
+            $tujuan_upload = 'foto/izin';
+            $file->move($tujuan_upload,$nama_file);
+            $permit->foto = $nama_file;
+        } else {
+            $permit->foto = null;
+        }
         
         // bersihkan data sebelumnya
         $permitOld = Permit::findOrFail($id);
@@ -169,7 +191,7 @@ class PermitController extends Controller
         }
         
         if(request()->status == 'approved'){
-            foreach($dates as $date){
+            foreach($datePermitInput as $date){
                 $datePermit = Carbon::parse($date);
                 $getDays = Days::where('name_day', $datePermit->format('l'))->first();
                 $getSchedule = Schedule::where('users_id', $permit->users_id)->where('days_id', $getDays->id)->first();
@@ -189,7 +211,7 @@ class PermitController extends Controller
                 }
             }
         } else {
-            foreach($dates as $date){
+            foreach($datePermitInput as $date){
                 $datePermit = Carbon::parse($date);
                 $getDays = Days::where('name_day', $datePermit->format('l'))->first();
                 $getSchedule = Schedule::where('users_id', $permit->users_id)->where('days_id', $getDays->id)->first();
