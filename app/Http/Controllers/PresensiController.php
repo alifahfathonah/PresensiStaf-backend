@@ -139,7 +139,6 @@ class PresensiController extends Controller
 
         // $user = 0;
         if(Auth::user()->id == 1) { // jika admin
-        //     $user = 
 
         $data = User::leftJoin('users_detail', 'users_detail.users_id', '=', 'users.id')
             ->where('users.id', '!=', "1")
@@ -158,9 +157,10 @@ class PresensiController extends Controller
                 
                 DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='cuti' AND (attendance.start BETWEEN '" . request("start") . "' AND '" . request("end") . "') ) as leave_present"),
                 
-                DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='alpha' AND (attendance.start BETWEEN '" . request("start") . "' AND '" . request("end") . "') ) as not_present"),
+                DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='alpha' AND (attendance.start BETWEEN '" . request("start") . "' AND '" . request("end") . "') ) as not_present")
             )->get();
             
+        
         }else{
             $data = User::leftJoin('users_detail', 'users_detail.users_id', '=', 'users.id')
             ->where('users.id', Auth::user()->id)
@@ -179,7 +179,7 @@ class PresensiController extends Controller
                 
                 DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='cuti' AND (attendance.start BETWEEN '" . request("start") . "' AND '" . request("end") . "') ) as leave_present"),
                 
-                DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='alpha' AND (attendance.start BETWEEN '" . request("start") . "' AND '" . request("end") . "') ) as not_present"),
+                DB::raw("(SELECT count(user_id) FROM attendance WHERE user_id=users.id AND status='alpha' AND (attendance.start BETWEEN '" . request("start") . "' AND '" . request("end") . "') ) as not_present")
             )->get();
         }
 
