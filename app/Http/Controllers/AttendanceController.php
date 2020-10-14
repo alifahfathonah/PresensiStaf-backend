@@ -10,8 +10,8 @@ use App\Days;
 use App\Schedule;
 use App\UsersDetail;
 
-use function App\Http\Helpers\Location\meters;
-use App\Http\Helpers\Location\Location;
+use function App\Http\Helpers\meters;
+use App\Http\Helpers\Location;
 
 use JWTAuth;
 
