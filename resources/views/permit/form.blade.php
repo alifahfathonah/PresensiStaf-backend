@@ -107,10 +107,11 @@ $(function() {
 
 
     $('[name=type_permit]').change(function(){
-        console.log($(this).val());
         if($(this).val() == 'akadamis'){
+            console.log($(this).val());
             $('.tgl-akadamis').hide();
         } else {
+            console.log($(this).val());
             $('.tgl-akadamis').show();
         }
     });
