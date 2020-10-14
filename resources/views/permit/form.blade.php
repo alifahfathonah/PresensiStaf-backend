@@ -29,7 +29,15 @@
                         @endif
                         <span class="help-block">{{ ($errors->has('users_id') ? $errors->first('users_id') : '') }}</span>
                     </div>
-                    <div class="form-group {{ ($errors->has('date_permit') ? 'has-error' : '') }}">
+                    <div class="form-group {{ ($errors->has('type_permit') ? 'has-error' : '') }}">
+                        {{ Form::label('type_permit', 'Tipe Izin', ['class' => 'control-label']) }}
+                        <select class="form-control" name="type_permit" id="type_permit">
+                            <option value="akademis" {{ $action == 'akademis' ? $permit->type_permit == 'akademis' ? 'selected' : '' : '' }}>Akademis</option>
+                            <option value="khusus" {{ $action == 'khusus' ? $permit->type_permit == 'khusus' ? 'selected' : '' : '' }}>Khusus</option>
+                        </select>
+                        <span class="help-block">{{ ($errors->has('type_permit') ? $errors->first('type_permit') : '') }}</span>
+                    </div>
+                    <div class="form-group tgl-akadamis {{ ($errors->has('date_permit') ? 'has-error' : '') }}">
                         {{ Form::label('date_permit', 'Tanggal Izin', ['class' => 'control-label']) }}
                         @php
                         if($action == 'edit') {
@@ -83,7 +91,42 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script>
 $(function() {
+    $('[name=type_permit]').change();
+    
     $('.daterange').daterangepicker({
+        // minDate: moment().subtract(29, 'days'),
+        // maxDate: moment().add('1', 'days'),
+        opens: 'right',
+        isInvalidDate: function(date) {
+            // return (date.day() == 0 || date.day() == 6);
+            return (date.day() == 0);
+        }
+    }, function(start, end, label) {
+        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    });
+
+
+    $('[name=type_permit]').change(function(){
+        if($(this).val() == 'akadamis'){
+            $('.tgl-akadamis').hide();
+        } else {
+            $('.tgl-akadamis').show();
+        }
+    })
+
+
+
+    $('.daterange-1').daterangepicker({
+        opens: 'right',
+        isInvalidDate: function(date) {
+            // return (date.day() == 0 || date.day() == 6);
+            return (date.day() == 0);
+        }
+    }, function(start, end, label) {
+        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    });
+
+    $('.daterange-2').daterangepicker({
         // minDate: moment().subtract(29, 'days'),
         // maxDate: moment().add('1', 'days'),
         opens: 'right',

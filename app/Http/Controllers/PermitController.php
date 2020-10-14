@@ -60,6 +60,7 @@ class PermitController extends Controller
 
         $permit = new Permit;
         $permit->users_id = request()->users_id;
+        $permit->type_permit = request()->type_permit;
         $permit->date_permit = json_encode($dates);
         $permit->amount = count($dates);
         $permit->status = request()->status;
@@ -147,6 +148,7 @@ class PermitController extends Controller
 
         $permit = Permit::findOrFail($id);
         $permit->users_id = request()->users_id;
+        $permit->type_permit = request()->type_permit;
         $permit->date_permit = json_encode($dates);
         $permit->amount = count($dates);
         $permit->status = request()->status;
