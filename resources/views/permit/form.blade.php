@@ -92,7 +92,7 @@
 <script>
 $(function() {
     $('[name=type_permit]').change();
-    
+
     $('.daterange').daterangepicker({
         // minDate: moment().subtract(29, 'days'),
         // maxDate: moment().add('1', 'days'),
@@ -107,12 +107,13 @@ $(function() {
 
 
     $('[name=type_permit]').change(function(){
+        console.log($(this).val());
         if($(this).val() == 'akadamis'){
             $('.tgl-akadamis').hide();
         } else {
             $('.tgl-akadamis').show();
         }
-    })
+    });
 
 
 
