@@ -110,9 +110,35 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
 <script>
-$(function() {
-    $('[name=type_permit]').change();
-    setDatePicker();
+$(document).ready(function() {
+    @if($action == 'edit')
+    setTimeout(() => {
+        @if($permit->type_permit == 'akademis')
+        $('.foto-izin').show();
+        @else
+        $('.foto-izin').hide();
+        @endif
+    }, 500)
+    @endif
+
+setDatePicker();
+    
+    $('[name=type_permit]').change(function(){
+        $('.datepicker-permit').click();
+        $('.clear').click();
+        $('.datepicker-permit').val('');
+
+        console.warn('si');
+        
+        if($(this).val() == 'akademis'){
+            $('.foto-izin').show();
+        } else {
+            $('.foto-izin').hide();
+        }
+        $(".datepicker-permit").datepicker('update');
+    });
+});
+
 
     function setDatePicker(){
         $(".datepicker-permit").datepicker({
@@ -135,21 +161,5 @@ $(function() {
             }
         });
     }
-
-
-    $('[name=type_permit]').change(function(){
-        $('.datepicker-permit').click();
-        $('.clear').click();
-        $('.datepicker-permit').val('');
-
-        
-        if($(this).val() == 'akadamis'){
-            $('.foto-izin').show();
-        } else {
-            $('.foto-izin').hide();
-        }
-        $(".datepicker-permit").datepicker('update');
-    });
-});
 </script>
 @endsection
